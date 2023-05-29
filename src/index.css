@@ -1,13 +1,116 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "reset.css";
+
+* {
+  font-family: "Inter", sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --bg-sideBarLeft: #1b2639;
+  --text-sideBarLeft: #dadada;
+  --text-sideBarLeft-hover: #ffffff;
+  --bg-player: #111f3b;
+  --bg-main: #0f1a2e;
+  --bg-primary-hover: #158370;
+  --bg-primary: #0daf94;
+  --text-primary: #ffffff;
+  --text-primary-hover: #0daf94;
+  --bg-gradientChart: linear-gradient(
+    286.07deg,
+    rgb(77 30 109) 55.21%,
+    rgb(56 20 83)
+  );
+  --bg-active: #333c4d;
+  --bg-active2: #686f7c;
+  --bg-under: #1a2232;
+  --bg-loading: #1b2639;
+  --bg-disable: #162134;
+  --text-disable: #575f6d;
+  --trans-all: all ease-in 0.1s;
+  --height-playControll: 90px;
+}
+
+.hPlayControll {
+  height: var(--height-playControll);
+}
+.hMain {
+  height: calc(100vh - var(--height-playControll));
+}
+/* globall background */
+.bgSBL {
+  background-color: var(--bg-sideBarLeft);
+}
+.bgPlayer {
+  background-color: var(--bg-player);
+}
+.bgMain {
+  background-color: var(--bg-main);
+}
+.bgPrimary {
+  background-color: var(--bg-primary);
+}
+.bgPrimary:hover {
+  background-color: var(--bg-primary-hover);
+}
+.bgActive {
+  background-color: var(--bg-active);
+}
+.bgActive2 {
+  background-color: var(--bg-active2);
+}
+.bgUnder {
+  background-color: var(--bg-under);
+}
+.bgLoading {
+  background-color: var(--bg-loading);
+}
+.btnDisable {
+  color: var(--text-disable);
+  background-color: var(--bg-disable);
+}
+.bgChart {
+  background-image: var(--bg-gradientChart);
+}
+
+/* global text */
+.textSBL {
+  color: var(--text-sideBarLeft);
+}
+.textSBLActive {
+  color: var(--text-sideBarLeft-hover);
+}
+.textSBL:hover {
+  color: var(--text-sideBarLeft-hover);
+}
+.textPrimary {
+  color: var(--text-primary);
+}
+.textPrimary2 {
+  color: var(--text-primary);
+}
+.textPrimary2:hover {
+  color: var(--text-primary-hover);
+}
+.textSecondary {
+  color: var(--text-primary);
+}
+
+.btActice {
+  border-top: 1px solid var(--bg-active);
+}
+.blActice {
+  border-left: 1px solid var(--bg-active);
+}
+
+.transAll {
+  transition: var(--trans-all);
+}
+
+/* nav active */
+.navSibarLeft.isActive {
+  border-left: 3px solid var(--bg-primary);
+  background-color: var(--bg-active);
+  color: var(--text-sideBarLeft);
 }
