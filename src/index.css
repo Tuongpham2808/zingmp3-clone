@@ -17,6 +17,7 @@
   --bg-primary: #0daf94;
   --text-primary: #ffffff;
   --text-primary-hover: #0daf94;
+  --text-secondary: #686f7c;
   --bg-gradientChart: linear-gradient(
     286.07deg,
     rgb(77 30 109) 55.21%,
@@ -94,7 +95,10 @@
   color: var(--text-primary-hover);
 }
 .textSecondary {
-  color: var(--text-primary);
+  color: var(--text-secondary);
+}
+.textSecondary:hover {
+  color: var(--text-primary-hover);
 }
 
 .btActice {

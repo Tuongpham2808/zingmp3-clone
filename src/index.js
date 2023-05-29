@@ -6,6 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./store/configureStore";
 import { BrowserRouter } from "react-router-dom";
+import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from "react-tooltip";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -13,6 +15,7 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <App />
+      <Tooltip anchorSelect=".my-tooltip" className="!text-xs" />
     </BrowserRouter>
   </Provider>
   // </React.StrictMode>
