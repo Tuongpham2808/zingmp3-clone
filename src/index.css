@@ -20,6 +20,7 @@ p {
   --bg-main: #0f1a2e;
   --bg-primary-hover: #158370;
   --bg-primary: #0daf94;
+  --bg-inputFocus: #173b45;
   --text-primary: #ffffff;
   --text-primary-hover: #0daf94;
   --text-secondary: #686f7c;
@@ -62,6 +63,9 @@ p {
 }
 .bgActive {
   background-color: var(--bg-active);
+}
+.bgActive:focus {
+  background-color: var(--bg-inputFocus);
 }
 .bgActive2 {
   background-color: var(--bg-active2);

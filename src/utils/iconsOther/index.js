@@ -2,6 +2,8 @@ import {
   HiOutlineHeart,
   HiOutlineVolumeUp,
   HiOutlineVolumeOff,
+  HiArrowLeft,
+  HiArrowRight,
 } from "react-icons/hi";
 import {
   IoPlay,
@@ -32,4 +34,6 @@ export {
   IoRepeatOutline,
   IoPlaySkipBack,
   IoPlaySkipForward,
+  HiArrowLeft,
+  HiArrowRight,
 };
