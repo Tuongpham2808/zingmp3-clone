@@ -2,8 +2,6 @@ import {
   HiOutlineHeart,
   HiOutlineVolumeUp,
   HiOutlineVolumeOff,
-  HiArrowLeft,
-  HiArrowRight,
 } from "react-icons/hi";
 import {
   IoPlay,
@@ -11,6 +9,7 @@ import {
   IoRepeatOutline,
   IoPlaySkipBack,
   IoPlaySkipForward,
+  IoSearchOutline,
 } from "react-icons/io5";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { BiPlus } from "react-icons/bi";
@@ -18,6 +17,9 @@ import { TfiAlarmClock } from "react-icons/tfi";
 import { GiMicrophone } from "react-icons/gi";
 import { VscChromeRestore } from "react-icons/vsc";
 import { MdOutlineQueueMusic } from "react-icons/md";
+import { LuTrendingUp } from "react-icons/lu";
+import { SlSettings } from "react-icons/sl";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 export {
   BiPlus,
@@ -34,6 +36,9 @@ export {
   IoRepeatOutline,
   IoPlaySkipBack,
   IoPlaySkipForward,
-  HiArrowLeft,
-  HiArrowRight,
+  BsArrowLeft,
+  BsArrowRight,
+  IoSearchOutline,
+  LuTrendingUp,
+  SlSettings,
 };

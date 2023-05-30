@@ -10,9 +10,9 @@ function App() {
   const { banner } = useSelector((state) => state.home);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(handleFetchHome());
+    // dispatch(handleFetchHome());
   }, []);
-  console.log(banner);
+  // console.log(banner);
 
   return (
     <div className="bgMain">

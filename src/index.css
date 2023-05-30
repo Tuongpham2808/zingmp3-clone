@@ -37,6 +37,13 @@ p {
   --text-disable: #575f6d;
   --trans-all: all ease-in 0.1s;
   --height-playControll: 90px;
+  --width-sidebarRight: 330px;
+  --width-sidebarLeft: 240px;
+  --width-mainContent: 100%;
+}
+/* ẩn scroll */
+.hiddenScroll::-webkit-scrollbar {
+  display: none; /* cho Chrome, Safari, and Opera */
 }
 
 .hPlayControll {
@@ -44,6 +51,12 @@ p {
 }
 .hMain {
   height: calc(100vh - var(--height-playControll));
+}
+.widthMainContent {
+  width: var(--width-mainContent);
+}
+.widthSBR {
+  width: var(--width-sidebarRight);
 }
 /* globall background */
 .bgSBL {
@@ -63,6 +76,9 @@ p {
 }
 .bgActive {
   background-color: var(--bg-active);
+}
+.bgFocus {
+  background-color: var(--bg-inputFocus);
 }
 .bgActive:focus {
   background-color: var(--bg-inputFocus);
@@ -119,6 +135,9 @@ p {
 
 .transAll {
   transition: var(--trans-all);
+}
+.shadowHeader {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* nav active */
