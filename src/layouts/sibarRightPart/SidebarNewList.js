@@ -1,5 +1,5 @@
 import React from "react";
-import { Play } from "../../utils/iconsOther";
+import { IoPlay, Play } from "../../utils/iconsOther";
 
 const SidebarNewList = () => {
   return (
@@ -9,7 +9,7 @@ const SidebarNewList = () => {
       </h3>
       <button className="text-sm py-[7px] px-[26px] flex items-center justify-center bgPrimary transAll mx-auto rounded-full gap-[10px]">
         <span>
-          <Play></Play>
+          <IoPlay></IoPlay>
         </span>
         <p>Phát nhạc mới phát hành</p>
       </button>

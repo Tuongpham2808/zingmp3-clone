@@ -1,6 +1,7 @@
 import React from "react";
-import { Clock, More } from "../../utils/iconsOther";
+import { FiMoreHorizontal, TfiAlarmClock } from "../../utils/iconsOther";
 import useToggle from "../../hooks/useToggle";
+import MyTooltip from "../../components/MyTooltip";
 
 const SidebarHeader = () => {
   const { handleToggle, toggle } = useToggle();
@@ -28,10 +29,18 @@ const SidebarHeader = () => {
         </div>
       </div>
       <span className="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer btn-clock btnDisable">
-        <Clock></Clock>
+        <MyTooltip
+          placeholder="Hẹn giờ dừng phát nhạc"
+          offset={20}
+          place="bottom"
+        >
+          <TfiAlarmClock className="w-5 h-5"></TfiAlarmClock>
+        </MyTooltip>
       </span>
       <span className="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer btn-more btnDisable">
-        <More></More>
+        <MyTooltip placeholder="Khác" offset={20} place="bottom">
+          <FiMoreHorizontal className="w-5 h-5"></FiMoreHorizontal>
+        </MyTooltip>
       </span>
     </div>
   );

@@ -7,6 +7,11 @@
   font-family: "Inter", sans-serif;
 }
 
+div,
+p {
+  word-break: break-word;
+}
+
 :root {
   --bg-sideBarLeft: #1b2639;
   --text-sideBarLeft: #dadada;
@@ -117,4 +122,65 @@
   border-left: 3px solid var(--bg-primary);
   background-color: var(--bg-active);
   color: var(--text-sideBarLeft);
+}
+
+/* animation text run */
+.titlePlayControll {
+  -webkit-mask-image: linear-gradient(272deg, transparent 0.5%, #000 10%);
+  overflow: hidden;
+}
+.textPlay {
+  position: relative;
+  white-space: nowrap;
+  -webkit-transform-origin: left center;
+  -ms-transform-origin: left center;
+  transform-origin: left center;
+  animation: run 10s linear infinite alternate;
+}
+@keyframes run {
+  0% {
+    left: 10px;
+  }
+  100% {
+    left: -50%;
+  }
+}
+/* custom css progress bar */
+
+.customProgressBar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  border-radius: 15px;
+  height: 3px;
+  background: #ccc;
+}
+
+.customProgressBar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  opacity: 0;
+  height: 13px;
+  width: 13px;
+  background-color: var(--text-primary);
+  border-radius: 50%;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.customProgressBar::-moz-range-thumb {
+  height: 15px;
+  width: 15px;
+  background-color: var(--text-primary);
+  border-radius: 50%;
+  border: none;
+  transition: 0.2s ease-in-out;
+}
+.customProgressBar:hover {
+  height: 5px;
+}
+.customProgressBar:hover::-webkit-slider-thumb {
+  opacity: 1;
 }

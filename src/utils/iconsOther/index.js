@@ -1,7 +1,35 @@
-import Clock from "./Clock";
-import Plus from "./Plus";
-import More from "./More";
-import Play from "./Play";
-import Like from "./Like";
+import {
+  HiOutlineHeart,
+  HiOutlineVolumeUp,
+  HiOutlineVolumeOff,
+} from "react-icons/hi";
+import {
+  IoPlay,
+  IoShuffleOutline,
+  IoRepeatOutline,
+  IoPlaySkipBack,
+  IoPlaySkipForward,
+} from "react-icons/io5";
+import { FiMoreHorizontal } from "react-icons/fi";
+import { BiPlus } from "react-icons/bi";
+import { TfiAlarmClock } from "react-icons/tfi";
+import { GiMicrophone } from "react-icons/gi";
+import { VscChromeRestore } from "react-icons/vsc";
+import { MdOutlineQueueMusic } from "react-icons/md";
 
-export { Plus, Clock, More, Play, Like };
+export {
+  BiPlus,
+  TfiAlarmClock,
+  FiMoreHorizontal,
+  IoPlay,
+  HiOutlineHeart,
+  GiMicrophone,
+  VscChromeRestore,
+  HiOutlineVolumeUp,
+  HiOutlineVolumeOff,
+  MdOutlineQueueMusic,
+  IoShuffleOutline,
+  IoRepeatOutline,
+  IoPlaySkipBack,
+  IoPlaySkipForward,
+};

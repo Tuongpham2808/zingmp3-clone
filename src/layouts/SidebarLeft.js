@@ -2,7 +2,7 @@ import React from "react";
 import { menu } from "../utils/menu";
 import { NavLink } from "react-router-dom";
 import { v4 } from "uuid";
-import { Plus } from "../utils/iconsOther";
+import { BiPlus } from "../utils/iconsOther";
 
 const SidebarLeft = () => {
   return (
@@ -32,7 +32,7 @@ const SidebarLeft = () => {
       <div className="absolute bottom-0 left-0 right-0">
         <div className="textSBL bgSBL btActice h-[53px] flex gap-3 items-center py-3 px-5 ml-[3px]">
           <span>
-            <Plus></Plus>
+            <BiPlus></BiPlus>
           </span>
           <span className="text-sm font-semibold">Tạo playlist mới</span>
         </div>
