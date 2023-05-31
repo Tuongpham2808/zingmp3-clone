@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import MyTooltip from "../../components/MyTooltip";
 import {
   IoPlay,
   IoPlaySkipBack,
@@ -8,6 +7,7 @@ import {
   IoShuffleOutline,
 } from "react-icons/io5";
 import useProgressCSS from "../../hooks/useProgressCSS";
+import { MyTooltip } from "../../components";
 
 const ControllPlayCenter = () => {
   const progressRef = useRef(null);

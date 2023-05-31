@@ -7,12 +7,11 @@ import { useEffect } from "react";
 import { handleFetchHome } from "./store/homeSlice";
 
 function App() {
-  const { banner } = useSelector((state) => state.home);
   const dispatch = useDispatch();
   useEffect(() => {
-    // dispatch(handleFetchHome());
+    dispatch(handleFetchHome());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // console.log(banner);
 
   return (
     <div className="bgMain">

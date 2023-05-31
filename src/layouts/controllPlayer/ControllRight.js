@@ -1,17 +1,17 @@
 import React, { useRef } from "react";
 import { GiMicrophone } from "react-icons/gi";
-import MyTooltip from "../../components/MyTooltip";
 import { VscChromeRestore } from "react-icons/vsc";
 import { HiOutlineVolumeUp } from "react-icons/hi";
 import { MdOutlineQueueMusic } from "react-icons/md";
 import useProgressCSS from "../../hooks/useProgressCSS";
+import { MyTooltip } from "../../components";
 
 const ControllRight = () => {
   const progressRef = useRef(null);
   useProgressCSS(progressRef);
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center z-[3]">
       <div className="flex items-center">
         <span className="w-8 h-8 p-[3px] mx-[2px] flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-active)]">
           <MyTooltip placeholder="Xem lời bài hát" offset={20}>

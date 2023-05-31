@@ -1,7 +1,7 @@
 import React from "react";
 import { FiMoreHorizontal, TfiAlarmClock } from "../../utils/iconsOther";
 import useToggle from "../../hooks/useToggle";
-import MyTooltip from "../../components/MyTooltip";
+import { MyTooltip } from "../../components";
 
 const SidebarHeader = () => {
   const { handleToggle, toggle } = useToggle();
@@ -11,7 +11,7 @@ const SidebarHeader = () => {
       <div className="flex items-center h-[42px]">
         <div className="bgActive w-[227px] h-[34px] p-[3px] rounded-full flex items-center">
           <div
-            className={`w-auto h-full text-xs font-bold rounded-full textSBL py-[5px] flex items-center justify-center flex-auto cursor-pointer ${
+            className={`w-auto h-full text-xs font-bold rounded-full textSBL py-[5px] flex items-center justify-center flex-auto cursor-pointer select-none ${
               toggle ? "bgActive2" : ""
             }`}
             onClick={handleToggle}
@@ -19,7 +19,7 @@ const SidebarHeader = () => {
             Danh sách phát
           </div>
           <div
-            className={`w-auto h-full text-xs rounded-full textSBL py-[5px] flex items-center justify-center flex-auto cursor-pointer ${
+            className={`w-auto h-full text-xs rounded-full textSBL py-[5px] flex items-center justify-center flex-auto cursor-pointer select-none ${
               !toggle ? "bgActive2" : ""
             }`}
             onClick={handleToggle}

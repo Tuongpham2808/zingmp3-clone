@@ -2,16 +2,22 @@ import React, { useState } from "react";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { IoSearchOutline } from "react-icons/io5";
 import { LuTrendingUp } from "react-icons/lu";
-import MyTooltip from "../components/MyTooltip";
 import { SlSettings } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
+import { MyTooltip } from "../components";
+import useWindowScroll from "../hooks/useWindowScroll";
 
 const HeaderContent = () => {
   const [focus, setFocus] = useState(false);
   const navigate = useNavigate();
+  const scroll = useWindowScroll(".mainContent");
 
   return (
-    <div className="px-[60px] h-[70px] flex items-center justify-between shadowHeader fixed top-0 right-0 left-[var(--width-sidebarLeft)]">
+    <div
+      className={`px-[60px] h-[70px] flex items-center justify-between fixed top-0 right-0 left-[var(--width-sidebarLeft)] z-[1] bgMain opacity-95 ${
+        scroll > 70 ? "shadowHeader" : ""
+      }`}
+    >
       <div className="flex items-center flex-1 gap-x-5">
         <button
           className="flex items-center flex-none textPrimary"

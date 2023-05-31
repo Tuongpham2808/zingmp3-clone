@@ -2,17 +2,19 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as apis from "../apis";
 
 const initialState = {
-  banner: [],
+  homeData: [],
 };
 //redex thunk
 export const handleFetchHome = createAsyncThunk(
   "home/handleFetchHome",
   async (thunkAPI) => {
-    const response = await apis.getHomeAPI();
-    const data = response.data.data.items.find(
-      (item) => item.sectionId === "hSlider"
-    );
-    return data.items;
+    try {
+      let response = await apis.getHomeAPI();
+      let data = response.data.data.items;
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 
@@ -30,14 +32,9 @@ export const homeSlice = createSlice({
     }),
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(handleFetchHome.fulfilled, (state, action) => {
-        state.banner = action.payload;
-      })
-      .addCase(handleFetchHome.pending, (state, action) => {})
-      .addCase(handleFetchHome.rejected, (state, action) => {
-        console.log("error fetch data banner");
-      });
+    builder.addCase(handleFetchHome.fulfilled, (state, action) => {
+      state.homeData = action.payload;
+    });
   },
 });
 

@@ -40,6 +40,7 @@ p {
   --width-sidebarRight: 330px;
   --width-sidebarLeft: 240px;
   --width-mainContent: 100%;
+  --bg-transparent1: rgba(255, 255, 255, 0.15);
 }
 /* ẩn scroll */
 .hiddenScroll::-webkit-scrollbar {
@@ -99,6 +100,9 @@ p {
 .bgChart {
   background-image: var(--bg-gradientChart);
 }
+.bgTrans1 {
+  background: var(--bg-transparent1);
+}
 
 /* global text */
 .textSBL {
@@ -120,6 +124,9 @@ p {
   color: var(--text-primary-hover);
 }
 .textSecondary {
+  color: var(--text-secondary);
+}
+.textSecondary2 {
   color: var(--text-secondary);
 }
 .textSecondary:hover {
@@ -206,4 +213,26 @@ p {
 }
 .customProgressBar:hover::-webkit-slider-thumb {
   opacity: 1;
+}
+
+.btnPrev,
+.btnNext {
+  width: 55px;
+  height: 55px;
+  background: var(--bg-transparent1);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 55px;
+}
+
+.containerSlider:hover .btnPrev,
+.btnNext {
+  display: flex;
+}
+
+.text1Line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

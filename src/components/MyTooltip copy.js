@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Tooltip } from "react-tooltip";
-import { v4 } from "uuid";
 
 const MyTooltip = ({
   placeholder = "my tooltip",
@@ -10,21 +8,15 @@ const MyTooltip = ({
   children = "",
   className = "",
 }) => {
-  const stringId = "my-tooltip" + v4();
-
   return (
-    <>
-      <div
-        className={className}
-        data-tooltip-id={stringId}
-        data-tooltip-content={placeholder}
-        data-tooltip-offset={offset}
-        data-tooltip-place={place}
-      >
-        {children}
-      </div>
-      <Tooltip id={stringId} className="!text-xs" />
-    </>
+    <div
+      className={`my-tooltip ${className}`}
+      data-tooltip-content={placeholder}
+      data-tooltip-offset={offset}
+      data-tooltip-place={place}
+    >
+      {children}
+    </div>
   );
 };
 

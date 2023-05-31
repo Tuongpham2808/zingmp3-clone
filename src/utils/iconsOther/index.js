@@ -18,7 +18,7 @@ import { GiMicrophone } from "react-icons/gi";
 import { VscChromeRestore } from "react-icons/vsc";
 import { MdOutlineQueueMusic } from "react-icons/md";
 import { LuTrendingUp } from "react-icons/lu";
-import { SlSettings } from "react-icons/sl";
+import { SlSettings, SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 export {
@@ -41,4 +41,6 @@ export {
   IoSearchOutline,
   LuTrendingUp,
   SlSettings,
+  SlArrowLeft,
+  SlArrowRight,
 };

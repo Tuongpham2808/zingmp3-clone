@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import SidebarLeft from "./SidebarLeft";
 import ControllPlayerWrap from "./ControllPlayerWrap";
 import SidebarRight from "./SidebarRight";
 import HeaderContent from "./HeaderContent";
-import useWindowSize from "../hooks/useWindowSize";
 
 const GrobalLayout = () => {
   // const [width, height] = useWindowSize();
   // console.log(width);
+
   return (
     <div className="h-screen">
       <HeaderContent></HeaderContent>
@@ -18,14 +18,14 @@ const GrobalLayout = () => {
         </div>
         <div className="w-full overflow-auto hiddenScroll">
           <div className="w-full">
-            <div className="px-[30px] overflow-x-hidden overflow-y-scroll h-screen hiddenScroll">
+            <div className="px-[60px] overflow-x-hidden overflow-y-scroll h-screen hiddenScroll mainContent">
               <div className="mt-[70px]">
                 <Outlet></Outlet>
               </div>
             </div>
           </div>
         </div>
-        <div className="bgMain hidden blActice stroke-slate-500 flex-none widthSBR h-full absolute right-0 top-0 bottom-0">
+        <div className="bgMain hidden blActice stroke-slate-500 flex-none widthSBR h-full absolute right-0 top-0 bottom-0 z-[2]">
           <SidebarRight></SidebarRight>
         </div>
       </div>

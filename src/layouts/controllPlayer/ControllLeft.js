@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import MyTooltip from "../../components/MyTooltip";
 import { FiMoreHorizontal, HiOutlineHeart } from "../../utils/iconsOther";
+import { MyTooltip } from "../../components";
 
 const ControllLeft = () => {
   return (
