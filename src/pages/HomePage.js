@@ -4,6 +4,7 @@ import { SlArrowRight } from "react-icons/sl";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { CardMedia } from "../components";
+import { v4 } from "uuid";
 
 const HomePage = () => {
   const { homeData } = useSelector((state) => state.home);
@@ -22,9 +23,9 @@ const HomePage = () => {
       }
     }
     let dataRelease = dataArr.slice(0, 3);
-    // console.log(dataRelease);
     setNewReleaseData(dataRelease);
   }, [homeData]);
+
   return (
     <div className="w-full h-full">
       <SlickSlider></SlickSlider>
@@ -40,14 +41,30 @@ const HomePage = () => {
           </Link>
         </div>
         <div className="flex items-center gap-[15px] mb-4">
-          <button className="uppercase text-sm font-normal">Tất cả</button>
-          <button className="uppercase text-sm font-normal">Việt nam</button>
-          <button className="uppercase text-sm font-normal">Quốc tế</button>
+          <button className="uppercase text-sm font-normal py-1 px-6 rounded-full bgPrimary">
+            Tất cả
+          </button>
+          <button className="uppercase text-sm font-normal py-1 px-6 rounded-full outline outline-1 outline-[var(--text-secondary)]">
+            Việt nam
+          </button>
+          <button className="uppercase text-sm font-normal py-1 px-6 rounded-full outline outline-1 outline-[var(--text-secondary)]">
+            Quốc tế
+          </button>
         </div>
         <div className="grid grid-cols-3 gap-x-7">
-          <div className="flex flex-col items-start">
-            <CardMedia></CardMedia>
-          </div>
+          {newReleaseData.length > 0 &&
+            newReleaseData.map((data) => (
+              <div key={v4()} className="flex flex-col items-start">
+                {data.map((item) => (
+                  <CardMedia
+                    key={item.encodeId}
+                    image={item.thumbnailM}
+                    artists={item.artistsNames}
+                    time={item.releaseDate}
+                  ></CardMedia>
+                ))}
+              </div>
+            ))}
         </div>
       </div>
     </div>

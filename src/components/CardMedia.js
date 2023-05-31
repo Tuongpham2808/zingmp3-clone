@@ -2,14 +2,20 @@ import React from "react";
 import { IoPlay } from "react-icons/io5";
 import MyTooltip from "./MyTooltip";
 import { FiMoreHorizontal } from "react-icons/fi";
+import { formatTime } from "../utils/fnTime";
 
-const CardMedia = () => {
+const CardMedia = ({
+  image = "https://source.unsplash.com/random/?man",
+  artists = "Sơn Tùng",
+  time = "2 giờ trước",
+}) => {
+  const timeFormat = formatTime(time);
   return (
     <div className="group rounded hover:bg-[var(--bg-transparent1)] flex items-center w-full p-[10px] gap-x-[10px] select-none">
       <div className="flex gap-x-[10px] w-full items-start overflow-hidden">
         <div className="relative flex-none">
           <img
-            src="https://source.unsplash.com/random/?man"
+            src={image}
             alt=""
             className="w-[60px] h-[60px] object-cover rounded"
           />
@@ -20,10 +26,10 @@ const CardMedia = () => {
         <div className="w-full overflow-hidden">
           <h3 className="text-sm font-medium text1Line">Chàng trai năm đó</h3>
           <p className="text-xs font-medium mt-[3px] textSecondary cursor-pointer">
-            Sơn Tùng
+            {artists}
           </p>
           <p className="text-xs font-medium mt-[3px] textSecondary2">
-            2 giờ trước
+            {timeFormat}
           </p>
         </div>
       </div>

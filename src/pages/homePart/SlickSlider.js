@@ -42,7 +42,7 @@ const SlickSlider = () => {
       <div className="pt-8 containerSlider">
         <Slider
           {...settings}
-          className="w-full relative mx-[-15px] cursor-pointer"
+          className="w-full relative mx-[-15px] cursor-pointer overflow-hidden"
         >
           {homeData &&
             homeData
