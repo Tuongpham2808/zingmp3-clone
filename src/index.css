@@ -41,6 +41,7 @@ p {
   --width-sidebarLeft: 240px;
   --width-mainContent: 100%;
   --bg-transparent1: rgba(255, 255, 255, 0.15);
+  --bg-transparent2: rgba(0, 0, 0, 0.15);
 }
 /* ẩn scroll */
 .hiddenScroll::-webkit-scrollbar {
@@ -102,6 +103,9 @@ p {
 }
 .bgTrans1 {
   background: var(--bg-transparent1);
+}
+.bgTrans2 {
+  background: var(--bg-transparent2);
 }
 
 /* global text */
@@ -227,7 +231,7 @@ p {
 }
 
 .containerSlider:hover .btnPrev,
-.btnNext {
+.containerSlider:hover .btnNext {
   display: flex;
 }
 
@@ -235,4 +239,8 @@ p {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.transition1 {
+  transition: all ease 0.7s;
 }

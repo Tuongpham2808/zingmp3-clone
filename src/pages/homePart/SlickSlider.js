@@ -10,7 +10,6 @@ let settings = {
   dots: false,
   infinite: true,
   autoplay: true,
-  centerMode: true,
   speed: 1000,
   autoplaySpeed: 3000,
   slidesToShow: 3,

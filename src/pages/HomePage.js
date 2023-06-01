@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import SlickSlider from "./homePart/SlickSlider";
-import { SlArrowRight } from "react-icons/sl";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { CardMedia } from "../components";
-import { v4 } from "uuid";
+import { useDispatch, useSelector } from "react-redux";
 import HeadSection from "../components/HeadSection";
+import { handleFetchHome } from "../store/homeSlice";
+import SectionNewRelease from "./homePart/SectionNewRelease";
+import LayoutSection from "../components/LayoutSection";
+import SectionListAlbums from "./homePart/SectionListAlbums";
 
 const btnData = [
   {
@@ -23,33 +23,20 @@ const btnData = [
 ];
 
 const HomePage = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(handleFetchHome());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const { homeData } = useSelector((state) => state.home);
   const [genre, setGenre] = useState("all");
-  const [newReleaseData, setNewReleaseData] = useState([]);
-  useEffect(() => {
-    const newRelease = homeData.find(
-      (item) => item.sectionType === "new-release"
-    )?.items;
-    let dataArr = [];
-    let arr = [];
-    if (newRelease) {
-      for (let index = 1; index <= newRelease[genre].length; index++) {
-        arr.push(newRelease[genre][index]);
-        if (index % 4 === 0) {
-          dataArr.push(arr);
-          arr = [];
-        }
-      }
-    }
-    let dataRelease = dataArr.slice(0, 3);
-    setNewReleaseData(dataRelease);
-  }, [genre, homeData]);
+  // console.log(homeData);
 
   return (
     <div className="w-full h-full">
       <SlickSlider></SlickSlider>
-      <div className="w-full mt-12 section textPrimary">
-        <HeadSection all styleAll="low">
+      <LayoutSection>
+        <HeadSection all styleAll="low" title="Mới phát hành">
           <div className="flex items-center gap-[15px] mb-4">
             {btnData.map((item) => (
               <button
@@ -66,23 +53,18 @@ const HomePage = () => {
             ))}
           </div>
         </HeadSection>
-        <div className="grid grid-cols-3 gap-x-7">
-          {newReleaseData.length > 0 &&
-            newReleaseData.map((data) => (
-              <div key={v4()} className="flex flex-col items-start">
-                {data.map((item) => (
-                  <CardMedia
-                    key={item.encodeId}
-                    title={item.title}
-                    image={item.thumbnailM}
-                    artists={item.artistsNames}
-                    time={item.releaseDate}
-                  ></CardMedia>
-                ))}
-              </div>
-            ))}
-        </div>
-      </div>
+        <SectionNewRelease
+          genre={genre}
+          homeData={homeData}
+        ></SectionNewRelease>
+      </LayoutSection>
+      <LayoutSection>
+        <HeadSection title="Chill"></HeadSection>
+        <SectionListAlbums
+          homeData={homeData}
+          sectionId="hEditorTheme"
+        ></SectionListAlbums>
+      </LayoutSection>
     </div>
   );
 };

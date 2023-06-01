@@ -1,27 +1,22 @@
-import { useDispatch, useSelector } from "react-redux";
 import GrobalLayout from "./layouts/GrobalLayout";
 import { Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import ChartPage from "./pages/ChartPage";
-import { useEffect } from "react";
-import { handleFetchHome } from "./store/homeSlice";
+import React, { Suspense } from "react";
+
+const HomePage = React.lazy(() => import("./pages/HomePage"));
+const ChartPage = React.lazy(() => import("./pages/ChartPage"));
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(handleFetchHome());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
-    <div className="bgMain">
-      <Routes>
-        <Route element={<GrobalLayout />}>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="/zing-chart" element={<ChartPage />}></Route>
-        </Route>
-      </Routes>
-    </div>
+    <Suspense>
+      <div className="bgMain">
+        <Routes>
+          <Route element={<GrobalLayout />}>
+            <Route path="/" element={<HomePage />}></Route>
+            <Route path="/zing-chart" element={<ChartPage />}></Route>
+          </Route>
+        </Routes>
+      </div>
+    </Suspense>
   );
 }
 

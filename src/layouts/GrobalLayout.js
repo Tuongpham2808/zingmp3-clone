@@ -16,10 +16,10 @@ const GrobalLayout = () => {
         <div className="stroke-slate-500 flex-none w-[240px] bgSBL">
           <SidebarLeft></SidebarLeft>
         </div>
-        <div className="w-full overflow-auto hiddenScroll">
-          <div className="w-full">
-            <div className="px-[60px] overflow-x-hidden overflow-y-scroll h-screen hiddenScroll mainContent">
-              <div className="mt-[70px] max-w-[1442px] mx-auto">
+        <div className="w-full overflow-hidden">
+          <div className="w-full h-auto">
+            <div className="px-[60px] overflow-x-hidden overflow-y-scroll h-screen hiddenScroll mainContent scroll-smooth">
+              <div className="mt-[70px] max-w-[1442px] mx-auto pb-[200px]">
                 <Outlet></Outlet>
               </div>
             </div>
