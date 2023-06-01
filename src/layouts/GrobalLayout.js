@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import SidebarLeft from "./SidebarLeft";
 import ControllPlayerWrap from "./ControllPlayerWrap";
@@ -19,7 +19,7 @@ const GrobalLayout = () => {
         <div className="w-full overflow-auto hiddenScroll">
           <div className="w-full">
             <div className="px-[60px] overflow-x-hidden overflow-y-scroll h-screen hiddenScroll mainContent">
-              <div className="mt-[70px]">
+              <div className="mt-[70px] max-w-[1442px] mx-auto">
                 <Outlet></Outlet>
               </div>
             </div>

@@ -11,8 +11,8 @@ let settings = {
   infinite: true,
   autoplay: true,
   centerMode: true,
-  speed: 500,
-  autoplaySpeed: 2000,
+  speed: 1000,
+  autoplaySpeed: 3000,
   slidesToShow: 3,
   slidesToScroll: 1,
   centerPadding: "0px",
@@ -39,10 +39,10 @@ const SlickSlider = () => {
   const { homeData } = useSelector((state) => state.home);
   return (
     <div className="w-full">
-      <div className="pt-8 containerSlider">
+      <div className="pt-8 containerSlider mx-[-15px] overflow-hidden">
         <Slider
           {...settings}
-          className="w-full relative mx-[-15px] cursor-pointer overflow-hidden"
+          className="relative w-full overflow-hidden cursor-pointer"
         >
           {homeData &&
             homeData

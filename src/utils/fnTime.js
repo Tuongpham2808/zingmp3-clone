@@ -1,8 +1,15 @@
 export function formatTime(number) {
   let time;
   let hour = (new Date().getTime() - Number(number) * 1000) / 3600000;
-  if (hour < 24) {
+  if (hour <= 12) {
     time = Math.floor(hour) + " giờ trước";
+  }
+  if (12 < hour < 24) {
+    if (hour - new Date().getHours() < 0) {
+      time = Math.floor(hour) + " giờ trước";
+    } else {
+      time = "hôm qua";
+    }
   }
   if (hour >= 24) {
     time = Math.floor(hour / 24) + " ngày trước";
