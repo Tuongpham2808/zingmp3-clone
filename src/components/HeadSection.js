@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const HeadSection = ({
   children,
   all = false,
-  styleAll = "low",
+  styleAll = "normal",
   title = "Mới Phát Hành",
   link = "/",
 }) => {
@@ -14,9 +14,12 @@ const HeadSection = ({
     case "low":
       style = " absolute top-[50px] right-0";
       break;
-
+    case "normal":
+      style = "";
+      break;
     default:
       style = "";
+      break;
   }
   return (
     <>

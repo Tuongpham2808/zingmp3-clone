@@ -3,8 +3,15 @@ import MyTooltip from "./MyTooltip";
 import { HiOutlineHeart } from "react-icons/hi";
 import { IoPlay } from "react-icons/io5";
 import { FiMoreHorizontal } from "react-icons/fi";
+import { PlayingIcon } from "../utils/iconsOther";
 
-const ImageMedia = ({ thumbnail = "", isPlaying = false, tyle }) => {
+const ImageMedia = ({
+  image = "",
+  isPlaying = false,
+  tyle = "medium",
+  classImage = "w-full h-auto",
+  title = "",
+}) => {
   let styles = {
     btnOther: false,
     btnPlay: true,
@@ -53,16 +60,23 @@ const ImageMedia = ({ thumbnail = "", isPlaying = false, tyle }) => {
 
   return (
     <>
-      <div className="relative flex-none w-full overflow-hidden rounded group">
-        <span className="w-full h-0 pb-[100%]">
+      <div
+        className="relative flex-none overflow-hidden rounded group"
+        title={title}
+      >
+        <span className={`h-0 pb-[100%] ${classImage}`}>
           <img
-            src={thumbnail}
+            src={image}
             alt=""
-            className="object-cover w-full h-auto rounded transition1 group-hover:scale-110"
+            className={`object-cover rounded transition1 ${
+              styles.zoom ? "group-hover:scale-110" : ""
+            } ${classImage}`}
           />
         </span>
         {styles.btnPlay && (
-          <span className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-black rounded opacity-0 cursor-pointer group-hover:opacity-100 hover:opacity-100 bg-opacity-40">
+          <span
+            className={`absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-black rounded opacity-0 cursor-pointer group-hover:opacity-100 hover:opacity-100 bg-opacity-40 ${classImage}`}
+          >
             <div className="flex items-center w-full justify-evenly">
               {styles.btnOther && (
                 <span className="w-8 h-8 p-[3px] mx-[2px] flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-transparent1)]">
@@ -78,7 +92,11 @@ const ImageMedia = ({ thumbnail = "", isPlaying = false, tyle }) => {
                   styles.circleStroke ? "border-[1px]" : ""
                 }`}
               >
-                <IoPlay className={styles.sizePlay}></IoPlay>
+                {isPlaying ? (
+                  <PlayingIcon className={styles.sizePlay} />
+                ) : (
+                  <IoPlay className={styles.sizePlay} />
+                )}
               </span>
               {styles.btnOther && (
                 <span className="w-8 h-8 p-[3px] mx-[2px] flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-transparent1)]">

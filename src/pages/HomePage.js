@@ -6,6 +6,7 @@ import { handleFetchHome } from "../store/homeSlice";
 import SectionNewRelease from "./homePart/SectionNewRelease";
 import LayoutSection from "../components/LayoutSection";
 import SectionListAlbums from "./homePart/SectionListAlbums";
+import SectionReleaseSlider from "./homePart/SectionReleaseSlider";
 
 const btnData = [
   {
@@ -30,7 +31,7 @@ const HomePage = () => {
   }, []);
   const { homeData } = useSelector((state) => state.home);
   const [genre, setGenre] = useState("all");
-  // console.log(homeData);
+  console.log(homeData);
 
   return (
     <div className="w-full h-full">
@@ -58,12 +59,35 @@ const HomePage = () => {
           homeData={homeData}
         ></SectionNewRelease>
       </LayoutSection>
+      {/* chill */}
       <LayoutSection>
-        <HeadSection title="Chill"></HeadSection>
+        <HeadSection title="Chill" all></HeadSection>
         <SectionListAlbums
           homeData={homeData}
           sectionId="hEditorTheme"
         ></SectionListAlbums>
+      </LayoutSection>
+      {/* Năng lượng tích cực */}
+      <LayoutSection>
+        <HeadSection title="Năng lượng tích cực"></HeadSection>
+        <SectionListAlbums
+          homeData={homeData}
+          sectionId="hEditorTheme2"
+        ></SectionListAlbums>
+      </LayoutSection>
+      {/* Nghệ sĩ thịnh hành */}
+      <LayoutSection>
+        <HeadSection title="Nghệ sĩ thành hành"></HeadSection>
+        <SectionListAlbums
+          homeData={homeData}
+          sectionId="hArtistTheme"
+        ></SectionListAlbums>
+      </LayoutSection>
+      {/* BXH nhạc mới */}
+      <LayoutSection>
+        <HeadSection title="BXH Nhạc Mới">
+          <SectionReleaseSlider homeData={homeData}></SectionReleaseSlider>
+        </HeadSection>
       </LayoutSection>
     </div>
   );

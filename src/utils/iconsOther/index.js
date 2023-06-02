@@ -20,6 +20,7 @@ import { MdOutlineQueueMusic } from "react-icons/md";
 import { LuTrendingUp } from "react-icons/lu";
 import { SlSettings, SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import PlayingIcon from "./PlayingIcon";
 
 export {
   BiPlus,
@@ -43,4 +44,5 @@ export {
   SlSettings,
   SlArrowLeft,
   SlArrowRight,
+  PlayingIcon,
 };

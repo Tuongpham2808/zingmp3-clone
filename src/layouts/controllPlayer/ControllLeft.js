@@ -2,15 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FiMoreHorizontal, HiOutlineHeart } from "../../utils/iconsOther";
 import { MyTooltip } from "../../components";
+import ImageMedia from "../../components/ImageMedia";
 
 const ControllLeft = () => {
   return (
     <div className="flex items-center gap-[10px] max-w-[30%] flex-none h-full">
-      <img
-        src="https://images.unsplash.com/photo-1502174832274-bc176e52765a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
-        alt=""
-        className="object-cover w-16 h-16 rounded shrink-0"
-      />
+      <ImageMedia
+        image="https://source.unsplash.com/random/?flower"
+        tyle="none"
+        classImage="w-16 h-16"
+      ></ImageMedia>
       <div className="flex flex-col items-start justify-center max-w-[200px] titlePlayControll">
         <Link to="" className="text-sm font-medium textPrimary">
           <span className="titlePlayControll">

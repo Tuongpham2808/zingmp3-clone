@@ -1,8 +1,8 @@
 import React from "react";
-import { IoPlay } from "react-icons/io5";
 import MyTooltip from "./MyTooltip";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { formatTime } from "../utils/fnTime";
+import ImageMedia from "./ImageMedia";
 
 const CardMedia = ({
   title = "Chàng trai năm đó",
@@ -15,16 +15,11 @@ const CardMedia = ({
   return (
     <div className="group rounded hover:bg-[var(--bg-transparent1)] flex items-center w-full p-[10px] gap-x-[10px] select-none">
       <div className="flex gap-x-[10px] w-full items-start overflow-hidden">
-        <div className="relative flex-none">
-          <img
-            src={image}
-            alt=""
-            className="w-[60px] h-[60px] object-cover rounded"
-          />
-          <span className="hidden group-hover:flex absolute w-[60px] h-[60px] top-0 left-0 rounded bg-black bg-opacity-40 items-center justify-center cursor-pointer">
-            <IoPlay className="w-6 h-6"></IoPlay>
-          </span>
-        </div>
+        <ImageMedia
+          image={image}
+          classImage="w-[60px] h-[60px]"
+          tyle="normal"
+        ></ImageMedia>
         <div className="w-full overflow-hidden">
           <h3 className="text-sm font-medium text1Line">{title}</h3>
           <p className="text-xs font-medium mt-[3px] textSecondary cursor-pointer">
