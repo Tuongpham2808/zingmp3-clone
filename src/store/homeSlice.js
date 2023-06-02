@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as apis from "../apis";
+import { store } from "./configureStore";
 
 const initialState = {
   homeData: [],
@@ -11,6 +12,7 @@ export const handleFetchHome = createAsyncThunk(
     try {
       let response = await apis.getHomeAPI();
       let data = response.data.data.items;
+      // store.dispatch(setHome(data));
       return data;
     } catch (error) {
       console.log(error);
@@ -24,11 +26,11 @@ export const homeSlice = createSlice({
   reducers: {
     getHome: (state, action) => ({
       ...state,
-      banner: action.payload,
+      homeData: action.payload,
     }),
     setHome: (state, action) => ({
       ...state,
-      banner: action.payload,
+      homeData: action.payload,
     }),
   },
   extraReducers: (builder) => {

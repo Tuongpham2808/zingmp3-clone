@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   screen: "",
+  isOpenSBR: false,
 };
 
 export const responsiveSlice = createSlice({
@@ -12,8 +13,13 @@ export const responsiveSlice = createSlice({
       ...state,
       screen: action.payload,
     }),
+    setToggleSBR: (state, action) => ({
+      ...state,
+      isOpenSBR: action.payload,
+    }),
   },
+  extraReducers: {},
 });
 
-export const { setSizeScreen } = responsiveSlice.actions;
+export const { setSizeScreen, setToggleSBR } = responsiveSlice.actions;
 export default responsiveSlice.reducer;

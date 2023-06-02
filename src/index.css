@@ -37,7 +37,7 @@ p {
   --text-disable: #575f6d;
   --trans-all: all ease-in 0.1s;
   --height-playControll: 90px;
-  --width-sidebarRight: 330px;
+  --margin-contentRight: 0px;
   --width-sidebarLeft: 240px;
   --width-mainContent: 100%;
   --bg-transparent1: rgba(255, 255, 255, 0.15);
