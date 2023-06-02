@@ -12,7 +12,7 @@ const HeadSection = ({
   let style = "";
   switch (styleAll) {
     case "low":
-      style = " absolute top-[50px] right-0";
+      style = " xl:absolute xl:top-[50px] xl:right-0";
       break;
     case "normal":
       style = "";
@@ -23,12 +23,12 @@ const HeadSection = ({
   }
   return (
     <>
-      <div className="relative flex items-center justify-between mb-5 textPrimary">
+      <div className="relative flex items-baseline justify-between mb-5 textPrimary">
         <h3 className="flex-1 text-xl font-bold capitalize">{title}</h3>
         {all && (
           <Link
             to={link}
-            className={`flex items-start gap-[6px] textSecondary${style}`}
+            className={`flex items-center gap-[6px] textSecondary${style}`}
           >
             <p className="text-xs font-semibold uppercase">Tất cả</p>
             <SlArrowRight className="w-4 h-4"></SlArrowRight>

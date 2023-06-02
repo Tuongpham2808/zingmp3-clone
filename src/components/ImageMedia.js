@@ -61,7 +61,7 @@ const ImageMedia = ({
   return (
     <>
       <div
-        className="relative flex-none overflow-hidden rounded group"
+        className={`relative flex-none overflow-hidden rounded group  ${classImage}`}
         title={title}
       >
         <span className={`h-0 pb-[100%] ${classImage}`}>
@@ -79,7 +79,7 @@ const ImageMedia = ({
           >
             <div className="flex items-center w-full justify-evenly">
               {styles.btnOther && (
-                <span className="w-8 h-8 p-[3px] mx-[2px] flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-transparent1)]">
+                <span className="w-8 h-8 p-[3px] mx-[2px] lg:flex hidden items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-transparent1)]">
                   <MyTooltip placeholder="Thêm vào thư viện" offset={20}>
                     <HiOutlineHeart
                       className={styles.sizePlay}
@@ -99,7 +99,7 @@ const ImageMedia = ({
                 )}
               </span>
               {styles.btnOther && (
-                <span className="w-8 h-8 p-[3px] mx-[2px] flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-transparent1)]">
+                <span className="w-8 h-8 p-[3px] mx-[2px] lg:flex items-center hidden justify-center textPrimary rounded-full hover:bg-[var(--bg-transparent1)]">
                   <MyTooltip placeholder="Khác" offset={20}>
                     <FiMoreHorizontal className="w-5 h-5"></FiMoreHorizontal>
                   </MyTooltip>

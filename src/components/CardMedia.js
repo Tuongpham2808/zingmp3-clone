@@ -22,12 +22,10 @@ const CardMedia = ({
         ></ImageMedia>
         <div className="w-full overflow-hidden">
           <h3 className="text-sm font-medium text1Line">{title}</h3>
-          <p className="text-xs font-medium mt-[3px] textSecondary cursor-pointer">
+          <p className="text-xs font-medium mt-[3px] textSecondary cursor-pointer text1Line">
             {artists}
           </p>
-          <p className="text-xs font-medium mt-[3px] textSecondary2">
-            {timeFormat}
-          </p>
+          <p className="text-xs font-medium mt-[3px] text1Line">{timeFormat}</p>
         </div>
       </div>
       <div className="w-[46px] h-[46px] hidden items-center justify-center group-hover:flex">

@@ -29,6 +29,7 @@ function App() {
           <Route element={<GrobalLayout />}>
             <Route path="/" element={<HomePage />}></Route>
             <Route path="/zing-chart" element={<ChartPage />}></Route>
+            <Route path="*" element={<HomePage />}></Route>
           </Route>
         </Routes>
       </div>

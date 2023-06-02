@@ -26,3 +26,13 @@ export function formatTime(number) {
   }
   return time;
 }
+
+export function formatDate(number) {
+  let date = new Date(number * 1000)?.toLocaleDateString("zh-HK", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+  let dateString = date?.split("/").join(".");
+  return dateString;
+}

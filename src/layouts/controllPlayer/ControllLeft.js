@@ -20,14 +20,8 @@ const ControllLeft = () => {
             </p>
           </span>
         </Link>
-        <span className="block text-xs">
-          <Link to="" className="inline-block font-semibold textSecondary">
-            Châu khải phong
-          </Link>
-          <p className="inline-block font-medium textSecondary">, </p>
-          <Link to="" className="inline-block font-semibold textSecondary">
-            ACV
-          </Link>
+        <span className="block text-xs font-semibold textSecondary text1Line">
+          Châu khải phong, ACV
         </span>
       </div>
       <div className="flex items-center">

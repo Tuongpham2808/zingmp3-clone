@@ -13,13 +13,13 @@ const GrobalLayout = () => {
     <div className="h-screen">
       <HeaderContent></HeaderContent>
       <div className="relative flex w-full hMain">
-        <div className="stroke-slate-500 flex-none w-[240px] bgSBL">
+        <div className="stroke-slate-500 flex-none w-[240px] bgSBL hidden sm:block">
           <SidebarLeft></SidebarLeft>
         </div>
         <div className="w-full overflow-hidden">
           <div className="w-full h-auto">
-            <div className="px-[60px] overflow-x-hidden overflow-y-scroll h-screen hiddenScroll mainContent scroll-smooth">
-              <div className="mt-[70px] max-w-[1442px] mx-auto pb-[200px]">
+            <div className="md:px-[60px] px-6 overflow-x-hidden overflow-y-scroll h-screen hiddenScroll mainContent scroll-smooth">
+              <div className="mt-[70px] max-w-[1442px] mx-auto pb-[120px] md:overflow-x-hidden">
                 <Outlet></Outlet>
               </div>
             </div>
