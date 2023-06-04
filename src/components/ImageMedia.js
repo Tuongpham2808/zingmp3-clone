@@ -3,7 +3,7 @@ import MyTooltip from "./MyTooltip";
 import { HiOutlineHeart } from "react-icons/hi";
 import { IoPlay } from "react-icons/io5";
 import { FiMoreHorizontal } from "react-icons/fi";
-import { PlayingIcon } from "../utils/iconsOther";
+import PlayingIcon from "../utils/iconsOther/PlayingIcon";
 
 const ImageMedia = ({
   image = "",
@@ -11,6 +11,7 @@ const ImageMedia = ({
   tyle = "medium",
   classImage = "w-full h-auto",
   title = "",
+  onClick = () => {},
 }) => {
   let styles = {
     btnOther: false,
@@ -63,6 +64,7 @@ const ImageMedia = ({
       <div
         className={`relative flex-none overflow-hidden rounded group  ${classImage}`}
         title={title}
+        onClick={onClick}
       >
         <span className={`h-0 pb-[100%] ${classImage}`}>
           <img

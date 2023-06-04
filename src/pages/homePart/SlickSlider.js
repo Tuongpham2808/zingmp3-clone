@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import PrevArrow from "./PrevArrow";
 import NextArrow from "./NextArrow";
@@ -34,8 +33,7 @@ let settings = {
   ],
 };
 
-const SlickSlider = () => {
-  const { homeData } = useSelector((state) => state.home);
+const SlickSlider = ({ data }) => {
   return (
     <div className="w-full">
       <div className="pt-8 containerSlider mx-[-15px] overflow-hidden">
@@ -43,18 +41,16 @@ const SlickSlider = () => {
           {...settings}
           className="relative w-full overflow-hidden cursor-pointer"
         >
-          {homeData &&
-            homeData
-              .find((item) => item.sectionType === "banner")
-              ?.items.map((item) => (
-                <div key={item.encodeId} className="px-[15px]">
-                  <img
-                    src={item.banner}
-                    alt="banner"
-                    className="object-cover rounded-[5px]"
-                  />
-                </div>
-              ))}
+          {data &&
+            data.map((item) => (
+              <div key={item.encodeId} className="px-[15px]">
+                <img
+                  src={item.banner}
+                  alt="banner"
+                  className="object-cover rounded-[5px]"
+                />
+              </div>
+            ))}
         </Slider>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { IoPlay, Play } from "../../utils/iconsOther";
+import { IoPlay } from "../../utils/iconsOther";
 
 const SidebarNewList = () => {
   return (

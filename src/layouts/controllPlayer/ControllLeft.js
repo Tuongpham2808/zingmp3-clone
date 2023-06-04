@@ -1,14 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiMoreHorizontal, HiOutlineHeart } from "../../utils/iconsOther";
 import { MyTooltip } from "../../components";
 import ImageMedia from "../../components/ImageMedia";
+import * as apis from "../../apis";
+import { useDispatch, useSelector } from "react-redux";
+import { SetRelatedsong } from "../../store/musicSlice";
 
 const ControllLeft = () => {
+  const [songInfo, setSongInfo] = useState(null);
+  const dispatch = useDispatch();
+  //lấy data audio ra
+  const { curSongId } = useSelector((state) => state.music);
+  //load data song info
+  useEffect(() => {
+    const fetchDetailSong = async () => {
+      const res = await apis.apiGetSongDetail(curSongId);
+      if (res.data.err === 0) {
+        setSongInfo(res?.data?.data);
+      }
+      // const res2 = await apis.apiGetRelatedSong(curSongId);
+      // if (res2.data.err === 0) {
+      //   dispatch(SetRelatedsong(res2?.data?.data?.items));
+      // }
+    };
+    fetchDetailSong();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [curSongId]);
+
   return (
     <div className="flex items-center gap-[10px] max-w-[30%] flex-none h-full">
       <ImageMedia
-        image="https://source.unsplash.com/random/?flower"
+        image={songInfo?.thumbnailM}
         tyle="none"
         classImage="w-16 h-16"
       ></ImageMedia>
@@ -16,12 +39,12 @@ const ControllLeft = () => {
         <Link to="" className="text-sm font-medium textPrimary">
           <span className="titlePlayControll">
             <p className="textPlay">
-              {Array(4).fill(`Kẻ Viết Ngôn Tình`).join(". ")}
+              {Array(4).fill(songInfo?.title).join(". ")}
             </p>
           </span>
         </Link>
         <span className="block text-xs font-semibold textSecondary text1Line">
-          Châu khải phong, ACV
+          {songInfo?.artistsNames}
         </span>
       </div>
       <div className="flex items-center">

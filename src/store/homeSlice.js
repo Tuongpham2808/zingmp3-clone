@@ -3,7 +3,15 @@ import * as apis from "../apis";
 import { store } from "./configureStore";
 
 const initialState = {
-  homeData: [],
+  banneData: [],
+  newReleaseData: {},
+  chillData: [],
+  energyData: [],
+  trendArtistData: [],
+  rankReleaseData: [],
+  weekChartData: [],
+  top100Data: [],
+  albumHotData: [],
 };
 //redex thunk
 export const handleFetchHome = createAsyncThunk(
@@ -12,6 +20,7 @@ export const handleFetchHome = createAsyncThunk(
     try {
       let response = await apis.getHomeAPI();
       let data = response.data.data.items;
+      console.log(data);
       // store.dispatch(setHome(data));
       return data;
     } catch (error) {
@@ -24,10 +33,6 @@ export const homeSlice = createSlice({
   name: "home",
   initialState,
   reducers: {
-    getHome: (state, action) => ({
-      ...state,
-      homeData: action.payload,
-    }),
     setHome: (state, action) => ({
       ...state,
       homeData: action.payload,
@@ -35,7 +40,33 @@ export const homeSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(handleFetchHome.fulfilled, (state, action) => {
-      state.homeData = action.payload;
+      state.banneData = action.payload.find(
+        (item) => item.sectionType === "banner"
+      )?.items;
+      state.newReleaseData = action.payload.find(
+        (item) => item.sectionType === "new-release"
+      )?.items;
+      state.chillData = action.payload.find(
+        (item) => item.sectionId === "hEditorTheme"
+      )?.items;
+      state.energyData = action.payload.find(
+        (item) => item.sectionId === "hEditorTheme2"
+      )?.items;
+      state.trendArtistData = action.payload.find(
+        (item) => item.sectionId === "hArtistTheme"
+      )?.items;
+      state.rankReleaseData = action.payload.find(
+        (item) => item.sectionId === "hNewrelease"
+      )?.items;
+      state.weekChartData = action.payload.find(
+        (item) => item.sectionType === "weekChart"
+      )?.items;
+      state.top100Data = action.payload.find(
+        (item) => item.sectionId === "h100"
+      )?.items;
+      state.albumHotData = action.payload.find(
+        (item) => item.sectionId === "hAlbum"
+      )?.items;
     });
   },
 });

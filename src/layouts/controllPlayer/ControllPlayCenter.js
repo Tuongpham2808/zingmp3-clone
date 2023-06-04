@@ -1,44 +1,79 @@
 import React, { useEffect, useRef, useState } from "react";
+import useProgressCSS from "../../hooks/useProgressCSS";
+import { MyTooltip } from "../../components";
+import GroupBtn from "../../components/GroupBtn";
+import { useDispatch, useSelector } from "react-redux";
+import * as apis from "../../apis";
+import { setIsPlaying } from "../../store/musicSlice";
+import LoadingIcon from "../../utils/iconsOther/LoadingIcon";
 import {
+  IoPause,
   IoPlay,
   IoPlaySkipBack,
   IoPlaySkipForward,
   IoRepeatOutline,
   IoShuffleOutline,
 } from "react-icons/io5";
-import useProgressCSS from "../../hooks/useProgressCSS";
-import { MyTooltip } from "../../components";
-import GroupBtn from "../../components/GroupBtn";
-import { useSelector } from "react-redux";
-import * as apis from "../../apis";
 
 const ControllPlayCenter = () => {
   // 2 dòng này xử lý code ui cho btn
   const progressRef = useRef(null);
   useProgressCSS(progressRef);
   //lấy data audio ra
-  const { isPlaying, curSongId, atAlbum, listSongs } = useSelector(
+  const { isPlaying, curSongId, volumeAudio } = useSelector(
     (state) => state.music
   );
-  const [audio, setAudio] = useState(new Audio());
   const [loading, setLoading] = useState(true);
-  const [songInfo, setSongInfo] = useState(true);
+  const [audio, setAudio] = useState(new Audio());
+  const dispatch = useDispatch();
+
+  //load data audio
   useEffect(() => {
-    const fetchDetailSong = async () => {
-      setLoading(false);
-      const res1 = await apis.apiGetSongDetail(curSongId);
-      const res2 = await apis.apiGetSong(curSongId);
+    const fetchSongAudio = async () => {
       setLoading(true);
-      if (res1.data.err === 0) {
-        setSongInfo(res1.data.data);
-      }
+      const res2 = await apis.apiGetSong(curSongId);
+      setLoading(false);
       if (res2.data.err === 0) {
         audio.pause();
-        setAudio(res2?.data?.data["128"]);
+        setAudio(new Audio(res2?.data?.data[128]));
       }
     };
-    fetchDetailSong();
+    fetchSongAudio();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curSongId]);
+
+  //click play & pause audio
+  const handlePlay = () => {
+    if (isPlaying) {
+      audio.pause();
+      dispatch(setIsPlaying(false));
+    } else {
+      if (!loading) {
+        audio.pause();
+        audio.play();
+        dispatch(setIsPlaying(true));
+      }
+    }
+  };
+  //auto play song when currentId change
+  useEffect(() => {
+    function autoPlay() {
+      if (!loading && isPlaying) {
+        const autoPlayAudio = () => {
+          audio.pause();
+          audio.play();
+        };
+        autoPlayAudio();
+      }
+    }
+    autoPlay();
+    // audio.addEventListener("suspend", autoPlay);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [audio, isPlaying]);
+  //load volume change
+  useEffect(() => {
+    audio.volume = volumeAudio / 100;
+  }, [audio, volumeAudio]);
 
   return (
     <div className="flex-1 flex flex-col justify-center items-center max-w-[40%] h-full">
@@ -54,8 +89,17 @@ const ControllPlayCenter = () => {
           </MyTooltip>
         </GroupBtn>
         <div className="w-[50px] h-[50px] p-[5px] flex items-center justify-center">
-          <span className="w-10 h-10 mx-[7px] flex-none flex items-center justify-center textPrimary2 border-[1px] hover:border-[var(--bg-primary)] rounded-full">
-            <IoPlay className="w-5 h-5 translate-x-[1px]"></IoPlay>
+          <span
+            className="w-10 h-10 mx-[7px] flex-none flex items-center justify-center cursor-pointer textPrimary2 border-[1px] hover:border-[var(--bg-primary)] rounded-full"
+            onClick={handlePlay}
+          >
+            {loading ? (
+              <LoadingIcon />
+            ) : isPlaying ? (
+              <IoPause className="w-5 h-5" />
+            ) : (
+              <IoPlay className="w-5 h-5 translate-x-[1px]" />
+            )}
           </span>
         </div>
         <GroupBtn>
@@ -77,6 +121,7 @@ const ControllPlayCenter = () => {
           <input
             type="range"
             name="volume"
+            step="1"
             min="0"
             max="100"
             className="customProgressBar"

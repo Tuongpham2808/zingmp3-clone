@@ -30,3 +30,33 @@ export const apiGetSongDetail = (sId) =>
       reject(error);
     }
   });
+export const apiGetDetaiPlaylist = (pId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: "/detailplaylist",
+        params: {
+          id: pId,
+        },
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+export const apiGetRelatedSong = (sId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: "/RelatedSong",
+        params: {
+          id: sId,
+        },
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });

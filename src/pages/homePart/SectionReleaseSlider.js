@@ -5,9 +5,7 @@ import NextArrow from "./NextArrow";
 import CardReleaseMedia from "../../components/CardReleaseMedia";
 import { Link } from "react-router-dom";
 
-const SectionReleaseSlider = ({ homeData = [] }) => {
-  const [data, setData] = useState([]);
-
+const SectionReleaseSlider = ({ data = [] }) => {
   let settings2 = {
     dots: false,
     infinite: true,
@@ -37,13 +35,7 @@ const SectionReleaseSlider = ({ homeData = [] }) => {
       },
     ],
   };
-  // console.log(data);
-  useEffect(() => {
-    let result = homeData?.find(
-      (item) => item.sectionId === "hNewrelease"
-    )?.items;
-    setData(result?.slice(0, 8));
-  }, [homeData]);
+
   return (
     <div className="mx-[-14px] xl:mr-[-12px]">
       <Slider
@@ -51,7 +43,7 @@ const SectionReleaseSlider = ({ homeData = [] }) => {
         className="relative w-full cursor-pointer containerSlider"
       >
         {data?.length > 0 &&
-          data.map((item, index) => (
+          data?.map((item, index) => (
             <CardReleaseMedia
               key={item.encodeId}
               data={item}

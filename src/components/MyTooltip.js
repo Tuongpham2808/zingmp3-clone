@@ -7,7 +7,7 @@ const MyTooltip = ({
   placeholder = "my tooltip",
   offset = 10,
   place = "top",
-  children = "",
+  children,
   className = "",
 }) => {
   const stringId = "my-tooltip" + v4();

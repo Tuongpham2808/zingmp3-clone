@@ -1,20 +1,27 @@
-import React, { useEffect, useRef } from "react";
-import { GiMicrophone } from "react-icons/gi";
-import { VscChromeRestore } from "react-icons/vsc";
-import { HiOutlineVolumeUp } from "react-icons/hi";
-import { MdOutlineQueueMusic } from "react-icons/md";
+import React, { useEffect, useRef, useState } from "react";
 import { MyTooltip } from "../../components";
 import useToggle from "../../hooks/useToggle";
 import { useDispatch, useSelector } from "react-redux";
 import { setToggleSBR } from "../../store/responsiveSlice";
 import useProgressCSS from "../../hooks/useProgressCSS";
+import { setVolumeAudio } from "../../store/musicSlice";
+import {
+  GiMicrophone,
+  HiOutlineVolumeOff,
+  HiOutlineVolumeUp,
+  MdOutlineQueueMusic,
+  VscChromeRestore,
+} from "../../utils/iconsOther";
 
 const ControllRight = () => {
   const progressRef = useRef(null);
   useProgressCSS(progressRef);
+
   const { isOpenSBR, screen } = useSelector((state) => state.screen);
+  const { volumeAudio } = useSelector((state) => state.music);
   const { toggle, handleToggle } = useToggle(isOpenSBR);
   const dispatch = useDispatch();
+  // console.log(volumeAudio);
   useEffect(() => {
     dispatch(setToggleSBR(toggle));
     let rootStyle = document.documentElement.style;
@@ -25,6 +32,28 @@ const ControllRight = () => {
       rootStyle.setProperty("--margin-contentRight", "0px");
     }
   }, [dispatch, screen, toggle]);
+  useEffect(() => {
+    function updateVolume(event) {
+      dispatch(setVolumeAudio(event.target.value));
+    }
+    progressRef.current.addEventListener("change", updateVolume);
+    return function cleanup() {
+      progressRef.current.addEventListener("change", updateVolume);
+    };
+  }, [dispatch]);
+  const handleVolumeBtn = (event) => {
+    if (volumeAudio > 0) {
+      dispatch(setVolumeAudio(0));
+      progressRef.current.style.background =
+        "linear-gradient(to right, var(--text-primary) 0%, var(--text-secondary) 0%)";
+      progressRef.current.value = 0;
+    } else {
+      dispatch(setVolumeAudio(50));
+      progressRef.current.style.background =
+        "linear-gradient(to right, var(--text-primary) 50%, var(--text-secondary) 50%)";
+      progressRef.current.value = 50;
+    }
+  };
 
   return (
     <div className="flex items-center z-[3]">
@@ -40,15 +69,23 @@ const ControllRight = () => {
           </MyTooltip>
         </span>
         <div className="flex items-center flex-1">
-          <span className="w-8 h-8 p-[3px] mx-[2px] flex-none flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-active)]">
-            <HiOutlineVolumeUp className="w-5 h-5"></HiOutlineVolumeUp>
+          <span
+            className="w-8 h-8 p-[3px] mx-[2px] flex-none flex items-center cursor-pointer justify-center textPrimary rounded-full hover:bg-[var(--bg-active)]"
+            onClick={() => handleVolumeBtn()}
+          >
+            {volumeAudio > 0 ? (
+              <HiOutlineVolumeUp className="w-5 h-5" />
+            ) : (
+              <HiOutlineVolumeOff />
+            )}
           </span>
           <div className="h-[15px] w-[70px] flex-1 flex items-center">
             <input
               type="range"
               name="volume"
-              min="0"
-              max="100"
+              min={0}
+              max={100}
+              defaultValue={volumeAudio}
               className="customProgressBar"
               ref={progressRef}
             />

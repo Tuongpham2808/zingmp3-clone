@@ -15,7 +15,7 @@ const nextArrow = ({ onClick, hover = false, tyle = "large" }) => {
 
   return (
     <button
-      className={`items-center justify-center rounded-full btnNext absolute top-1/2 right-0 -translate-y-1/2 -translate-x-1/2 z-[4] ${
+      className={`items-center justify-center rounded-full btnNext absolute top-1/2 right-0 -translate-y-1/2 -translate-x-1/2 z-[1] ${
         hover ? "hidden" : "flex"
       } ${classstyle.classbtn}`}
       onClick={onClick}

@@ -32,13 +32,22 @@ const HomePage = () => {
     dispatch(handleFetchHome());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const { homeData } = useSelector((state) => state.home);
+  const {
+    banneData,
+    newReleaseData,
+    chillData,
+    energyData,
+    trendArtistData,
+    rankReleaseData,
+    weekChartData,
+    top100Data,
+    albumHotData,
+  } = useSelector((state) => state.home);
   const [genre, setGenre] = useState("all");
-  // console.log(homeData);
 
   return (
     <div className="w-full h-full">
-      <SlickSlider></SlickSlider>
+      <SlickSlider data={banneData}></SlickSlider>
       <LayoutSection>
         <HeadSection all styleAll="low" title="Mới phát hành">
           <div className="flex items-center gap-x-[6px] md:gap-[15px] mb-4">
@@ -59,58 +68,44 @@ const HomePage = () => {
         </HeadSection>
         <SectionNewRelease
           genre={genre}
-          homeData={homeData}
+          data={newReleaseData}
         ></SectionNewRelease>
       </LayoutSection>
       {/* chill */}
       <LayoutSection>
         <HeadSection title="Chill" all></HeadSection>
-        <SectionListAlbums
-          homeData={homeData}
-          sectionId="hEditorTheme"
-        ></SectionListAlbums>
+        <SectionListAlbums data={chillData}></SectionListAlbums>
       </LayoutSection>
       {/* Năng lượng tích cực */}
       <LayoutSection>
         <HeadSection title="Năng lượng tích cực"></HeadSection>
-        <SectionListAlbums
-          homeData={homeData}
-          sectionId="hEditorTheme2"
-        ></SectionListAlbums>
+        <SectionListAlbums data={energyData}></SectionListAlbums>
       </LayoutSection>
       {/* Nghệ sĩ thịnh hành */}
       <LayoutSection>
         <HeadSection title="Nghệ sĩ thịnh hành"></HeadSection>
-        <SectionListAlbums
-          homeData={homeData}
-          sectionId="hArtistTheme"
-        ></SectionListAlbums>
+        <SectionListAlbums data={trendArtistData}></SectionListAlbums>
       </LayoutSection>
       {/* BXH nhạc mới */}
       <LayoutSection>
         <HeadSection title="BXH Nhạc Mới">
-          <SectionReleaseSlider homeData={homeData}></SectionReleaseSlider>
+          <SectionReleaseSlider data={rankReleaseData}></SectionReleaseSlider>
         </HeadSection>
       </LayoutSection>
       {/* Week chart */}
       <LayoutSection>
-        <SectionWeekChart homeData={homeData}></SectionWeekChart>
+        <SectionWeekChart data={weekChartData}></SectionWeekChart>
       </LayoutSection>
       {/* Top 100 */}
       <LayoutSection>
         <HeadSection title="Top 100"></HeadSection>
-        <SectionListAlbums
-          homeData={homeData}
-          sectionId="h100"
-          styles="more"
-        ></SectionListAlbums>
+        <SectionListAlbums data={top100Data} styles="more"></SectionListAlbums>
       </LayoutSection>
       {/* Album hot */}
       <LayoutSection>
         <HeadSection title="Album hot"></HeadSection>
         <SectionListAlbumsSlider
-          homeData={homeData}
-          sectionId="hAlbum"
+          data={albumHotData}
           styles="more"
         ></SectionListAlbumsSlider>
       </LayoutSection>

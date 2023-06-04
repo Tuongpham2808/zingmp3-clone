@@ -38,6 +38,7 @@ p {
   --trans-all: all ease-in 0.1s;
   --height-playControll: 90px;
   --margin-contentRight: 0px;
+  --margin-SidebarRight: 330px;
   --width-sidebarLeft: 240px;
   --width-mainContent: 100%;
   --bg-transparent1: rgba(255, 255, 255, 0.15);
@@ -45,6 +46,9 @@ p {
 }
 /* ẩn scroll */
 .hiddenScroll::-webkit-scrollbar {
+  display: none; /* cho Chrome, Safari, and Opera */
+}
+body::-webkit-scrollbar {
   display: none; /* cho Chrome, Safari, and Opera */
 }
 
@@ -56,9 +60,6 @@ p {
 }
 .widthMainContent {
   width: var(--width-mainContent);
-}
-.widthSBR {
-  width: var(--width-sidebarRight);
 }
 /* globall background */
 .bgSBL {
@@ -225,7 +226,7 @@ p {
 }
 
 .transition1 {
-  transition: all ease 0.7s;
+  transition: all ease 1.5s;
 }
 
 .text1Line {
@@ -246,4 +247,30 @@ p {
 .strokeText {
   -webkit-text-stroke: 1px var(--text-secondary);
   font-family: "Roboto", sans-serif;
+}
+
+.slideRight {
+  -webkit-animation: slide-left 1.5s ease both;
+  animation: slide-right 1.5s ease both;
+  transition: all ease 1.5s;
+}
+@-webkit-keyframes slide-right {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}
+@keyframes slide-left {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
 }

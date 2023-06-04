@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import ImageMedia from "../../components/ImageMedia";
 import { useSelector } from "react-redux";
 
-const SectionListAlbums = ({
-  homeData = [],
-  sectionId = "hEditorTheme",
-  styles = "basic",
-}) => {
+const SectionListAlbums = ({ data = [], styles = "basic" }) => {
   const { screen } = useSelector((state) => state.screen);
-  const [data, setData] = useState([]);
+  const [List, setList] = useState([]);
   const [numberItem, setNumberItem] = useState(5);
   useEffect(() => {
+    if (screen === "2xl") {
+      setNumberItem(5);
+    }
     if (screen === "xl") {
       setNumberItem(5);
     }
@@ -23,18 +22,16 @@ const SectionListAlbums = ({
   }, [screen]);
 
   useEffect(() => {
-    let result = homeData?.find((item) => item.sectionId === sectionId)?.items;
-    setData(result?.slice(0, numberItem));
-  }, [homeData, numberItem, sectionId]);
-  // console.log(data);
+    setList(data?.slice(0, numberItem));
+  }, [data, numberItem]);
 
   return (
-    <div className="grid gap-x-3 md:gap-x-7 xl:grid-cols-5 md:grid-cols-4 grid-cols-2">
-      {data?.length > 0 &&
-        data.map((item) => (
+    <div className="grid gap-x-3 md:gap-x-4 xl:grid-cols-5 md:grid-cols-4 lg:gap-x-7 grid-cols-2">
+      {List?.length > 0 &&
+        List.map((item) => (
           <div key={item.encodeId} className="flex flex-col gap-y-3">
             <ImageMedia
-              image={item?.thumbnail}
+              image={item?.thumbnailM}
               title={item?.title}
             ></ImageMedia>
             {styles === "basic" && (

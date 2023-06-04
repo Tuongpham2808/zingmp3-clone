@@ -2,13 +2,25 @@ import React, { useEffect, useState } from "react";
 import ImageMedia from "../../components/ImageMedia";
 import Slider from "react-slick";
 import { v4 } from "uuid";
+import { useSelector } from "react-redux";
 
-const SectionListAlbumsSlider = ({
-  homeData = [],
-  sectionId = "hEditorTheme",
-  styles = "basic",
-}) => {
-  const [data, setData] = useState([]);
+const SectionListAlbumsSlider = ({ data = [], styles = "basic" }) => {
+  const { screen } = useSelector((state) => state.screen);
+  const [numberItem, setNumberItem] = useState(5);
+  useEffect(() => {
+    if (screen === "2xl") {
+      setNumberItem(5);
+    }
+    if (screen === "xl") {
+      setNumberItem(5);
+    }
+    if (screen === "md") {
+      setNumberItem(4);
+    }
+    if (screen === "sm") {
+      setNumberItem(2);
+    }
+  }, [screen]);
 
   let settings = {
     dots: false,
@@ -16,43 +28,37 @@ const SectionListAlbumsSlider = ({
     autoplay: true,
     speed: 400,
     autoplaySpeed: 10000,
-    slidesToShow: 5,
-    slidesToScroll: 5,
+    slidesToShow: numberItem,
+    slidesToScroll: numberItem,
     arrows: false,
     centerPadding: "0px",
     responsive: [
       {
         breakpoint: 1280,
         settings: {
-          slidesToShow: 4,
-          slidesToScroll: 4,
+          slidesToShow: numberItem,
+          slidesToScroll: numberItem,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: numberItem,
+          slidesToScroll: numberItem,
         },
       },
     ],
   };
-
-  useEffect(() => {
-    let result = homeData?.find((item) => item.sectionId === sectionId)?.items;
-    setData(result);
-  }, [homeData, sectionId]);
-  // console.log(data);
 
   return (
     <div className="md:ml-[-14px] md:mr-[-12px] mx-[-6px]">
       <Slider {...settings} className="relative w-full cursor-pointer">
         {data?.length > 0 &&
           data.map((item) => (
-            <div key={v4()} className="md:px-[14px] px-[6px]">
+            <div key={v4()} className="lg:px-[14px] md:px-2 px-[6px]">
               <div className="flex flex-col gap-y-3">
                 <ImageMedia
-                  image={item?.thumbnail}
+                  image={item?.thumbnailM}
                   title={item?.title}
                 ></ImageMedia>
                 {styles === "basic" && (

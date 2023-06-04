@@ -15,22 +15,20 @@ import {
   REGISTER,
 } from "redux-persist";
 
-const rootReducer = combineReducers({
-  home: homeSlice,
-  screen: responsiveSlice,
-  music: musicSlice,
-});
-
 const persistConfig = {
   key: "root",
   storage: storage,
-  blacklist: ["home", "screen"],
+  blacklist: ["isPlaying", "listSongs", "relatedsongs", "atAlbum"],
   stateReconciler: autoMergeLevel2, // Xem thêm tại mục "Quá trình merge".
 };
-const pReducer = persistReducer(persistConfig, rootReducer);
-
+const pReducer = persistReducer(persistConfig, musicSlice);
+const rootReducer = combineReducers({
+  home: homeSlice,
+  screen: responsiveSlice,
+  music: pReducer,
+});
 export const store = configureStore({
-  reducer: pReducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
