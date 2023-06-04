@@ -35,7 +35,7 @@ const ControllLeft = () => {
         tyle="none"
         classImage="w-16 h-16"
       ></ImageMedia>
-      <div className="flex flex-col items-start justify-center max-w-[200px] titlePlayControll">
+      <div className="xs:flex hidden flex-col items-start justify-center max-w-[200px] titlePlayControll">
         <Link to="" className="text-sm font-medium textPrimary">
           <span className="titlePlayControll">
             <p className="textPlay">
@@ -48,12 +48,12 @@ const ControllLeft = () => {
         </span>
       </div>
       <div className="flex items-center">
-        <span className="w-8 h-8 p-[3px] mx-[2px] flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-active)]">
+        <span className="w-8 h-8 p-[3px] mx-[2px] hidden xs:flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-active)]">
           <MyTooltip placeholder="Thêm vào thư viện" offset={20}>
             <HiOutlineHeart className="w-5 h-5"></HiOutlineHeart>
           </MyTooltip>
         </span>
-        <span className="w-8 h-8 p-[3px] mx-[2px] flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-active)]">
+        <span className="w-8 h-8 p-[3px] mx-[2px] items-center hidden lg:flex justify-center textPrimary rounded-full hover:bg-[var(--bg-active)]">
           <MyTooltip placeholder="Xem thêm" offset={20}>
             <FiMoreHorizontal className="w-5 h-5"></FiMoreHorizontal>
           </MyTooltip>

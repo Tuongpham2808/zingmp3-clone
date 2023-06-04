@@ -63,12 +63,12 @@ const ControllRight = () => {
             <GiMicrophone></GiMicrophone>
           </MyTooltip>
         </span>
-        <span className="w-8 h-8 p-[3px] mx-[2px] flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-active)]">
+        <span className="w-8 h-8 p-[3px] mx-[2px] hidden lg:flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-active)]">
           <MyTooltip placeholder="Chế độ cửa sổ" offset={20}>
             <VscChromeRestore className="w-5 h-5"></VscChromeRestore>
           </MyTooltip>
         </span>
-        <div className="flex items-center flex-1">
+        <div className="hidden items-center flex-1 md:flex">
           <span
             className="w-8 h-8 p-[3px] mx-[2px] flex-none flex items-center cursor-pointer justify-center textPrimary rounded-full hover:bg-[var(--bg-active)]"
             onClick={() => handleVolumeBtn()}
@@ -91,13 +91,13 @@ const ControllRight = () => {
             />
           </div>
         </div>
-        <span className="h-8 px-5"></span>
+        <span className="h-8 mx-5 w-[1px] bgActive"></span>
         <span
           className="w-[30px] h-7 p-[3px] mx-[2px] flex items-center justify-center textPrimary rounded bgPrimary cursor-pointer"
           onClick={handleToggle}
         >
           <MyTooltip placeholder="Danh sách phát" offset={20}>
-            <MdOutlineQueueMusic></MdOutlineQueueMusic>
+            <MdOutlineQueueMusic className="w-5 h-5"></MdOutlineQueueMusic>
           </MyTooltip>
         </span>
       </div>

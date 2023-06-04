@@ -36,3 +36,8 @@ export function formatDate(number) {
   let dateString = date?.split("/").join(".");
   return dateString;
 }
+
+export function formatTimeProgress(min, sec) {
+  let result = `${min < 10 ? `0${min}` : min} : ${sec < 10 ? `0${sec}` : sec}`;
+  return result;
+}

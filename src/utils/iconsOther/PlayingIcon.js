@@ -1,7 +1,19 @@
 import React from "react";
 
+import { Audio } from "react-loader-spinner";
+
 const PlayingIcon = () => {
-  return <img src="/icon-playing.gif" alt="" />;
+  return (
+    <Audio
+      height="25"
+      width="25"
+      color="#fff"
+      ariaLabel="audio-loading"
+      wrapperStyle={{}}
+      wrapperClass="wrapper-class"
+      visible={true}
+    />
+  );
 };
 
 export default PlayingIcon;

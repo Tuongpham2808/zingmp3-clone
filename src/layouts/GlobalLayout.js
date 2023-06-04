@@ -8,11 +8,18 @@ import { useSelector } from "react-redux";
 
 const GlobalLayout = () => {
   const { isOpenSBR } = useSelector((state) => state.screen);
+  const { listSongs, isPlaying } = useSelector((state) => state.music);
 
   return (
     <div className="h-screen">
       <HeaderContent></HeaderContent>
-      <div className="relative flex w-full hMain">
+      <div
+        className={`relative flex w-full transition-all ${
+          listSongs.length > 0 || isPlaying
+            ? "sm:h-[calc(100vh-var(--height-playControll))]"
+            : "sm:h-full"
+        }`}
+      >
         <div className="stroke-slate-500 flex-none w-[240px] bgSBL hidden sm:block">
           <SidebarLeft></SidebarLeft>
         </div>
@@ -33,7 +40,19 @@ const GlobalLayout = () => {
           <SidebarRight></SidebarRight>
         </div>
       </div>
-      <ControllPlayerWrap></ControllPlayerWrap>
+      {listSongs.length > 0 || isPlaying ? (
+        <div
+          className={`transition-all ${
+            listSongs.length > 0 || isPlaying
+              ? ""
+              : "translate-y-full opacity-0"
+          }`}
+        >
+          <ControllPlayerWrap></ControllPlayerWrap>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

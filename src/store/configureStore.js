@@ -18,7 +18,13 @@ import {
 const persistConfig = {
   key: "root",
   storage: storage,
-  blacklist: ["isPlaying", "listSongs", "relatedsongs", "atAlbum"],
+  blacklist: [
+    "isPlaying",
+    "listSongs",
+    "relatedsongs",
+    "atAlbum",
+    "listSongConcat",
+  ],
   stateReconciler: autoMergeLevel2, // Xem thêm tại mục "Quá trình merge".
 };
 const pReducer = persistReducer(persistConfig, musicSlice);

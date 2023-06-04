@@ -5,7 +5,7 @@ import { formatTime } from "../utils/fnTime";
 import ImageMedia from "./ImageMedia";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  SetRelatedsong,
+  setRelatedsong,
   setCurSongId,
   setIsPlaying,
   setListSongs,
@@ -49,6 +49,7 @@ const CardMedia = ({
       break;
   }
   const { newReleaseData } = useSelector((state) => state.home);
+  const { curSongId } = useSelector((state) => state.music);
   const dispatch = useDispatch();
   const timeFormat = formatTime(time);
 
@@ -57,9 +58,11 @@ const CardMedia = ({
     dispatch(setIsPlaying(true));
     const res2 = await apis.apiGetRelatedSong(id);
     if (res2.data.err === 0) {
-      dispatch(SetRelatedsong(res2?.data?.data?.items));
+      dispatch(setRelatedsong(res2?.data?.data?.items));
     }
-    dispatch(setListSongs(newReleaseData.all));
+    dispatch(
+      setListSongs([].concat(newReleaseData.vPop, newReleaseData.others))
+    );
   }
   async function fetchData(id) {
     dispatch(setCurSongId(id));
@@ -85,7 +88,9 @@ const CardMedia = ({
     <div
       className={`group rounded hover:bg-[var(--bg-transparent1)] flex items-center w-full gap-x-[10px] select-none ${
         styles.classGroup
-      } ${played ? "opacity-70" : ""}`}
+      } ${played ? "opacity-50" : ""} ${
+        curSongId === id ? "bg-[var(--bg-transparent1)]" : ""
+      }`}
       onDoubleClick={() => handleSelectSongDoubleClick(id)}
     >
       <div className="flex gap-x-[10px] w-full items-start overflow-hidden">
@@ -94,6 +99,7 @@ const CardMedia = ({
           classImage={styles.classImage}
           tyle="normal"
           onClick={() => handleSelectSongClick(id)}
+          id={id}
         ></ImageMedia>
         <div className="w-full overflow-hidden">
           <h3 className="text-sm font-medium text1Line">{title}</h3>

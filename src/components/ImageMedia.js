@@ -4,15 +4,17 @@ import { HiOutlineHeart } from "react-icons/hi";
 import { IoPlay } from "react-icons/io5";
 import { FiMoreHorizontal } from "react-icons/fi";
 import PlayingIcon from "../utils/iconsOther/PlayingIcon";
+import { useSelector } from "react-redux";
 
 const ImageMedia = ({
   image = "",
-  isPlaying = false,
   tyle = "medium",
   classImage = "w-full h-auto",
   title = "",
+  id = "",
   onClick = () => {},
 }) => {
+  const { curSongId, isPlaying } = useSelector((state) => state.music);
   let styles = {
     btnOther: false,
     btnPlay: true,
@@ -77,7 +79,9 @@ const ImageMedia = ({
         </span>
         {styles.btnPlay && (
           <span
-            className={`absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-black rounded opacity-0 cursor-pointer group-hover:opacity-100 hover:opacity-100 bg-opacity-40 ${classImage}`}
+            className={`absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-black rounded opacity-0 cursor-pointer group-hover:opacity-100 hover:opacity-100 bg-opacity-40 ${classImage} ${
+              curSongId === id ? "opacity-100" : ""
+            }`}
           >
             <div className="flex items-center w-full justify-evenly">
               {styles.btnOther && (
@@ -94,7 +98,7 @@ const ImageMedia = ({
                   styles.circleStroke ? "border-[1px]" : ""
                 }`}
               >
-                {isPlaying ? (
+                {curSongId === id && isPlaying ? (
                   <PlayingIcon className={styles.sizePlay} />
                 ) : (
                   <IoPlay className={styles.sizePlay} />

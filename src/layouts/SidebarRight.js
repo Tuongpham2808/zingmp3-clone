@@ -1,23 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SiderbarNewList from "./sibarRightPart/SidebarNewList";
 import EmptyPlayList from "./sibarRightPart/EmptyPlayList";
 import SidebarHeader from "./sibarRightPart/SidebarHeader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CardMedia } from "../components";
 import { v4 } from "uuid";
+import { setListSongConcat } from "../store/musicSlice";
 
 const SidebarRight = () => {
-  const { listSongs, relatedsongs } = useSelector((state) => state.music);
+  const { listSongs, relatedsongs, curSongId, listSongConcat } = useSelector(
+    (state) => state.music
+  );
+  const dispatch = useDispatch();
   // console.log(relatedsongs);
-  let dataRender =
-    listSongs.length > 0
-      ? listSongs
-      : relatedsongs.length > 0
-      ? relatedsongs
-      : [];
-  if (listSongs.length > 0 && relatedsongs.length > 0) {
-    dataRender = dataRender.concat(listSongs, "text", relatedsongs);
-  }
+  let played = true;
+  useEffect(() => {
+    let dataRender = [];
+
+    if (listSongs.length > 0 && relatedsongs.length > 0) {
+      dataRender = dataRender.concat(listSongs, "text", relatedsongs);
+    } else {
+      dataRender =
+        listSongs.length > 0
+          ? listSongs
+          : relatedsongs.length > 0
+          ? relatedsongs
+          : [];
+    }
+    if (dataRender.length > 0) {
+      dispatch(setListSongConcat(dataRender));
+    }
+  }, [dispatch, listSongs, relatedsongs]);
 
   return (
     <div className="relative h-full overflow-hidden">
@@ -35,10 +48,16 @@ const SidebarRight = () => {
         ) : (
           <></>
         )}
-        {dataRender.length > 0
-          ? dataRender.map((item) =>
-              item === "text" ? (
-                <div className="text-sm font-semibold textSecondary w-full py-1 px-2">
+        {listSongConcat?.length > 0
+          ? listSongConcat?.map((item) => {
+              if (curSongId === (item?.encodeId || item?.id)) {
+                played = false;
+              }
+              return item === "text" ? (
+                <div
+                  key={v4()}
+                  className="text-sm font-semibold textSecondary w-full py-1 px-2"
+                >
                   Đề xuất cho bạn
                 </div>
               ) : (
@@ -49,42 +68,12 @@ const SidebarRight = () => {
                     id={item?.encodeId || item?.id}
                     type="small"
                     image={item.thumbnail}
+                    played={played}
                   ></CardMedia>
                 </div>
-              )
-            )
+              );
+            })
           : null}
-        {/* {listSongs?.length > 0
-          ? listSongs.map((item) => (
-              <div key={item.encodeId} className="flex flex-col textPrimary">
-                <CardMedia
-                  title={item.title}
-                  artists={item.artistsNames}
-                  id={item.encodeId}
-                  type="small"
-                  image={item.thumbnail}
-                ></CardMedia>
-              </div>
-            ))
-          : null}
-        {relatedsongs?.length > 0 ? (
-          <div className="text-sm font-semibold textSecondary w-full py-1 px-2">
-            Đề xuất cho bạn
-          </div>
-        ) : null}
-        {relatedsongs?.length > 0
-          ? relatedsongs.map((item) => (
-              <div key={v4()} className="flex flex-col textPrimary">
-                <CardMedia
-                  title={item.title}
-                  artists={item.artists_names}
-                  id={item.id}
-                  type="small"
-                  image={item.thumbnail}
-                ></CardMedia>
-              </div>
-            ))
-          : null} */}
       </div>
     </div>
   );
