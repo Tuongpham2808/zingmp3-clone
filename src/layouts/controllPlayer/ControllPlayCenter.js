@@ -27,11 +27,12 @@ const ControllPlayCenter = () => {
   const [loading, setLoading] = useState(true);
   const [urlAudio, setUrlAudio] = useState("");
   const [audioProgress, setAudioProgress] = useState(0);
-  const [musicTotalLength, setMusicTotalLength] = useState("04 : 38");
-  const [musicCurrentTime, setMusicCurrentTime] = useState("00 : 00");
-  // const [audio, setAudio] = useState(new Audio());
+  const [randomSong, setRandomSong] = useState(false);
+  const musicTotalLengthRef = useRef("04 : 38");
+  const musicCurrentTimeRef = useRef("00 : 00");
   const dispatch = useDispatch();
-
+  //randomSong
+  useEffect(() => {}, [listSongConcat, randomSong]);
   //load data audio
   useEffect(() => {
     const fetchSongAudio = async () => {
@@ -101,7 +102,7 @@ const ControllPlayCenter = () => {
     let minutes = Math.floor(currentAudio.current.currentTime / 60);
     let seconds = Math.floor(currentAudio.current.currentTime % 60);
     let audioCurrentTime = formatTimeProgress(minutes, seconds);
-    setMusicCurrentTime(audioCurrentTime);
+    musicCurrentTimeRef.current = audioCurrentTime;
     if (currentAudio.current.duration) {
       const progressPercent = Math.floor(
         (currentAudio.current.currentTime / currentAudio.current.duration) * 100
@@ -112,7 +113,7 @@ const ControllPlayCenter = () => {
       let minutes = Math.floor(currentAudio.current.duration / 60);
       let seconds = Math.floor(currentAudio.current.duration % 60);
       let audioTotalTime = formatTimeProgress(minutes, seconds);
-      setMusicTotalLength(audioTotalTime);
+      musicTotalLengthRef.current = audioTotalTime;
     }
   }
 
@@ -170,7 +171,12 @@ const ControllPlayCenter = () => {
       <div className="flex items-center mb-[3px]">
         <GroupBtn>
           <MyTooltip placeholder="Bật phát ngẫu nhiên" offset={20}>
-            <IoShuffleOutline className="w-6 h-6"></IoShuffleOutline>
+            <IoShuffleOutline
+              className={`w-6 h-6 cursor-pointer select-none ${
+                randomSong ? "text-[var(--bg-primary)]" : ""
+              }`}
+              onClick={() => setRandomSong(!randomSong)}
+            ></IoShuffleOutline>
           </MyTooltip>
         </GroupBtn>
         <GroupBtn>
@@ -183,7 +189,7 @@ const ControllPlayCenter = () => {
         </GroupBtn>
         <div className="w-[50px] h-[50px] p-[5px] flex items-center justify-center">
           <span
-            className="w-10 h-10 mx-[7px] flex-none flex items-center justify-center cursor-pointer textPrimary2 border-[1px] hover:border-[var(--bg-primary)] rounded-full"
+            className="w-10 h-10 mx-[7px] flex-none flex items-center justify-center cursor-pointer select-none textPrimary2 border-[1px] hover:border-[var(--bg-primary)] rounded-full"
             onClick={handlePlay}
           >
             {loading ? (
@@ -198,20 +204,20 @@ const ControllPlayCenter = () => {
         <GroupBtn>
           <MyTooltip placeholder="Phát tiếp theo" offset={20}>
             <IoPlaySkipForward
-              className="w-5 h-5 cursor-pointer"
+              className="w-5 h-5 cursor-pointer select-none"
               onClick={handleNextSong}
             ></IoPlaySkipForward>
           </MyTooltip>
         </GroupBtn>
         <GroupBtn>
           <MyTooltip placeholder="Bật phát lặp lại" offset={20}>
-            <IoRepeatOutline className="w-6 h-6"></IoRepeatOutline>
+            <IoRepeatOutline className="w-6 h-6 cursor-pointer select-none"></IoRepeatOutline>
           </MyTooltip>
         </GroupBtn>
       </div>
       <div className="flex items-center w-full gap-[10px] mb-[5px]">
         <span className="w-12 text-xs font-medium text-right textPrimary">
-          {musicCurrentTime}
+          {musicCurrentTimeRef.current}
         </span>
         <div className="h-[15px] w-full flex-1 flex items-center">
           <input
@@ -227,7 +233,7 @@ const ControllPlayCenter = () => {
           />
         </div>
         <span className="w-12 text-xs font-medium text-left textPrimary">
-          {musicTotalLength}
+          {musicTotalLengthRef.current}
         </span>
       </div>
     </div>

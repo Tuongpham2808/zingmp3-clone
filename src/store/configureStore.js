@@ -16,7 +16,7 @@ import {
 } from "redux-persist";
 
 const persistConfig = {
-  key: "root",
+  key: "rootMusic",
   storage: storage,
   blacklist: [
     "isPlaying",
@@ -27,11 +27,18 @@ const persistConfig = {
   ],
   stateReconciler: autoMergeLevel2, // Xem thêm tại mục "Quá trình merge".
 };
-const pReducer = persistReducer(persistConfig, musicSlice);
+const persistConfig2 = {
+  key: "rootHome",
+  storage: storage,
+  blacklist: [],
+  stateReconciler: autoMergeLevel2, // Xem thêm tại mục "Quá trình merge".
+};
+const pReducerMusic = persistReducer(persistConfig, musicSlice);
+const pReducerHome = persistReducer(persistConfig2, homeSlice);
 const rootReducer = combineReducers({
-  home: homeSlice,
+  home: pReducerHome,
   screen: responsiveSlice,
-  music: pReducer,
+  music: pReducerMusic,
 });
 export const store = configureStore({
   reducer: rootReducer,
