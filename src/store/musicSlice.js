@@ -7,6 +7,8 @@ let initialState = {
   volumeAudio: 100,
   relatedsongs: [],
   listSongConcat: [],
+  randomSong: false,
+  repeatSong: 0,
 };
 
 export const musicSlice = createSlice({
@@ -41,6 +43,14 @@ export const musicSlice = createSlice({
       ...state,
       listSongConcat: action.payload,
     }),
+    setRandom: (state, action) => ({
+      ...state,
+      randomSong: action.payload,
+    }),
+    setRepeat: (state, action) => ({
+      ...state,
+      repeatSong: action.payload,
+    }),
   },
 });
 
@@ -52,5 +62,7 @@ export const {
   setVolumeAudio,
   setRelatedsong,
   setListSongConcat,
+  setRandom,
+  setRepeat,
 } = musicSlice.actions;
 export default musicSlice.reducer;

@@ -9,8 +9,8 @@ import { useSelector } from "react-redux";
 const GlobalLayout = () => {
   const { isOpenSBR } = useSelector((state) => state.screen);
   const { listSongs, isPlaying } = useSelector((state) => state.music);
-
   console.log("re-render");
+
   return (
     <div className="h-screen">
       <HeaderContent></HeaderContent>

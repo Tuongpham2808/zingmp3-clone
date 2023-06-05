@@ -12,12 +12,14 @@ import {
   MdOutlineQueueMusic,
   VscChromeRestore,
 } from "../../utils/iconsOther";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const ControllRight = () => {
   const progressRef = useRef(null);
   useProgressCSS(progressRef);
+  let size = useWindowSize();
 
-  const { isOpenSBR, screen } = useSelector((state) => state.screen);
+  const { isOpenSBR } = useSelector((state) => state.screen);
   const { volumeAudio } = useSelector((state) => state.music);
   const { toggle, handleToggle } = useToggle(isOpenSBR);
   const dispatch = useDispatch();
@@ -25,13 +27,13 @@ const ControllRight = () => {
   useEffect(() => {
     dispatch(setToggleSBR(toggle));
     let rootStyle = document.documentElement.style;
-    if (toggle && screen === "2xl") {
+    if (toggle && size === "2xl") {
       rootStyle.setProperty("--margin-contentRight", "330px");
     }
     if (!toggle) {
       rootStyle.setProperty("--margin-contentRight", "0px");
     }
-  }, [dispatch, screen, toggle]);
+  }, [dispatch, size, toggle]);
   useEffect(() => {
     function updateVolume(event) {
       dispatch(setVolumeAudio(event.target.value));

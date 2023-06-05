@@ -107,7 +107,7 @@ const CardMedia = ({
             {artists}
           </p>
           {styles.date && (
-            <p className="text-xs font-medium mt-[3px] text1Line">
+            <p className="text-xs font-medium mt-[3px] text1Line textSecondary2">
               {timeFormat}
             </p>
           )}

@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { CardMedia } from "../../components";
 import { v4 } from "uuid";
-import { useSelector } from "react-redux";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const SectionNewRelease = ({ genre = "all", data = {} }) => {
   const [newReleaseData, setNewReleaseData] = useState([]);
-  const { screen } = useSelector((state) => state.screen);
   const [numberItem, setNumberItem] = useState(3);
+  let size = useWindowSize();
   useEffect(() => {
-    if (screen === "2xl") {
+    if (size === "2xl") {
       setNumberItem(3);
     }
-    if (screen === "xl") {
+    if (size === "xl") {
       setNumberItem(3);
     }
-    if (screen === "md") {
+    if (size === "md") {
       setNumberItem(2);
     }
-    if (screen === "sm") {
+    if (size === "sm") {
       setNumberItem(1);
     }
-  }, [screen]);
+  }, [size]);
 
   useEffect(() => {
     let dataArr = [];
@@ -34,8 +34,7 @@ const SectionNewRelease = ({ genre = "all", data = {} }) => {
         }
       }
     }
-    let dataRelease = dataArr.slice(0, numberItem);
-    setNewReleaseData(dataRelease);
+    setNewReleaseData(dataArr?.slice(0, numberItem) || []);
   }, [genre, data, numberItem]);
 
   return (

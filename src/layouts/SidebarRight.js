@@ -6,18 +6,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { CardMedia } from "../components";
 import { v4 } from "uuid";
 import { setListSongConcat } from "../store/musicSlice";
+import { randomArray2 } from "../utils/fnNumber";
 
 const SidebarRight = () => {
-  const { listSongs, relatedsongs, curSongId, listSongConcat } = useSelector(
-    (state) => state.music
-  );
+  const { listSongs, relatedsongs, curSongId, listSongConcat, randomSong } =
+    useSelector((state) => state.music);
   const dispatch = useDispatch();
   // console.log(relatedsongs);
+
   let played = true;
   useEffect(() => {
     let dataRender = [];
 
-    if (listSongs.length > 0 && relatedsongs.length > 0) {
+    if (listSongs.length > 0 && relatedsongs.length > 0 && !randomSong) {
       dataRender = dataRender.concat(listSongs, "text", relatedsongs);
     } else {
       dataRender =
@@ -28,9 +29,22 @@ const SidebarRight = () => {
           : [];
     }
     if (dataRender.length > 0) {
-      dispatch(setListSongConcat(dataRender));
+      dispatch(
+        setListSongConcat(
+          dataRender.filter((item) => Number(item.streamingStatus) !== 2)
+        )
+      );
     }
-  }, [dispatch, listSongs, relatedsongs]);
+    if (randomSong) {
+      dispatch(
+        setListSongConcat(
+          randomArray2([].concat(listSongs, relatedsongs)).filter(
+            (item) => Number(item.streamingStatus) !== 2
+          )
+        )
+      );
+    }
+  }, [dispatch, listSongs, randomSong, relatedsongs]);
 
   return (
     <div className="relative h-full overflow-hidden">

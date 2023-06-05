@@ -4,7 +4,12 @@ import { MyTooltip } from "../../components";
 import GroupBtn from "../../components/GroupBtn";
 import { useDispatch, useSelector } from "react-redux";
 import * as apis from "../../apis";
-import { setCurSongId, setIsPlaying } from "../../store/musicSlice";
+import {
+  setCurSongId,
+  setIsPlaying,
+  setRandom,
+  setRepeat,
+} from "../../store/musicSlice";
 import LoadingIcon from "../../utils/iconsOther/LoadingIcon";
 import {
   IoPause,
@@ -15,24 +20,28 @@ import {
   IoShuffleOutline,
 } from "react-icons/io5";
 import { formatTimeProgress } from "../../utils/fnTime";
+import { LuRepeat1 } from "react-icons/lu";
 const ControllPlayCenter = () => {
   // 2 dòng này xử lý code ui cho btn
   const progressRef = useRef(null);
   let currentAudio = useRef();
   useProgressCSS(progressRef);
   //lấy data audio ra
-  const { isPlaying, curSongId, volumeAudio, listSongConcat } = useSelector(
-    (state) => state.music
-  );
+  const {
+    isPlaying,
+    curSongId,
+    volumeAudio,
+    listSongConcat,
+    randomSong,
+    repeatSong,
+  } = useSelector((state) => state.music);
   const [loading, setLoading] = useState(true);
   const [urlAudio, setUrlAudio] = useState("");
   const [audioProgress, setAudioProgress] = useState(0);
-  const [randomSong, setRandomSong] = useState(false);
-  const musicTotalLengthRef = useRef("04 : 38");
-  const musicCurrentTimeRef = useRef("00 : 00");
+  const musicTotalLengthRef = useRef(null);
+  const musicCurrentTimeRef = useRef(null);
   const dispatch = useDispatch();
-  //randomSong
-  useEffect(() => {}, [listSongConcat, randomSong]);
+
   //load data audio
   useEffect(() => {
     const fetchSongAudio = async () => {
@@ -70,8 +79,20 @@ const ControllPlayCenter = () => {
           listSongConcat[currentSongIndex + 1]?.encodeId ||
           listSongConcat[currentSongIndex + 1]?.id;
       }
+      if (
+        repeatSong === 1 &&
+        currentSongIndex + 1 > listSongConcat.length - 1
+      ) {
+        idNext = listSongConcat[0]?.encodeId || listSongConcat[0]?.id;
+      }
+      if (repeatSong === 2) {
+        idNext = curSongId;
+      }
       dispatch(setCurSongId(idNext));
       dispatch(setIsPlaying(true));
+      if (repeatSong === 2) {
+        currentAudio.current.play();
+      }
     }
   }
   //prev song
@@ -97,12 +118,14 @@ const ControllPlayCenter = () => {
     }
   }
   //ontimeUpdate progress song change
-  function handleAudioUpdate() {
+  function handleAudioUpdate(e) {
     //Input current time of the audio
     let minutes = Math.floor(currentAudio.current.currentTime / 60);
     let seconds = Math.floor(currentAudio.current.currentTime % 60);
     let audioCurrentTime = formatTimeProgress(minutes, seconds);
-    musicCurrentTimeRef.current = audioCurrentTime;
+    if (musicCurrentTimeRef.current) {
+      musicCurrentTimeRef.current.innerText = audioCurrentTime;
+    }
     if (currentAudio.current.duration) {
       const progressPercent = Math.floor(
         (currentAudio.current.currentTime / currentAudio.current.duration) * 100
@@ -113,7 +136,9 @@ const ControllPlayCenter = () => {
       let minutes = Math.floor(currentAudio.current.duration / 60);
       let seconds = Math.floor(currentAudio.current.duration % 60);
       let audioTotalTime = formatTimeProgress(minutes, seconds);
-      musicTotalLengthRef.current = audioTotalTime;
+      if (musicTotalLengthRef.current) {
+        musicTotalLengthRef.current.innerText = audioTotalTime;
+      }
     }
   }
 
@@ -160,6 +185,14 @@ const ControllPlayCenter = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentAudio.current, volumeAudio]);
 
+  function handleRepeat() {
+    let number = repeatSong + 1;
+    if (number > 2) {
+      number = 0;
+    }
+    dispatch(setRepeat(number));
+  }
+
   return (
     <div className="flex-1 flex flex-col justify-center items-center max-w-[40%] h-full">
       <audio
@@ -175,7 +208,7 @@ const ControllPlayCenter = () => {
               className={`w-6 h-6 cursor-pointer select-none ${
                 randomSong ? "text-[var(--bg-primary)]" : ""
               }`}
-              onClick={() => setRandomSong(!randomSong)}
+              onClick={() => dispatch(setRandom(!randomSong))}
             ></IoShuffleOutline>
           </MyTooltip>
         </GroupBtn>
@@ -210,14 +243,36 @@ const ControllPlayCenter = () => {
           </MyTooltip>
         </GroupBtn>
         <GroupBtn>
-          <MyTooltip placeholder="Bật phát lặp lại" offset={20}>
-            <IoRepeatOutline className="w-6 h-6 cursor-pointer select-none"></IoRepeatOutline>
+          <MyTooltip
+            placeholder={
+              repeatSong === 0
+                ? "Bật phát lại tất cả"
+                : repeatSong === 1
+                ? "Bật phát lặp lại 1 bài"
+                : "Tắt phát lại"
+            }
+            offset={20}
+          >
+            <div onClick={handleRepeat}>
+              {repeatSong === 2 ? (
+                <LuRepeat1 className="w-5 h-5 cursor-pointer select-none text-[var(--bg-primary)]" />
+              ) : (
+                <IoRepeatOutline
+                  className={`w-6 h-6 cursor-pointer select-none ${
+                    repeatSong ? "text-[var(--bg-primary)]" : ""
+                  }`}
+                />
+              )}
+            </div>
           </MyTooltip>
         </GroupBtn>
       </div>
       <div className="flex items-center w-full gap-[10px] mb-[5px]">
-        <span className="w-12 text-xs font-medium text-right textPrimary">
-          {musicCurrentTimeRef.current}
+        <span
+          className="w-12 text-xs font-medium text-right textPrimary"
+          ref={musicCurrentTimeRef}
+        >
+          00 : 00
         </span>
         <div className="h-[15px] w-full flex-1 flex items-center">
           <input
@@ -232,8 +287,11 @@ const ControllPlayCenter = () => {
             onChange={handleMusicProgressBar}
           />
         </div>
-        <span className="w-12 text-xs font-medium text-left textPrimary">
-          {musicTotalLengthRef.current}
+        <span
+          className="w-12 text-xs font-medium text-left textPrimary"
+          ref={musicTotalLengthRef}
+        >
+          04 : 38
         </span>
       </div>
     </div>

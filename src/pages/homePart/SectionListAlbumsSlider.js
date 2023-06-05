@@ -2,25 +2,25 @@ import React, { useEffect, useState } from "react";
 import ImageMedia from "../../components/ImageMedia";
 import Slider from "react-slick";
 import { v4 } from "uuid";
-import { useSelector } from "react-redux";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const SectionListAlbumsSlider = ({ data = [], styles = "basic" }) => {
-  const { screen } = useSelector((state) => state.screen);
   const [numberItem, setNumberItem] = useState(5);
+  let size = useWindowSize();
   useEffect(() => {
-    if (screen === "2xl") {
+    if (size === "2xl") {
       setNumberItem(5);
     }
-    if (screen === "xl") {
+    if (size === "xl") {
       setNumberItem(5);
     }
-    if (screen === "md") {
+    if (size === "md") {
       setNumberItem(4);
     }
-    if (screen === "sm") {
+    if (size === "sm") {
       setNumberItem(2);
     }
-  }, [screen]);
+  }, [size]);
 
   let settings = {
     dots: false,

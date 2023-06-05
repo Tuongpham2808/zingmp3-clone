@@ -1,23 +1,30 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 const useWindowSize = () => {
-  const [size, setSize] = useState([0, 0]);
-  useLayoutEffect(() => {
-    let inSettimeout;
-    inSettimeout && clearTimeout(inSettimeout);
-    function updateSize() {
-      inSettimeout = setTimeout(() => {
-        setSize([window.innerWidth, window.innerHeight]);
-      }, 400);
+  const [size, setSize] = useState("2xl");
+  let handleWindowResize = () => {
+    let width = window.innerWidth;
+    if (width >= 1536) {
+      setSize("2xl");
     }
-    window.addEventListener("resize", updateSize);
-    // return function cleanup() {
-    //   window.removeEventListener("resize", updateSize);
-    // };
+    if (width >= 1280 && width < 1536) {
+      setSize("xl");
+    }
+    if (width >= 768 && width < 1280) {
+      setSize("md");
+    }
+    if (width >= 300 && width < 768) {
+      setSize("sm");
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowResize);
+    return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
   useLayoutEffect(() => {
-    setSize([window.innerWidth, window.innerHeight]);
+    handleWindowResize();
   }, []);
+
   return size;
 };
 

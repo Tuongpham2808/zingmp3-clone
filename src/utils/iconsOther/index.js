@@ -18,7 +18,7 @@ import { TfiAlarmClock } from "react-icons/tfi";
 import { GiMicrophone } from "react-icons/gi";
 import { VscChromeRestore } from "react-icons/vsc";
 import { MdOutlineQueueMusic } from "react-icons/md";
-import { LuTrendingUp } from "react-icons/lu";
+import { LuTrendingUp, LuRepeat1 } from "react-icons/lu";
 import { SlSettings, SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
@@ -45,4 +45,5 @@ export {
   SlSettings,
   SlArrowLeft,
   SlArrowRight,
+  LuRepeat1,
 };
