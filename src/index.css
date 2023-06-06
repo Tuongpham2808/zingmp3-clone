@@ -263,7 +263,7 @@ body::-webkit-scrollbar {
   font-family: "Roboto", sans-serif;
 }
 .translateX100 {
-  transform: translateX(100%);
+  transform: translateX(400px);
 }
 
 .slideRight {

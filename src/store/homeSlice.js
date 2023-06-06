@@ -9,6 +9,7 @@ const initialState = {
   energyData: [],
   trendArtistData: [],
   rankReleaseData: [],
+  chartReleaseData: [],
   weekChartData: [],
   top100Data: [],
   albumHotData: [],
@@ -20,7 +21,7 @@ export const handleFetchHome = createAsyncThunk(
     try {
       let response = await apis.getHomeAPI();
       let data = response.data.data.items;
-      // console.log(data);
+      console.log(data);
       // store.dispatch(setHome(data));
       return data;
     } catch (error) {
@@ -58,6 +59,9 @@ export const homeSlice = createSlice({
       state.rankReleaseData = action.payload.find(
         (item) => item.sectionId === "hNewrelease"
       )?.items;
+      state.chartReleaseData = action.payload.find(
+        (item) => item.sectionId === "hNewrelease"
+      )?.chart;
       state.weekChartData = action.payload.find(
         (item) => item.sectionType === "weekChart"
       )?.items;
