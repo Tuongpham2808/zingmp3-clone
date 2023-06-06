@@ -9,7 +9,8 @@ const initialState = {
   energyData: [],
   trendArtistData: [],
   rankReleaseData: [],
-  chartReleaseData: [],
+  zingchartData: [],
+  rankchartData: {},
   weekChartData: [],
   top100Data: [],
   albumHotData: [],
@@ -59,8 +60,11 @@ export const homeSlice = createSlice({
       state.rankReleaseData = action.payload.find(
         (item) => item.sectionId === "hNewrelease"
       )?.items;
-      state.chartReleaseData = action.payload.find(
-        (item) => item.sectionId === "hNewrelease"
+      state.zingchartData = action.payload.find(
+        (item) => item.sectionId === "hZC"
+      )?.items;
+      state.rankchartData = action.payload.find(
+        (item) => item.sectionId === "hZC"
       )?.chart;
       state.weekChartData = action.payload.find(
         (item) => item.sectionType === "weekChart"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ZingchartIcon from "../../utils/iconsOther/ZingchartIcon";
 import { CardMedia } from "../../components";
 import { v4 } from "uuid";
@@ -12,12 +12,9 @@ import {
 import * as apis from "../../apis/music";
 
 const SectionZingChart = () => {
-  const { rankReleaseData, chartReleaseData } = useSelector(
-    (state) => state.home
-  );
-
+  const { zingchartData, rankchartData } = useSelector((state) => state.home);
   const dispatch = useDispatch();
-  let id = rankReleaseData[0]?.encodeId;
+  let id = zingchartData[0]?.encodeId;
   //play first song zing chart
   async function fetchDataPlay() {
     dispatch(setCurSongId(id));
@@ -27,8 +24,23 @@ const SectionZingChart = () => {
     if (res2.data.err === 0) {
       dispatch(setRelatedsong(res2?.data?.data?.items));
     }
-    dispatch(setListSongs(rankReleaseData));
+    dispatch(setListSongs(zingchartData));
   }
+  useEffect(() => {
+    let labels = rankchartData?.times
+      ?.filter((item) => +item?.hour % 2 !== 0)
+      .map((item) => item?.hour);
+    let datasets = [];
+    if (rankchartData?.items) {
+      for (let i = 0; i < 3; i++) {
+        datasets.push({
+          data: rankchartData?.items[Object.keys(rankchartData?.items)[i]]
+            ?.filter((i) => +i.hour % 2 !== 0)
+            ?.map((item) => item?.counter),
+        });
+      }
+    }
+  }, [rankchartData, rankchartData?.items, rankchartData?.times]);
 
   return (
     <div className="overflow-hidden p-5 rounded-lg bgChart min-h-[374px]">
@@ -45,12 +57,12 @@ const SectionZingChart = () => {
       </div>
       <div className="flex items-center w-full -mx-[15px]">
         <div className="flex-[40%] px-[14px] flex flex-col gap-y-[10px]">
-          {rankReleaseData?.slice(0, 3).map((item, index) => (
+          {zingchartData?.slice(0, 3).map((item, index) => (
             <CardMedia
               key={v4()}
               zingchart={true}
               artists={item?.artistsNames}
-              title="title"
+              title={item.title}
               image={item.thumbnail}
               rankNumber={index + 1}
               choicePersen={"40%"}
