@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ZingchartIcon from "../../utils/iconsOther/ZingchartIcon";
 import { CardMedia } from "../../components";
 import { v4 } from "uuid";
@@ -10,8 +10,11 @@ import {
   setRelatedsong,
 } from "../../store/musicSlice";
 import * as apis from "../../apis/music";
+import { Line } from "react-chartjs-2";
+import { Chart } from "chart.js";
 
 const SectionZingChart = () => {
+  const [data, setData] = useState(null);
   const { zingchartData, rankchartData } = useSelector((state) => state.home);
   const dispatch = useDispatch();
   let id = zingchartData[0]?.encodeId;
@@ -26,21 +29,36 @@ const SectionZingChart = () => {
     }
     dispatch(setListSongs(zingchartData));
   }
-  useEffect(() => {
-    let labels = rankchartData?.times
-      ?.filter((item) => +item?.hour % 2 !== 0)
-      .map((item) => item?.hour);
-    let datasets = [];
-    if (rankchartData?.items) {
-      for (let i = 0; i < 3; i++) {
-        datasets.push({
-          data: rankchartData?.items[Object.keys(rankchartData?.items)[i]]
-            ?.filter((i) => +i.hour % 2 !== 0)
-            ?.map((item) => item?.counter),
-        });
-      }
-    }
-  }, [rankchartData, rankchartData?.items, rankchartData?.times]);
+  //   const options = {
+  //     responsive: true,
+  //     plugins: {
+  //       legend: {
+  //         position: "top",
+  //       },
+  //       title: {
+  //         display: true,
+  //         text: "Chart.js Line Chart",
+  //       },
+  //     },
+  //   };
+
+  //   useEffect(() => {
+  //     let labels = [];
+  //     let datasets = [];
+  //     if (rankchartData?.items) {
+  //       labels = rankchartData?.times
+  //         ?.filter((item) => +item?.hour % 2 !== 0)
+  //         .map((item) => item?.hour);
+  //       for (let i = 0; i < 3; i++) {
+  //         datasets.push({
+  //           data: rankchartData?.items[Object.keys(rankchartData?.items)[i]]
+  //             ?.filter((i) => +i.hour % 2 !== 0)
+  //             ?.map((item) => item?.counter),
+  //         });
+  //       }
+  //     }
+  //     setData({ labels, datasets });
+  //   }, [rankchartData, rankchartData?.items, rankchartData?.times]);
 
   return (
     <div className="overflow-hidden p-5 rounded-lg bgChart min-h-[374px]">
@@ -70,7 +88,9 @@ const SectionZingChart = () => {
             ></CardMedia>
           ))}
         </div>
-        <div className="flex-[60%] px-[14px]"></div>
+        <div className="flex-[60%] px-[14px]">
+          <div>{/* <Line options={options} data={data}></Line> */}</div>
+        </div>
       </div>
     </div>
   );
