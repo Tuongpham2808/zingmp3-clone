@@ -14,7 +14,7 @@ import { Line } from "react-chartjs-2";
 import { Chart } from "chart.js";
 
 const SectionZingChart = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState({});
   const { zingchartData, rankchartData } = useSelector((state) => state.home);
   const dispatch = useDispatch();
   let id = zingchartData[0]?.encodeId;
@@ -32,9 +32,6 @@ const SectionZingChart = () => {
   //   const options = {
   //     responsive: true,
   //     plugins: {
-  //       legend: {
-  //         position: "top",
-  //       },
   //       title: {
   //         display: true,
   //         text: "Chart.js Line Chart",
@@ -44,16 +41,18 @@ const SectionZingChart = () => {
 
   //   useEffect(() => {
   //     let labels = [];
+  //     labels = rankchartData?.times
+  //       ?.filter((item) => +item?.hour % 2 !== 0)
+  //       ?.map((item) => item?.hour);
   //     let datasets = [];
   //     if (rankchartData?.items) {
-  //       labels = rankchartData?.times
-  //         ?.filter((item) => +item?.hour % 2 !== 0)
-  //         .map((item) => item?.hour);
   //       for (let i = 0; i < 3; i++) {
   //         datasets.push({
   //           data: rankchartData?.items[Object.keys(rankchartData?.items)[i]]
   //             ?.filter((i) => +i.hour % 2 !== 0)
   //             ?.map((item) => item?.counter),
+  //           borderColor: "rgb(255, 99, 132)",
+  //           backgroundColor: "rgba(255, 99, 132, 0.5)",
   //         });
   //       }
   //     }
