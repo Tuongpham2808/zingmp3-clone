@@ -21,7 +21,7 @@ export const handleFetchHome = createAsyncThunk(
     try {
       let response = await apis.getHomeAPI();
       let data = response.data.data.items;
-      console.log(data);
+      // console.log(data);
       // store.dispatch(setHome(data));
       return data;
     } catch (error) {
