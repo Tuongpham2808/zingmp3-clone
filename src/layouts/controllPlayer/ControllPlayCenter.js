@@ -25,7 +25,9 @@ const ControllPlayCenter = () => {
   // 2 dòng này xử lý code ui cho btn
   const progressRef = useRef(null);
   let currentAudio = useRef();
+
   useProgressCSS(progressRef);
+  let interSetTimeout;
   //lấy data audio ra
   const {
     isPlaying,
@@ -35,6 +37,7 @@ const ControllPlayCenter = () => {
     randomSong,
     repeatSong,
   } = useSelector((state) => state.music);
+  const { isOpenSBR } = useSelector((state) => state.screen);
   const [loading, setLoading] = useState(true);
   const [urlAudio, setUrlAudio] = useState("");
   const [audioProgress, setAudioProgress] = useState(0);
@@ -94,6 +97,16 @@ const ControllPlayCenter = () => {
         currentAudio.current.play();
       }
     }
+    //scroll element playing to view
+    interSetTimeout && clearTimeout(interSetTimeout);
+    if (isPlaying && isOpenSBR) {
+      interSetTimeout = setTimeout(() => {
+        document.querySelector(".sidebarRightPlaying .playing").scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }, 1000);
+    }
   }
   //prev song
   function handlePrevSong() {
@@ -140,6 +153,16 @@ const ControllPlayCenter = () => {
         musicTotalLengthRef.current.innerText = audioTotalTime;
       }
     }
+    //scroll element playing to view
+    interSetTimeout && clearTimeout(interSetTimeout);
+    if (isPlaying && isOpenSBR) {
+      interSetTimeout = setTimeout(() => {
+        document.querySelector(".sidebarRightPlaying .playing").scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }, 1000);
+    }
   }
 
   //click play & pause audio
@@ -149,7 +172,6 @@ const ControllPlayCenter = () => {
       dispatch(setIsPlaying(false));
     } else {
       if (!loading) {
-        currentAudio.current.pause();
         currentAudio.current.play();
         dispatch(setIsPlaying(true));
       }
@@ -194,7 +216,7 @@ const ControllPlayCenter = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col justify-center items-center max-w-[40%] h-full">
+    <div className="flex-1 flex flex-col justify-center items-center max-w-[40%] h-full musicElement">
       <audio
         src={urlAudio}
         ref={currentAudio}

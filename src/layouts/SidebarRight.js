@@ -47,9 +47,9 @@ const SidebarRight = () => {
   }, [dispatch, listSongs, randomSong, relatedsongs]);
 
   return (
-    <div className="relative h-full overflow-hidden">
+    <div className="relative h-full overflow-hidden sidebarRightPlaying">
       <SidebarHeader className="sticky top-0 left-0 right-0 z-10"></SidebarHeader>
-      <div className="overflow-y-scroll hiddenScroll pb-[var(--height-playControll)] w-full h-full">
+      <div className="overflow-y-scroll hiddenScroll pb-5 w-full h-full">
         {listSongs?.length <= 0 && relatedsongs?.length <= 0 ? (
           <div>
             <div>

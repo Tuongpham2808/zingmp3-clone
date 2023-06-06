@@ -34,8 +34,8 @@ const GlobalLayout = () => {
           </div>
         </div>
         <div
-          className={`bgMain blActice slideRight w-[var(--margin-SidebarRight)] overflow-hidden transition-all stroke-slate-500 flex-none h-full absolute right-0 top-0 bottom-0 z-[2] ${
-            !isOpenSBR ? "translate-x-full opacity-0" : "opacity-100"
+          className={`bgMain blActice slideRight w-[var(--margin-SidebarRight)] overflow-hidden stroke-slate-500 flex-none h-full absolute right-0 top-0 bottom-0 z-[2] ${
+            !isOpenSBR ? "translateX100 opacity-0" : "opacity-100"
           }`}
         >
           <SidebarRight></SidebarRight>

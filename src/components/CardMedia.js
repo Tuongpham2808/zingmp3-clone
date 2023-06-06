@@ -20,7 +20,11 @@ const CardMedia = ({
   id = "",
   type = "normal",
   played = false,
+  zingchart = false,
+  rankNumber = 1,
+  choicePersen = "40%",
 }) => {
+  const { isOpenSBR } = useSelector((state) => state.screen);
   let styles = {};
   switch (type) {
     case "normal":
@@ -86,14 +90,25 @@ const CardMedia = ({
 
   return (
     <div
-      className={`group rounded hover:bg-[var(--bg-transparent1)] flex items-center w-full gap-x-[10px] select-none ${
+      className={`group rounded hover:bg-[var(--bg-transparent1)] items-center w-full gap-x-[10px] select-none card-media ${
         styles.classGroup
       } ${played ? "opacity-50" : ""} ${
-        curSongId === id ? "bg-[var(--bg-transparent1)]" : ""
+        curSongId === id ? "bg-[var(--bg-transparent1)] playing" : "flex"
+      } ${isOpenSBR ? " active" : " unactive"} ${
+        zingchart
+          ? "bg-[var(--bg-transparent4)] hover:bg-[var(--bg-transparent3)] py-[10px] px-[15px] flex"
+          : ""
       }`}
       onDoubleClick={() => handleSelectSongDoubleClick(id)}
     >
-      <div className="flex gap-x-[10px] w-full items-start overflow-hidden">
+      {zingchart && (
+        <div className="flex items-start justify-center px-1 mr-[5px]">
+          <span className="strokeText1 text-[32px] font-black leading-[1] text-transparent">
+            {rankNumber}
+          </span>
+        </div>
+      )}
+      <div className="flex gap-x-[10px] w-full items-center overflow-hidden">
         <ImageMedia
           image={image}
           classImage={styles.classImage}
@@ -113,19 +128,28 @@ const CardMedia = ({
           )}
         </div>
       </div>
-      <div
-        className={`hidden items-center justify-center flex-shrink-0 group-hover:flex ${styles.classIcon}`}
-      >
-        <span
-          className={`w-8 h-8 p-[3px] flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-transparent1)] cursor-pointer ${styles.classBtn}`}
+      {!zingchart && (
+        <div
+          className={`hidden items-center justify-center flex-shrink-0 group-hover:flex ${styles.classIcon}`}
         >
-          <MyTooltip placeholder="Khác" offset={20}>
-            <FiMoreHorizontal
-              className={styles.classSizeIcon}
-            ></FiMoreHorizontal>
-          </MyTooltip>
-        </span>
-      </div>
+          <span
+            className={`w-8 h-8 p-[3px] flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-transparent1)] cursor-pointer ${styles.classBtn} `}
+          >
+            <MyTooltip placeholder="Khác" offset={20}>
+              <FiMoreHorizontal
+                className={styles.classSizeIcon}
+              ></FiMoreHorizontal>
+            </MyTooltip>
+          </span>
+        </div>
+      )}
+      {zingchart && (
+        <div className="flex items-center justify-center">
+          <span className="whitespace-nowrap textPrimary text-base font-bold">
+            {choicePersen}
+          </span>
+        </div>
+      )}
     </div>
   );
 };

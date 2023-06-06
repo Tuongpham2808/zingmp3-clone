@@ -43,6 +43,8 @@ p {
   --width-mainContent: 100%;
   --bg-transparent1: rgba(255, 255, 255, 0.15);
   --bg-transparent2: rgba(0, 0, 0, 0.15);
+  --bg-transparent3: rgba(255, 255, 255, 0.2);
+  --bg-transparent4: rgba(255, 255, 255, 0.07);
 }
 /* ẩn scroll */
 .hiddenScroll::-webkit-scrollbar {
@@ -248,6 +250,21 @@ body::-webkit-scrollbar {
   -webkit-text-stroke: 1px var(--text-secondary);
   font-family: "Roboto", sans-serif;
 }
+.strokeText1 {
+  -webkit-text-stroke: 1px #4a90e2;
+  font-family: "Roboto", sans-serif;
+}
+.strokeText2 {
+  -webkit-text-stroke: 1px #50e3c2;
+  font-family: "Roboto", sans-serif;
+}
+.strokeText3 {
+  -webkit-text-stroke: 1px #e35050;
+  font-family: "Roboto", sans-serif;
+}
+.translateX100 {
+  transform: translateX(100%);
+}
 
 .slideRight {
   -webkit-animation: slide-left 1.5s ease both;
@@ -273,4 +290,27 @@ body::-webkit-scrollbar {
     -webkit-transform: translateX(-100%);
     transform: translateX(-100%);
   }
+}
+
+.sidebarRightPlaying .card-media.playing.unactive {
+  display: none;
+}
+.sidebarRightPlaying .card-media.playing.active {
+  display: flex;
+}
+
+.section-newRelease .card-media {
+  display: flex;
+}
+
+.titleZingchart {
+  background: radial-gradient(
+      50% 124.93% at 95.86% -10%,
+      #3efad9 0,
+      hsla(0, 0%, 100%, 0) 100%
+    ),
+    linear-gradient(91.56deg, #ff9357 1.54%, #9100ff 98.71%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

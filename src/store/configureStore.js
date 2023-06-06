@@ -27,16 +27,16 @@ const persistConfig = {
   ],
   stateReconciler: autoMergeLevel2, // Xem thêm tại mục "Quá trình merge".
 };
-const persistConfig2 = {
-  key: "rootHome",
-  storage: storage,
-  blacklist: [],
-  stateReconciler: autoMergeLevel2, // Xem thêm tại mục "Quá trình merge".
-};
+// const persistConfig2 = {
+//   key: "rootHome",
+//   storage: storage,
+//   blacklist: [],
+//   stateReconciler: autoMergeLevel2, // Xem thêm tại mục "Quá trình merge".
+// };
 const pReducerMusic = persistReducer(persistConfig, musicSlice);
-const pReducerHome = persistReducer(persistConfig2, homeSlice);
+// const pReducerHome = persistReducer(persistConfig2, homeSlice);
 const rootReducer = combineReducers({
-  home: pReducerHome,
+  home: homeSlice,
   screen: responsiveSlice,
   music: pReducerMusic,
 });

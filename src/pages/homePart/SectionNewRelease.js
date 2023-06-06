@@ -38,7 +38,7 @@ const SectionNewRelease = ({ genre = "all", data = {} }) => {
   }, [genre, data, numberItem]);
 
   return (
-    <div className="grid gap-x-7 xl:grid-cols-3 md:grid-cols-2 grid-cols-1">
+    <div className="grid gap-x-7 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 section-newRelease">
       {newReleaseData?.length > 0 &&
         newReleaseData?.map((data) => (
           <div key={v4()} className="flex flex-col items-start">
