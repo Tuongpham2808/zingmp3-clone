@@ -23,6 +23,7 @@ const CardMedia = ({
   zingchart = false,
   rankNumber = 1,
   choicePersen = "40%",
+  color = "",
 }) => {
   const { isOpenSBR } = useSelector((state) => state.screen);
   let styles = {};
@@ -38,6 +39,16 @@ const CardMedia = ({
       };
       break;
     case "small":
+      styles = {
+        classImage: "w-10 h-10",
+        classIcon: "w-7 h-7",
+        classGroup: "p-2",
+        classBtn: "w-[26px] h-[26px]",
+        classSizeIcon: "w-4 h-4",
+        date: false,
+      };
+      break;
+    case "chartTooltip":
       styles = {
         classImage: "w-10 h-10",
         classIcon: "w-7 h-7",
@@ -90,7 +101,7 @@ const CardMedia = ({
 
   return (
     <div
-      className={`group rounded hover:bg-[var(--bg-transparent1)] items-center w-full gap-x-[10px] select-none card-media ${
+      className={`group rounded  items-center w-full gap-x-[10px] select-none card-media ${
         styles.classGroup
       } ${played ? "opacity-50" : ""} ${
         curSongId === id ? "bg-[var(--bg-transparent1)] playing" : "flex"
@@ -98,15 +109,32 @@ const CardMedia = ({
         zingchart
           ? "bg-[var(--bg-transparent4)] hover:bg-[var(--bg-transparent3)] py-[10px] px-[15px] flex"
           : ""
+      } ${
+        type === "chartTooltip"
+          ? "py-[5px] pl-[5px] pr-[10px]"
+          : "hover:bg-[var(--bg-transparent1)]"
       }`}
       onDoubleClick={() => handleSelectSongDoubleClick(id)}
+      style={{ background: color }}
     >
-      {zingchart && (
+      {type === "chartTooltip" ? (
+        ""
+      ) : zingchart ? (
         <div className="flex items-start justify-center px-1 mr-[5px]">
-          <span className="strokeText1 text-[32px] font-black leading-[1] text-transparent">
+          <span
+            className={`text-[32px] font-black leading-[1] text-transparent ${
+              rankNumber === 1
+                ? "strokeText1"
+                : rankNumber === 2
+                ? "strokeText2"
+                : "strokeText3"
+            }`}
+          >
             {rankNumber}
           </span>
         </div>
+      ) : (
+        ""
       )}
       <div className="flex gap-x-[10px] w-full items-center overflow-hidden">
         <ImageMedia
@@ -118,7 +146,11 @@ const CardMedia = ({
         ></ImageMedia>
         <div className="w-full overflow-hidden">
           <h3 className="text-sm font-medium text1Line">{title}</h3>
-          <p className="text-xs font-medium mt-[3px] textSecondary cursor-pointer text1Line">
+          <p
+            className={`text-xs font-medium mt-[3px] cursor-pointer text1Line ${
+              type === "chartTooltip" ? "text-white" : "textSecondary"
+            }`}
+          >
             {artists}
           </p>
           {styles.date && (

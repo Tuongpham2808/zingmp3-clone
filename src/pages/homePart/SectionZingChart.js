@@ -12,10 +12,17 @@ import {
 import * as apis from "../../apis/music";
 import { Chart } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
+import { isEqual } from "lodash";
 
 const SectionZingChart = () => {
   const [data, setData] = useState();
-  const [tooltipState, setTooltipState] = useState();
+  const [tooltipState, setTooltipState] = useState({
+    opacity: 0,
+    top: 0,
+    left: 0,
+    color: "",
+  });
+  const [tooltipData, setTooltipData] = useState(null);
   const { zingchartData, rankchartData } = useSelector((state) => state.home);
   const dispatch = useDispatch();
   let id = zingchartData[0]?.encodeId;
@@ -37,10 +44,43 @@ const SectionZingChart = () => {
     maintainAspectRatio: false,
     plugins: {
       legend: false,
-      toolTip: {
+      tooltip: {
         enabled: false,
-        external: ({ tooltip }) => {
-          console.log(tooltip);
+        external: ({ tooltip, chart }) => {
+          // console.log(tooltip);
+          let counters = [];
+          for (let i = 0; i < 3; i++) {
+            counters.push({
+              encodeId: Object.keys(rankchartData?.items || {})?.[i],
+              data: rankchartData?.items?.[
+                Object.keys(rankchartData?.items || {})?.[i]
+              ]
+                ?.filter((item) => +item?.hour !== 2)
+                ?.map((item) => +item?.counter),
+            });
+          }
+          setTooltipData(
+            counters?.find((item) =>
+              item?.data.some(
+                (i) => i === +tooltip?.body[0]?.lines[0]?.replace(".", "")
+              )
+            )?.encodeId
+          );
+          if (tooltip?.opacity === 0) {
+            if (tooltipState.opacity !== 0) {
+              setTooltipState((prev) => ({ ...prev, opacity: 0 }));
+              return;
+            }
+          }
+          let newToolTipData = {
+            opacity: 1,
+            left: tooltip?.caretX,
+            top: tooltip?.caretY,
+            color: tooltip?.labelColors[0]?.borderColor,
+          };
+          if (!isEqual(tooltip, newToolTipData)) {
+            setTooltipState(newToolTipData);
+          }
         },
       },
     },
@@ -49,7 +89,10 @@ const SectionZingChart = () => {
         ticks: {
           display: false,
         },
-        grid: { drawTicks: false, color: "rgba(255,255,255,0.1" },
+        grid: {
+          drawTicks: false,
+          color: "rgba(255,255,255,0.1",
+        },
         min: rankchartData?.minScore,
         max: rankchartData?.maxScore,
         border: { dash: [2, 6], color: "transparent" },
@@ -66,7 +109,7 @@ const SectionZingChart = () => {
       },
     },
     hover: {
-      mode: "dataset",
+      mode: "index",
       intersect: false,
     },
   };
@@ -98,6 +141,7 @@ const SectionZingChart = () => {
     }
     setData({ labels, datasets });
   }, [rankchartData]);
+  // console.log(zingchartData);
 
   return (
     <div className="p-5 rounded-lg bgChart min-h-[374px]">
@@ -122,7 +166,10 @@ const SectionZingChart = () => {
               title={item.title}
               image={item.thumbnail}
               rankNumber={index + 1}
-              choicePersen={"40%"}
+              choicePersen={
+                Math.round((+item?.score * 100) / +rankchartData?.totalScore) +
+                "%"
+              }
               id={item?.encodeId}
             ></CardMedia>
           ))}
@@ -132,11 +179,39 @@ const SectionZingChart = () => {
             </button>
           </div>
         </div>
-        <div className="flex-[60%] w-full h-auto">
-          <div className="w-full flex items-end max-h-[300px] mb-5 ">
+        <div className="flex-[60%] h-full">
+          <div className="flex items-end min-h-[260px] mb-5 relative">
             {data && (
-              <Line options={options} data={data} className="w-full"></Line>
+              <Line options={options} data={data} className="!w-full"></Line>
             )}
+            <div
+              className="toolTip h-auto z-30 max-w-[190px]"
+              style={{
+                top: tooltipState?.top,
+                left: tooltipState?.left,
+                opacity: tooltipState?.opacity,
+                position: "absolute",
+              }}
+            >
+              <CardMedia
+                zingchart={true}
+                order={tooltipState.order}
+                type="chartTooltip"
+                color={tooltipState.color}
+                image={
+                  zingchartData?.find((item) => item?.encodeId === tooltipData)
+                    ?.thumbnail
+                }
+                title={
+                  zingchartData?.find((item) => item?.encodeId === tooltipData)
+                    ?.title
+                }
+                artists={
+                  zingchartData?.find((item) => item?.encodeId === tooltipData)
+                    ?.artistsNames
+                }
+              ></CardMedia>
+            </div>
           </div>
         </div>
       </div>
