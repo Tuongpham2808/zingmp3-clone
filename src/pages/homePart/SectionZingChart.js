@@ -10,11 +10,12 @@ import {
   setRelatedsong,
 } from "../../store/musicSlice";
 import * as apis from "../../apis/music";
+import { Chart } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
-import { Chart } from "chart.js";
 
 const SectionZingChart = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState();
+  const [tooltipState, setTooltipState] = useState();
   const { zingchartData, rankchartData } = useSelector((state) => state.home);
   const dispatch = useDispatch();
   let id = zingchartData[0]?.encodeId;
@@ -29,38 +30,77 @@ const SectionZingChart = () => {
     }
     dispatch(setListSongs(zingchartData));
   }
-  //   const options = {
-  //     responsive: true,
-  //     plugins: {
-  //       title: {
-  //         display: true,
-  //         text: "Chart.js Line Chart",
-  //       },
-  //     },
-  //   };
 
-  //   useEffect(() => {
-  //     let labels = [];
-  //     labels = rankchartData?.times
-  //       ?.filter((item) => +item?.hour % 2 !== 0)
-  //       ?.map((item) => item?.hour);
-  //     let datasets = [];
-  //     if (rankchartData?.items) {
-  //       for (let i = 0; i < 3; i++) {
-  //         datasets.push({
-  //           data: rankchartData?.items[Object.keys(rankchartData?.items)[i]]
-  //             ?.filter((i) => +i.hour % 2 !== 0)
-  //             ?.map((item) => item?.counter),
-  //           borderColor: "rgb(255, 99, 132)",
-  //           backgroundColor: "rgba(255, 99, 132, 0.5)",
-  //         });
-  //       }
-  //     }
-  //     setData({ labels, datasets });
-  //   }, [rankchartData, rankchartData?.items, rankchartData?.times]);
+  const options = {
+    responsive: true,
+    pointRadius: 0,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: false,
+      toolTip: {
+        enabled: false,
+        external: ({ tooltip }) => {
+          console.log(tooltip);
+        },
+      },
+    },
+    scales: {
+      y: {
+        ticks: {
+          display: false,
+        },
+        grid: { drawTicks: false, color: "rgba(255,255,255,0.1" },
+        min: rankchartData?.minScore,
+        max: rankchartData?.maxScore,
+        border: { dash: [2, 6], color: "transparent" },
+      },
+      x: {
+        ticks: { color: "rgba(255,255,255,0.5" },
+        grid: { color: "transparent", drawDashedLine: [0, 0] },
+        border: { color: "transparent" },
+      },
+    },
+    layout: {
+      padding: {
+        bottom: 0,
+      },
+    },
+    hover: {
+      mode: "dataset",
+      intersect: false,
+    },
+  };
+
+  useEffect(() => {
+    let labels;
+    let datasets = [];
+    if (rankchartData?.items) {
+      labels = rankchartData?.times
+        ?.filter((item) => +item?.hour % 2 !== 0)
+        ?.map((item) => item?.hour + ":00");
+      for (let i = 0; i < 3; i++) {
+        datasets.push({
+          data: rankchartData?.items?.[
+            Object.keys?.(rankchartData?.items || {})?.[i]
+          ]
+            ?.filter((i) => +i?.hour % 2 !== 0)
+            ?.map((item) => item?.counter),
+          borderColor: i === 0 ? "#4a90e2" : i === 1 ? "#50e3c2" : "#e35050",
+          tension: 0.25,
+          borderWidth: 2,
+          pointBackgroundColor: "white",
+          pointHoverRadius: 5,
+          pointBorderColor:
+            i === 0 ? "#4a90e2" : i === 1 ? "#50e3c2" : "#e35050",
+          pointHoverBorderWidth: 2.5,
+        });
+      }
+    }
+    setData({ labels, datasets });
+  }, [rankchartData]);
 
   return (
-    <div className="overflow-hidden p-5 rounded-lg bgChart min-h-[374px]">
+    <div className="p-5 rounded-lg bgChart min-h-[374px]">
       <div className="flex gap-x-[10px] items-center mb-5">
         <h3 className="text-3xl font-bold capitalize titleZingchart inline-block">
           #Zingchart
@@ -72,8 +112,8 @@ const SectionZingChart = () => {
           <ZingchartIcon></ZingchartIcon>
         </button>
       </div>
-      <div className="flex items-center w-full -mx-[15px]">
-        <div className="flex-[40%] px-[14px] flex flex-col gap-y-[10px]">
+      <div className="flex items-center w-full gap-x-7">
+        <div className="flex-[40%] flex flex-col gap-y-[10px]">
           {zingchartData?.slice(0, 3).map((item, index) => (
             <CardMedia
               key={v4()}
@@ -86,9 +126,18 @@ const SectionZingChart = () => {
               id={item?.encodeId}
             ></CardMedia>
           ))}
+          <div className="text-center">
+            <button className="md:px-6 mx-auto py-1 px-3 md:text-sm text-xs font-normal text1Line uppercase rounded-full outline outline-1 outline-[var(--text-secondary)] mt-2">
+              Xem thêm
+            </button>
+          </div>
         </div>
-        <div className="flex-[60%] px-[14px]">
-          <div>{/* <Line options={options} data={data}></Line> */}</div>
+        <div className="flex-[60%] w-full h-auto">
+          <div className="w-full flex items-end max-h-[300px] mb-5 ">
+            {data && (
+              <Line options={options} data={data} className="w-full"></Line>
+            )}
+          </div>
         </div>
       </div>
     </div>
