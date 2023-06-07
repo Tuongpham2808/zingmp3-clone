@@ -317,3 +317,18 @@ body::-webkit-scrollbar {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+/* toasify */
+.Toastify__toast--warning {
+  background: #ffe8bc !important;
+}
+.Toastify__toast--error {
+  background: #fca7a9 !important;
+}
+.toastBody {
+  font-family: "Atlas Grotesk Web", Arial, Helvetica, sans-serif;
+  color: #10171d; /* #10171D */
+  font-size: 0.875rem !important;
+}
+.toastProgress {
+  background: #333f48 !important;
+}

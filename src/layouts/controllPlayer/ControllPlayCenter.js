@@ -21,6 +21,7 @@ import {
 } from "react-icons/io5";
 import { formatTimeProgress } from "../../utils/fnTime";
 import { LuRepeat1 } from "react-icons/lu";
+import { toast } from "react-toastify";
 const ControllPlayCenter = () => {
   // 2 dòng này xử lý code ui cho btn
   const progressRef = useRef(null);
@@ -52,18 +53,19 @@ const ControllPlayCenter = () => {
       const res2 = await apis.apiGetSong(curSongId);
       setLoading(false);
       if (res2.data.err === 0) {
-        currentAudio.current.pause();
-        setUrlAudio(res2?.data?.data[128]);
+        setUrlAudio(res2?.data?.data?.[128]);
+        currentAudio.current?.pause();
 
         // setAudio(new Audio(res2?.data?.data[128]));
       } else {
-        currentAudio.current.pause();
+        currentAudio.current?.pause();
+        setUrlAudio("");
+        toast.error("Network Failed!, can't loaded song");
         dispatch(setIsPlaying(false));
       }
     };
     fetchSongAudio();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [curSongId]);
+  }, [curSongId, dispatch]);
   // next song
   function handleNextSong() {
     if (listSongConcat) {
@@ -94,7 +96,7 @@ const ControllPlayCenter = () => {
       dispatch(setCurSongId(idNext));
       dispatch(setIsPlaying(true));
       if (repeatSong === 2) {
-        currentAudio.current.play();
+        currentAudio.current?.play();
       }
     }
     //scroll element playing to view
@@ -133,21 +135,22 @@ const ControllPlayCenter = () => {
   //ontimeUpdate progress song change
   function handleAudioUpdate(e) {
     //Input current time of the audio
-    let minutes = Math.floor(currentAudio.current.currentTime / 60);
-    let seconds = Math.floor(currentAudio.current.currentTime % 60);
+    let minutes = Math.floor(currentAudio.current?.currentTime / 60);
+    let seconds = Math.floor(currentAudio.current?.currentTime % 60);
     let audioCurrentTime = formatTimeProgress(minutes, seconds);
     if (musicCurrentTimeRef.current) {
       musicCurrentTimeRef.current.innerText = audioCurrentTime;
     }
-    if (currentAudio.current.duration) {
+    if (currentAudio.current?.duration) {
       const progressPercent = Math.floor(
-        (currentAudio.current.currentTime / currentAudio.current.duration) * 100
+        (currentAudio.current?.currentTime / currentAudio.current?.duration) *
+          100
       );
       progressRef.current.value = progressPercent;
       progressRef.current.style.background = `linear-gradient(to right, var(--text-primary) ${progressPercent}%, var(--text-secondary) ${progressPercent}%)`;
       //Input total length of the audio
-      let minutes = Math.floor(currentAudio.current.duration / 60);
-      let seconds = Math.floor(currentAudio.current.duration % 60);
+      let minutes = Math.floor(currentAudio.current?.duration / 60);
+      let seconds = Math.floor(currentAudio.current?.duration % 60);
       let audioTotalTime = formatTimeProgress(minutes, seconds);
       if (musicTotalLengthRef.current) {
         musicTotalLengthRef.current.innerText = audioTotalTime;
@@ -168,11 +171,11 @@ const ControllPlayCenter = () => {
   //click play & pause audio
   const handlePlay = () => {
     if (isPlaying) {
-      currentAudio.current.pause();
+      currentAudio.current?.pause();
       dispatch(setIsPlaying(false));
     } else {
-      if (!loading) {
-        currentAudio.current.play();
+      if (!loading && urlAudio) {
+        currentAudio.current?.play();
         dispatch(setIsPlaying(true));
       }
     }
@@ -182,24 +185,28 @@ const ControllPlayCenter = () => {
     let inTimeout;
     inTimeout && clearTimeout(inTimeout);
     function autoPlay() {
-      if (!loading && isPlaying) {
+      if (!loading && isPlaying && urlAudio) {
         const autoPlayAudio = () => {
-          currentAudio.current.pause();
+          currentAudio.current?.pause();
           inTimeout = setTimeout(() => {
-            currentAudio.current.play();
+            currentAudio.current?.play();
           }, 160);
         };
         autoPlayAudio();
+      } else {
+        currentAudio.current?.pause();
       }
     }
     autoPlay();
-  }, [currentAudio, isPlaying, loading]);
+  }, [currentAudio, isPlaying, loading, urlAudio]);
 
   //handle click progress bar
   const handleMusicProgressBar = (e) => {
-    setAudioProgress(e.target.value);
-    currentAudio.current.currentTime =
-      (e.target.value * currentAudio.current.duration) / 100;
+    if (urlAudio) {
+      setAudioProgress(e.target.value);
+      currentAudio.current.currentTime =
+        (e.target.value * currentAudio.current?.duration) / 100;
+    }
   };
   //load volume change
   useEffect(() => {

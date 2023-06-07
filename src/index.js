@@ -10,6 +10,8 @@ import "react-tooltip/dist/react-tooltip.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { PersistGate } from "redux-persist/integration/react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -21,6 +23,10 @@ root.render(
       </PersistGate>
       {/* <Tooltip anchorSelect=".my-tooltip" className="!text-xs" /> */}
     </BrowserRouter>
+    <ToastContainer
+      progressClassName="toastProgress"
+      bodyClassName="toastBody"
+    ></ToastContainer>
   </Provider>
   // </React.StrictMode>
 );
