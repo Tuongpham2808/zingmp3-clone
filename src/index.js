@@ -12,13 +12,14 @@ import "slick-carousel/slick/slick-theme.css";
 import { PersistGate } from "redux-persist/integration/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import GlobalLayout from "./layouts/GlobalLayout";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
     <BrowserRouter>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<GlobalLayout />} persistor={persistor}>
         <App />
       </PersistGate>
       {/* <Tooltip anchorSelect=".my-tooltip" className="!text-xs" /> */}

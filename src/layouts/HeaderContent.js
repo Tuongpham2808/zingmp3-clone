@@ -43,6 +43,7 @@ const HeaderContent = () => {
             className="w-full h-full bgActive textSBL text-sm"
             onFocus={() => setFocus(true)}
             onBlur={() => setFocus(false)}
+            autoComplete="off"
           />
           <span className="absolute flex items-center justify-center top-1/2 -translate-y-1/2 left-0 translate-x-1/2">
             <IoSearchOutline className="w-6 h-6 textSBL"></IoSearchOutline>

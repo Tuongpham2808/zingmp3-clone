@@ -7,7 +7,7 @@ import PlayingIcon from "../utils/iconsOther/PlayingIcon";
 import { useSelector } from "react-redux";
 
 const ImageMedia = ({
-  image = "",
+  image = "https://source.unsplash.com/random/?man",
   tyle = "medium",
   classImage = "w-full h-auto",
   title = "",

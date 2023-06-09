@@ -7,7 +7,7 @@ const SidebarHeader = () => {
   const { handleToggle, toggle } = useToggle();
 
   return (
-    <div className="py-[14px] w-full h-[70px] flex items-center gap-2 px-2">
+    <div className="py-[14px] w-full h-[70px] flex items-center gap-2 px-2 fixed top-0 left-0 right-0 z-10 bgMain">
       <div className="flex items-center h-[42px]">
         <div className="bgActive w-[227px] h-[34px] p-[3px] rounded-full flex items-center">
           <div

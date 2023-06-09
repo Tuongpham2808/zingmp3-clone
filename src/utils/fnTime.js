@@ -41,3 +41,9 @@ export function formatTimeProgress(min, sec) {
   let result = `${min < 10 ? `0${min}` : min} : ${sec < 10 ? `0${sec}` : sec}`;
   return result;
 }
+export function formatDuration(number) {
+  let min = Math.floor(number / 60);
+  let sec = number % 60;
+  let result = `${min < 10 ? `0${min}` : min} : ${sec < 10 ? `0${sec}` : sec}`;
+  return result;
+}

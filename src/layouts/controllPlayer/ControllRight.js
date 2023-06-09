@@ -13,6 +13,7 @@ import {
   VscChromeRestore,
 } from "../../utils/iconsOther";
 import useWindowSize from "../../hooks/useWindowSize";
+import CoverIcon from "../../components/CoverIcon";
 
 const ControllRight = () => {
   const progressRef = useRef(null);
@@ -29,8 +30,7 @@ const ControllRight = () => {
     let rootStyle = document.documentElement.style;
     if (toggle && size === "2xl") {
       rootStyle.setProperty("--margin-contentRight", "330px");
-    }
-    if (!toggle) {
+    } else {
       rootStyle.setProperty("--margin-contentRight", "0px");
     }
   }, [dispatch, size, toggle]);

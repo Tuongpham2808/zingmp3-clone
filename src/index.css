@@ -53,6 +53,16 @@ p {
 body::-webkit-scrollbar {
   display: none; /* cho Chrome, Safari, and Opera */
 }
+.bgFiter {
+  background: radial-gradient(circle, transparent 40%, var(--bg-main) 75%),
+    linear-gradient(to right, var(--bg-main), var(--bg-main)),
+    url(https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.9.37/static/media/week-chart-bg.edf332e5.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: color;
+  opacity: 15%;
+}
 
 .hPlayControll {
   height: var(--height-playControll);
@@ -109,6 +119,12 @@ body::-webkit-scrollbar {
 }
 .bgTrans2 {
   background: var(--bg-transparent2);
+}
+.bgTrans3 {
+  background: var(--bg-transparent3);
+}
+.bgTrans4 {
+  background: var(--bg-transparent4);
 }
 
 /* global text */
@@ -262,6 +278,11 @@ body::-webkit-scrollbar {
   -webkit-text-stroke: 1px #e35050;
   font-family: "Roboto", sans-serif;
 }
+.strokeText4 {
+  -webkit-text-stroke: 1px var(--text-sideBarLeft);
+  font-family: "Roboto", sans-serif;
+}
+
 .translateX100 {
   transform: translateX(120%) !important;
 }
