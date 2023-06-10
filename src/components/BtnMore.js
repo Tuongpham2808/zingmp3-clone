@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const BtnMore = ({
   link = "",
-  title = "Xem thêm",
+  children = "Xem thêm",
   className = "",
   onClick = () => {},
 }) => {
@@ -11,7 +11,7 @@ const BtnMore = ({
     return (
       <Link to={link} className={className}>
         <button className="md:px-6 mx-auto py-2 px-6 md:text-sm text-xs font-normal text1Line rounded-full outline outline-1 outline-[var(--text-secondary)] mt-2">
-          {title}
+          {children}
         </button>
       </Link>
     );
@@ -21,7 +21,7 @@ const BtnMore = ({
         className={`md:px-6 mx-auto py-2 px-6 md:text-sm text-xs font-normal text1Line rounded-full outline outline-1 outline-[var(--text-secondary)] mt-2 ${className}`}
         onClick={onClick}
       >
-        {title}
+        {children}
       </button>
     );
   }

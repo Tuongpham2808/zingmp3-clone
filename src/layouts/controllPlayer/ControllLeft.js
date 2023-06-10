@@ -4,12 +4,10 @@ import { FiMoreHorizontal, HiOutlineHeart } from "../../utils/iconsOther";
 import { MyTooltip } from "../../components";
 import ImageMedia from "../../components/ImageMedia";
 import * as apis from "../../apis";
-import { useDispatch, useSelector } from "react-redux";
-import { SetRelatedsong } from "../../store/musicSlice";
+import { useSelector } from "react-redux";
 
 const ControllLeft = () => {
   const [songInfo, setSongInfo] = useState(null);
-  const dispatch = useDispatch();
   //lấy data audio ra
   const { curSongId } = useSelector((state) => state.music);
   //load data song info
@@ -19,10 +17,6 @@ const ControllLeft = () => {
       if (res.data.err === 0) {
         setSongInfo(res?.data?.data);
       }
-      // const res2 = await apis.apiGetRelatedSong(curSongId);
-      // if (res2.data.err === 0) {
-      //   dispatch(SetRelatedsong(res2?.data?.data?.items));
-      // }
     };
     fetchDetailSong();
     // eslint-disable-next-line react-hooks/exhaustive-deps

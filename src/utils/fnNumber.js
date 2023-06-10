@@ -12,3 +12,16 @@ export function randomArray2(arr) {
   }
   if (arr3.length > 0) return arr3;
 }
+export function formatLiked(number, string = "người yêu thích") {
+  let count;
+  if (number < 1000) {
+    count = number + " " + string;
+  }
+  if (number >= 1000 && number < 1000000) {
+    count = Math.floor(number / 1000) + "K " + string;
+  }
+  if (number >= 1000000) {
+    count = Math.floor(number / 1000000) + "Tr " + string;
+  }
+  return count;
+}

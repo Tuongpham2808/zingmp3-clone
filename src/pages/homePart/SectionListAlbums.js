@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ImageMedia from "../../components/ImageMedia";
 import useWindowSize from "../../hooks/useWindowSize";
+import { Link } from "react-router-dom";
 
 const SectionListAlbums = ({ data = [], styles = "basic" }) => {
   const [List, setList] = useState([]);
@@ -33,6 +34,7 @@ const SectionListAlbums = ({ data = [], styles = "basic" }) => {
             <ImageMedia
               image={item?.thumbnailM}
               title={item?.title}
+              link={item?.link}
             ></ImageMedia>
             {styles === "basic" && (
               <span className="text-sm font-medium limit2LineText textSecondary2 leading-[1.25]">
@@ -41,9 +43,11 @@ const SectionListAlbums = ({ data = [], styles = "basic" }) => {
             )}
             {styles === "more" && (
               <div className="w-full flex flex-col gap-y-1">
-                <h3 className="text-sm font-bold textPrimary text1Line">
-                  {item?.title}
-                </h3>
+                <Link to={item?.link}>
+                  <h3 className="text-sm font-bold textPrimary text1Line">
+                    {item?.title}
+                  </h3>
+                </Link>
                 <span className="text-sm font-medium limit2LineText textSecondary2 leading-[1.25]">
                   {item?.artists?.map((artist) => artist?.name).join(", ")}
                 </span>

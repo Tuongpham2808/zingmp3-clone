@@ -9,6 +9,7 @@ import { formatDuration } from "../utils/fnTime";
 import BtnMore from "../components/BtnMore";
 import { v4 } from "uuid";
 import { toast } from "react-toastify";
+import { setPlayAlbum } from "../store/musicSlice";
 
 const ChartPage = () => {
   const { zingchartData, rankchartData, promotes, weekChartData } = useSelector(
@@ -18,16 +19,19 @@ const ChartPage = () => {
   const [number, setNumber] = useState(10);
   const [listWeekRender, setListWeekRender] = useState([]);
   const dispatch = useDispatch();
+  //dispatch gọi data cho zingchart
   useEffect(() => {
     dispatch(handleGetZingchart());
+    dispatch(setPlayAlbum(false));
   }, [dispatch]);
+  //lấy ra ngẫu nhiên bài hát đề xuất
   useEffect(() => {
     if (promotes.length > 0) {
       let result = promotes?.[Math.floor(Math.random() * promotes?.length)];
       setPromote(result);
     }
   }, [promotes]);
-
+  //tạo ra mảng dữ liệu render
   useEffect(() => {
     let listWeekGlobal = [
       { title: "Việt Nam", data: weekChartData?.vn?.items },
@@ -37,7 +41,7 @@ const ChartPage = () => {
     setListWeekRender(listWeekGlobal);
   }, [weekChartData]);
 
-  console.log(listWeekRender);
+  // console.log(listWeekRender);
 
   return (
     <div>
@@ -61,6 +65,7 @@ const ChartPage = () => {
               artists={promote?.artistsNames}
               durations={formatDuration(promote?.duration)}
               id={promote?.encodeId}
+              listSongsRight={weekChartData?.vn?.items}
             ></CardMediaRank>
           </div>
           {/* list song top vn */}
@@ -80,17 +85,16 @@ const ChartPage = () => {
                   rankNumber={index + 1}
                   rank
                   rakingStatus={item?.rakingStatus}
+                  listSongsRight={zingchartData}
                 ></CardMediaRank>
               ))}
           </div>
           {/* button more */}
           {number === 10 && (
             <div className="w-full text-center">
-              <BtnMore
-                className="mx-auto"
-                onClick={() => setNumber(100)}
-                title="Xem top 100"
-              ></BtnMore>
+              <BtnMore className="mx-auto" onClick={() => setNumber(100)}>
+                Xem top 100
+              </BtnMore>
             </div>
           )}
         </div>
@@ -104,11 +108,15 @@ const ChartPage = () => {
               <div className="w-full grid grid-cols-3 gap-7 mb-[30px]">
                 {listWeekRender &&
                   listWeekRender?.map((item) => (
-                    <div className="py-5 px-[10px] rounded-2xl bgTrans4">
+                    <div
+                      key={v4()}
+                      className="py-5 px-[10px] rounded-2xl bgTrans4"
+                    >
                       <div className="pt-0 pr-0 pb-[10px] pl-10">
                         <ZingchartPlayHead
                           title={item?.title}
                           tyle="normal"
+                          zingchartData={item?.data}
                         ></ZingchartPlayHead>
                       </div>
                       <div className="w-full mb-4">
@@ -129,6 +137,8 @@ const ChartPage = () => {
                                 rank
                                 size="small"
                                 rakingStatus={i?.rakingStatus}
+                                streamingStatus={i?.streamingStatus}
+                                listSongsRight={item?.data}
                               ></CardMediaRank>
                             ))}
                       </div>
@@ -136,10 +146,11 @@ const ChartPage = () => {
                         <BtnMore
                           className="mx-auto"
                           onClick={() =>
-                            toast.error("Chức năng chưa được phát triển")
+                            toast.warning("Chức năng chưa được phát triển")
                           }
-                          title="Xem tất cả"
-                        ></BtnMore>
+                        >
+                          Xem tất cả
+                        </BtnMore>
                       </div>
                     </div>
                   ))}

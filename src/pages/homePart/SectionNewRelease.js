@@ -50,6 +50,7 @@ const SectionNewRelease = ({ genre = "all", data = {} }) => {
                 artists={item.artistsNames}
                 time={item.releaseDate}
                 id={item.encodeId}
+                streamingStatus={item?.streamingStatus}
               ></CardMedia>
             ))}
           </div>

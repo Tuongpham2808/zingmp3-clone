@@ -27,13 +27,13 @@ export function formatTime(number) {
   return time;
 }
 
-export function formatDate(number) {
+export function formatDate(number, separate = ".") {
   let date = new Date(number * 1000)?.toLocaleDateString("zh-HK", {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
   });
-  let dateString = date?.split("/").join(".");
+  let dateString = separate !== "/" ? date?.split("/").join(separate) : date;
   return dateString;
 }
 

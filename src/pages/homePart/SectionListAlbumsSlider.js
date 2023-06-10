@@ -60,6 +60,7 @@ const SectionListAlbumsSlider = ({ data = [], styles = "basic" }) => {
                 <ImageMedia
                   image={item?.thumbnailM}
                   title={item?.title}
+                  link={item?.link}
                 ></ImageMedia>
                 {styles === "basic" && (
                   <span className="text-sm font-medium limit2LineText textSecondary2 leading-[1.25]">

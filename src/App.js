@@ -4,6 +4,7 @@ import GlobalLayout from "./layouts/GlobalLayout";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const ChartPage = React.lazy(() => import("./pages/ChartPage"));
+const AlbumPage = React.lazy(() => import("./pages/AlbumPage"));
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route element={<GlobalLayout />}>
             <Route path="/" element={<HomePage />}></Route>
             <Route path="/zing-chart" element={<ChartPage />}></Route>
+            <Route path="/album/:title/:pid" element={<AlbumPage />}></Route>
             <Route path="*" element={<HomePage />}></Route>
           </Route>
         </Routes>

@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import * as Icon from "./iconsMenu";
 export const menu = [
   {
@@ -15,10 +16,16 @@ export const menu = [
     url: "/radio",
     icon: <Icon.Radio />,
     stream: <Icon.Live />,
+    onClick: () => {
+      toast.warning("Chức năng này chưa được phát triển");
+    },
   },
   {
     title: "Thư viện",
     url: "/mymusic",
     icon: <Icon.Library />,
+    onClick: () => {
+      toast.warning("Chức năng này chưa được phát triển");
+    },
   },
 ];

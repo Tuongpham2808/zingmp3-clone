@@ -244,7 +244,7 @@ body::-webkit-scrollbar {
 }
 
 .transition1 {
-  transition: all ease 1.5s;
+  transition: all ease 1s;
 }
 
 .text1Line {

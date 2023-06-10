@@ -2,13 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 let initialState = {
   isPlaying: false,
   curSongId: "ZOI6BFA9",
-  atAlbum: true,
+  atAlbum: false,
+  singleSong: false,
   listSongs: [],
   volumeAudio: 100,
   relatedsongs: [],
   listSongConcat: [],
+  listPromote: [],
   randomSong: false,
   repeatSong: 0,
+  pauseAlbum: false,
 };
 
 export const musicSlice = createSlice({
@@ -26,6 +29,10 @@ export const musicSlice = createSlice({
     setPlayAlbum: (state, action) => ({
       ...state,
       atAlbum: action.payload,
+    }),
+    setSingleSong: (state, action) => ({
+      ...state,
+      singleSong: action.payload,
     }),
     setListSongs: (state, action) => ({
       ...state,
@@ -51,6 +58,14 @@ export const musicSlice = createSlice({
       ...state,
       repeatSong: action.payload,
     }),
+    setPauseAlbum: (state, action) => ({
+      ...state,
+      pauseAlbum: action.payload,
+    }),
+    setListPromote: (state, action) => ({
+      ...state,
+      listPromote: action.payload,
+    }),
   },
 });
 
@@ -64,5 +79,8 @@ export const {
   setListSongConcat,
   setRandom,
   setRepeat,
+  setPauseAlbum,
+  setSingleSong,
+  setListPromote,
 } = musicSlice.actions;
 export default musicSlice.reducer;

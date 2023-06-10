@@ -7,6 +7,7 @@ import * as apis from "../../apis";
 import {
   setCurSongId,
   setIsPlaying,
+  setPauseAlbum,
   setRandom,
   setRepeat,
 } from "../../store/musicSlice";
@@ -25,10 +26,11 @@ import { toast } from "react-toastify";
 const ControllPlayCenter = () => {
   // 2 dòng này xử lý code ui cho btn
   const progressRef = useRef(null);
-  let currentAudio = useRef();
-
   useProgressCSS(progressRef);
+
+  let currentAudio = useRef();
   let interSetTimeout;
+  let interSetTimeout2;
   //lấy data audio ra
   const {
     isPlaying,
@@ -37,6 +39,8 @@ const ControllPlayCenter = () => {
     listSongConcat,
     randomSong,
     repeatSong,
+    atAlbum,
+    pauseAlbum,
   } = useSelector((state) => state.music);
   const { isOpenSBR } = useSelector((state) => state.screen);
   const [loading, setLoading] = useState(true);
@@ -103,10 +107,12 @@ const ControllPlayCenter = () => {
     interSetTimeout && clearTimeout(interSetTimeout);
     if (isPlaying && isOpenSBR) {
       interSetTimeout = setTimeout(() => {
-        document.querySelector(".sidebarRightPlaying .playing").scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
+        document
+          .querySelector(".sidebarRightPlaying .playing")
+          ?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
       }, 1000);
     }
   }
@@ -160,10 +166,12 @@ const ControllPlayCenter = () => {
     interSetTimeout && clearTimeout(interSetTimeout);
     if (isPlaying && isOpenSBR) {
       interSetTimeout = setTimeout(() => {
-        document.querySelector(".sidebarRightPlaying .playing").scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
+        document
+          .querySelector(".sidebarRightPlaying .playing")
+          ?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
       }, 1000);
     }
   }
@@ -180,6 +188,12 @@ const ControllPlayCenter = () => {
       }
     }
   };
+  //pause audio
+  useEffect(() => {
+    if (!isPlaying && pauseAlbum) {
+      currentAudio.current?.pause();
+    }
+  }, [curSongId, isPlaying, pauseAlbum]);
   //auto play song when currentId change
   useEffect(() => {
     let inTimeout;

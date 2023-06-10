@@ -1,6 +1,6 @@
 import React from "react";
 import { menu } from "../utils/menu";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { v4 } from "uuid";
 import { BiPlus } from "../utils/iconsOther";
 
@@ -8,7 +8,9 @@ const SidebarLeft = () => {
   return (
     <div className="relative flex flex-col h-full">
       <div className="h-[70px] pl-7 pr-6 flex items-center justify-start">
-        <img src="Logo.svg" alt="" className="w-[120px] inline-block" />
+        <Link to="/">
+          <img src="/Logo.svg" alt="" className="w-[120px] inline-block" />
+        </Link>
       </div>
       <div className="flex flex-col mb-4">
         {menu.length > 0 &&
@@ -21,6 +23,7 @@ const SidebarLeft = () => {
                   ? "isActive navSibarLeft flex gap-3 items-center py-3 px-5"
                   : "textSBL flex gap-3 items-center py-3 px-5 ml-[3px]"
               }
+              onClick={item?.onClick}
             >
               <span>{item.icon}</span>
               <span className="text-sm font-semibold">{item.title}</span>

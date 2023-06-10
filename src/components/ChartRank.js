@@ -138,9 +138,13 @@ const ChartRank = ({ zingchartData, rankchartData }) => {
       >
         <CardMedia
           zingchart={true}
-          order={tooltipState.order}
+          order={tooltipState?.order}
           type="chartTooltip"
-          color={tooltipState.color}
+          color={tooltipState?.color}
+          id={
+            zingchartData?.find((item) => item?.encodeId === tooltipData)
+              ?.encodeId
+          }
           image={
             zingchartData?.find((item) => item?.encodeId === tooltipData)
               ?.thumbnail

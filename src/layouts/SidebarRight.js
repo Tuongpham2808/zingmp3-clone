@@ -9,17 +9,24 @@ import { setListSongConcat } from "../store/musicSlice";
 import { randomArray2 } from "../utils/fnNumber";
 
 const SidebarRight = () => {
-  const { listSongs, relatedsongs, curSongId, listSongConcat, randomSong } =
-    useSelector((state) => state.music);
+  const {
+    listSongs,
+    relatedsongs,
+    curSongId,
+    listSongConcat,
+    randomSong,
+    atAlbum,
+    singleSong,
+    listPromote,
+  } = useSelector((state) => state.music);
   const dispatch = useDispatch();
-  // console.log(relatedsongs);
 
   let played = true;
   useEffect(() => {
+    //gộp dữ liệu và loại bỏ bài hát premium
     let dataRender = [];
-
-    if (listSongs.length > 0 && relatedsongs.length > 0 && !randomSong) {
-      dataRender = dataRender.concat(listSongs, "text", relatedsongs);
+    if (listSongs?.length > 0 && relatedsongs?.length > 0 && !randomSong) {
+      dataRender = dataRender?.concat(listSongs, "text", relatedsongs);
     } else {
       dataRender =
         listSongs.length > 0
@@ -28,23 +35,48 @@ const SidebarRight = () => {
           ? relatedsongs
           : [];
     }
-    if (dataRender.length > 0) {
+    if (singleSong) {
+      dataRender = dataRender?.concat(listPromote);
+    }
+    if (dataRender?.length > 0) {
       dispatch(
         setListSongConcat(
-          dataRender.filter((item) => Number(item.streamingStatus) !== 2)
+          dataRender?.filter((item) => Number(item?.streamingStatus) !== 2)
         )
       );
     }
+    //thực hiện gộp dữ liệu và random sắp xếp lại ví trí của list nhạc
     if (randomSong) {
-      dispatch(
-        setListSongConcat(
-          randomArray2([].concat(listSongs, relatedsongs)).filter(
-            (item) => Number(item.streamingStatus) !== 2
+      let dataRenderRandom = [];
+      if (atAlbum) {
+        //trường hợp album có 1 bài hát thì sử dụng đề xuất
+        if (singleSong) {
+          dataRenderRandom = dataRenderRandom.concat(listSongs, listPromote);
+        } else {
+          dataRenderRandom = dataRenderRandom.concat(listSongs);
+        }
+      } else {
+        dataRenderRandom = dataRenderRandom.concat(listSongs, relatedsongs);
+      }
+      if (dataRenderRandom.length > 0) {
+        dispatch(
+          setListSongConcat(
+            randomArray2(dataRenderRandom)?.filter(
+              (item) => Number(item?.streamingStatus) !== 2
+            )
           )
-        )
-      );
+        );
+      }
     }
-  }, [dispatch, listSongs, randomSong, relatedsongs]);
+  }, [
+    atAlbum,
+    dispatch,
+    listPromote,
+    listSongs,
+    randomSong,
+    relatedsongs,
+    singleSong,
+  ]);
 
   return (
     <div className="relative h-full overflow-hidden sidebarRightPlaying">
@@ -77,12 +109,13 @@ const SidebarRight = () => {
               ) : (
                 <div key={v4()} className="flex flex-col textPrimary">
                   <CardMedia
-                    title={item.title}
+                    title={item?.title}
                     artists={item?.artistsNames || item?.artists_names}
                     id={item?.encodeId || item?.id}
                     type="small"
-                    image={item.thumbnail}
+                    image={item?.thumbnail}
                     played={played}
+                    isSBR={true}
                   ></CardMedia>
                 </div>
               );

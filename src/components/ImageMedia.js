@@ -5,16 +5,19 @@ import { IoPlay } from "react-icons/io5";
 import { FiMoreHorizontal } from "react-icons/fi";
 import PlayingIcon from "../utils/iconsOther/PlayingIcon";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const ImageMedia = ({
-  image = "https://source.unsplash.com/random/?man",
+  image = "",
   tyle = "medium",
   classImage = "w-full h-auto",
   title = "",
   id = "",
   onClick = () => {},
+  link = "#",
+  idRandom = "",
 }) => {
-  const { curSongId, isPlaying } = useSelector((state) => state.music);
+  const { curSongId, isPlaying, atAlbum } = useSelector((state) => state.music);
   let styles = {
     btnOther: false,
     btnPlay: true,
@@ -62,7 +65,10 @@ const ImageMedia = ({
   }
 
   return (
-    <>
+    <Link
+      to={link}
+      onClick={link === "# " ? (e) => e.preventDefault() : () => {}}
+    >
       <div
         className={`relative flex-none overflow-hidden rounded group  ${classImage}`}
         title={title}
@@ -98,7 +104,8 @@ const ImageMedia = ({
                   styles.circleStroke ? "border-[1px]" : ""
                 }`}
               >
-                {curSongId === id && isPlaying ? (
+                {(curSongId === id && isPlaying) ||
+                (curSongId === idRandom && atAlbum && isPlaying) ? (
                   <PlayingIcon className={styles.sizePlay} />
                 ) : (
                   <IoPlay className={styles.sizePlay} />
@@ -115,7 +122,7 @@ const ImageMedia = ({
           </span>
         )}
       </div>
-    </>
+    </Link>
   );
 };
 

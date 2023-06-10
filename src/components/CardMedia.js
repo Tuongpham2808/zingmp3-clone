@@ -11,6 +11,9 @@ import {
   setListSongs,
 } from "../store/musicSlice";
 import * as apis from "../apis";
+import PremiumIcon from "../utils/iconsOther/PremiumIcon";
+import { toast } from "react-toastify";
+import { PromoteSongRandomId } from "../utils/fnSong";
 
 const CardMedia = ({
   title = "Chàng trai năm đó",
@@ -24,6 +27,8 @@ const CardMedia = ({
   rankNumber = 1,
   choicePersen = "40%",
   color = "",
+  streamingStatus = 1,
+  isSBR = false,
 }) => {
   const { isOpenSBR } = useSelector((state) => state.screen);
   let styles = {};
@@ -67,11 +72,11 @@ const CardMedia = ({
   const { curSongId } = useSelector((state) => state.music);
   const dispatch = useDispatch();
   const timeFormat = formatTime(time);
-
+  //Thực hiện lấy ra list nhạc mới nhất thông qua id
   async function fetchDataRelated(id) {
     dispatch(setCurSongId(id));
     dispatch(setIsPlaying(true));
-    const res2 = await apis.apiGetRelatedSong(id);
+    const res2 = await apis.apiGetRelatedSong(PromoteSongRandomId());
     if (res2.data.err === 0) {
       dispatch(setRelatedsong(res2?.data?.data?.items));
     }
@@ -79,23 +84,35 @@ const CardMedia = ({
       setListSongs([].concat(newReleaseData.vPop, newReleaseData.others))
     );
   }
-  async function fetchData(id) {
+  function fetchData(id) {
     dispatch(setCurSongId(id));
     dispatch(setIsPlaying(true));
   }
 
   const handleSelectSongDoubleClick = (id) => {
-    if (type === "small") {
-      fetchData(id);
+    if (streamingStatus === 2) {
+      toast.warning(
+        "Để nghe bài hát này bạn cần nâng cấp tài khoản thành PREMIUM"
+      );
     } else {
-      fetchDataRelated(id);
+      if (type === "small") {
+        fetchData(id);
+      } else {
+        fetchDataRelated(id);
+      }
     }
   };
   const handleSelectSongClick = (id) => {
-    if (type === "small") {
-      fetchData(id);
+    if (streamingStatus === 2) {
+      toast.warning(
+        "Để nghe bài hát này bạn cần nâng cấp tài khoản thành PREMIUM"
+      );
     } else {
-      fetchDataRelated(id);
+      if (type === "small") {
+        fetchData(id);
+      } else {
+        fetchDataRelated(id);
+      }
     }
   };
 
@@ -104,7 +121,11 @@ const CardMedia = ({
       className={`group rounded  items-center w-full gap-x-[10px] select-none card-media ${
         styles.classGroup
       } ${played ? "opacity-50" : ""} ${
-        curSongId === id ? "bg-[var(--bg-transparent1)] playing" : "flex"
+        curSongId === id && isSBR
+          ? "bg-[var(--bg-primary-hover)] playing"
+          : curSongId === id
+          ? "bg-[var(--bg-transparent1)] playing"
+          : "flex"
       } ${isOpenSBR ? " active" : " unactive"} ${
         zingchart
           ? "bg-[var(--bg-transparent4)] hover:bg-[var(--bg-transparent3)] py-[10px] px-[15px] flex"
@@ -145,10 +166,27 @@ const CardMedia = ({
           id={id}
         ></ImageMedia>
         <div className="w-full overflow-hidden">
-          <h3 className="text-sm font-medium text1Line">{title}</h3>
+          <div className="flex items-center gap-x-2">
+            <h3
+              className={`text-sm font-medium text1Line ${
+                streamingStatus === 2 ? "textSecondary2" : "textPrimary"
+              }`}
+            >
+              {title}
+            </h3>
+            {streamingStatus === 2 && (
+              <div className="w-14 flex-shrink-0">
+                <PremiumIcon />
+              </div>
+            )}
+          </div>
           <p
             className={`text-xs font-medium mt-[3px] cursor-pointer text1Line ${
-              type === "chartTooltip" ? "text-white" : "textSecondary"
+              type === "chartTooltip"
+                ? "text-white"
+                : curSongId === id && isSBR
+                ? "textSBL"
+                : "textSecondary"
             }`}
           >
             {artists}

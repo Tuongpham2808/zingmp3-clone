@@ -11,6 +11,7 @@ import SectionWeekChart from "./homePart/SectionWeekChart";
 import SectionPartner from "./homePart/SectionPartner";
 import SectionListAlbumsSlider from "./homePart/SectionListAlbumsSlider";
 import SectionZingChart from "./homePart/SectionZingChart";
+import { setPlayAlbum } from "../store/musicSlice";
 
 const btnData = [
   {
@@ -31,6 +32,7 @@ const HomePage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(handleFetchHome());
+    dispatch(setPlayAlbum(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const {

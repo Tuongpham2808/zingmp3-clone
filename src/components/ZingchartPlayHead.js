@@ -8,6 +8,7 @@ import {
   setRelatedsong,
 } from "../store/musicSlice";
 import * as apis from "../apis/music";
+import { PromoteSongRandomId } from "../utils/fnSong";
 
 const ZingchartPlayHead = ({
   tyle = "small",
@@ -15,12 +16,13 @@ const ZingchartPlayHead = ({
   title = "#Zingchart",
 }) => {
   const dispatch = useDispatch();
-  let id = zingchartData[0]?.encodeId;
+  let id = zingchartData?.filter((item) => item?.streamingStatus !== 2)?.[0]
+    ?.encodeId;
   //play first song zing chart
   async function fetchDataPlay() {
     dispatch(setCurSongId(id));
     dispatch(setIsPlaying(true));
-    const res2 = await apis.apiGetRelatedSong(id);
+    const res2 = await apis.apiGetRelatedSong(PromoteSongRandomId());
     // console.log(res2);
     if (res2?.data?.err === 0) {
       dispatch(setRelatedsong(res2?.data?.data?.items));

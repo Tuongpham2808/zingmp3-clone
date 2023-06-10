@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { MyTooltip } from "../../components";
 import useToggle from "../../hooks/useToggle";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +13,6 @@ import {
   VscChromeRestore,
 } from "../../utils/iconsOther";
 import useWindowSize from "../../hooks/useWindowSize";
-import CoverIcon from "../../components/CoverIcon";
 
 const ControllRight = () => {
   const progressRef = useRef(null);
@@ -38,9 +37,9 @@ const ControllRight = () => {
     function updateVolume(event) {
       dispatch(setVolumeAudio(event.target.value));
     }
-    progressRef.current.addEventListener("change", updateVolume);
+    progressRef.current?.addEventListener("change", updateVolume);
     return function cleanup() {
-      progressRef.current.addEventListener("change", updateVolume);
+      progressRef.current?.addEventListener("change", updateVolume);
     };
   }, [dispatch]);
   const handleVolumeBtn = (event) => {
