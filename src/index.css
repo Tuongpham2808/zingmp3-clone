@@ -353,7 +353,12 @@ body::-webkit-scrollbar {
 .toastProgress {
   background: #333f48 !important;
 }
+.listSuggestSearch,
+.bgInputSearch {
+  display: none;
+}
 
-.hxdfvhdsf {
-  transform: translateX(50%);
+.inputSearch:focus ~ .bgInputSearch,
+.inputSearch:focus ~ .listSuggestSearch {
+  display: block;
 }

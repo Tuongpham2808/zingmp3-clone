@@ -16,6 +16,7 @@ const ImageMedia = ({
   onClick = () => {},
   link = "#",
   idRandom = "",
+  isPlaylist = false,
 }) => {
   const { curSongId, isPlaying, atAlbum } = useSelector((state) => state.music);
   let styles = {
@@ -83,7 +84,7 @@ const ImageMedia = ({
             } ${classImage}`}
           />
         </span>
-        {styles.btnPlay && (
+        {styles.btnPlay && !isPlaylist && (
           <span
             className={`absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-black rounded opacity-0 cursor-pointer group-hover:opacity-100 hover:opacity-100 bg-opacity-40 ${classImage} ${
               curSongId === id ? "opacity-100" : ""

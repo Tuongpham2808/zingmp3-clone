@@ -5,12 +5,12 @@ const useWindowScroll = (query) => {
   useEffect(() => {
     let elementScroll = document.querySelector(query);
     function updateScroll() {
-      let size = elementScroll.scrollTop;
+      let size = elementScroll?.scrollTop;
       setScrollTop(size);
     }
-    elementScroll.addEventListener("scroll", updateScroll);
-    return function cleanup() {
-      elementScroll.removeEventListener("scroll", updateScroll);
+    elementScroll?.addEventListener("scroll", updateScroll);
+    return () => {
+      elementScroll?.removeEventListener("scroll", updateScroll);
     };
   }, [query]);
   return scrollTop;

@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
-import { IoSearchOutline } from "react-icons/io5";
-import { LuTrendingUp } from "react-icons/lu";
 import { SlSettings } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
 import { MyTooltip } from "../components";
 import useWindowScroll from "../hooks/useWindowScroll";
+import { memo } from "react";
+import InputSeach from "./InputSeach";
 
 const HeaderContent = () => {
-  const [focus, setFocus] = useState(false);
   const navigate = useNavigate();
   const scroll = useWindowScroll(".mainContent");
 
   return (
     <div
-      className={`px-[60px] h-[70px] flex items-center justify-between fixed top-0 right-0 left-[var(--width-sidebarLeft)] z-[1] bgMain opacity-95 ${
+      className={`px-[60px] h-[70px] flex items-center justify-between fixed top-0 right-0 left-[var(--width-sidebarLeft)] z-[1] bgMain ${
         scroll > 70 ? "shadowHeader" : ""
       }`}
     >
@@ -31,39 +30,7 @@ const HeaderContent = () => {
         >
           <BsArrowRight className="w-5 h-5"></BsArrowRight>
         </button>
-        <div
-          className={`relative max-w-[440px] flex-1 h-10 rounded-[20px] px-10 ${
-            focus ? "bgFocus rounded-b-none" : "bgActive"
-          }`}
-        >
-          <input
-            type="text"
-            name="search"
-            placeholder="Tìm kiếm bài hát,nghệ sĩ,lời bài hát..."
-            className="w-full h-full bgActive textSBL text-sm"
-            onFocus={() => setFocus(true)}
-            onBlur={() => setFocus(false)}
-            autoComplete="off"
-          />
-          <span className="absolute flex items-center justify-center top-1/2 -translate-y-1/2 left-0 translate-x-1/2">
-            <IoSearchOutline className="w-6 h-6 textSBL"></IoSearchOutline>
-          </span>
-          {focus && (
-            <ul className="absolute w-full left-0 top-9 flex flex-col items-center px-[10px] py-[13px] bgFocus textPrimary rounded-b-[20px]">
-              <h3 className="text-sm w-full font-bold pb-2 px-[10px]">
-                Đề xuất cho bạn
-              </h3>
-              {Array(6)
-                .fill(null)
-                .map((item) => (
-                  <div className="w-full py-2 px-[10px] flex items-center gap-x-[10px]">
-                    <LuTrendingUp className="textSBL w-4 h-4"></LuTrendingUp>
-                    <p>Em bé</p>
-                  </div>
-                ))}
-            </ul>
-          )}
-        </div>
+        <InputSeach></InputSeach>
       </div>
       <div className="flex items-center flex-none gap-x-[10px]">
         <span className="w-10 h-10 p-[3px] mx-[2px] flex items-center justify-center textPrimary rounded-full bg-[var(--bg-active)] hover:opacity-80">
@@ -83,4 +50,4 @@ const HeaderContent = () => {
   );
 };
 
-export default HeaderContent;
+export default memo(HeaderContent);

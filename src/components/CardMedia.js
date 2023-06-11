@@ -14,6 +14,9 @@ import * as apis from "../apis";
 import PremiumIcon from "../utils/iconsOther/PremiumIcon";
 import { toast } from "react-toastify";
 import { PromoteSongRandomId } from "../utils/fnSong";
+import { HiOutlineHeart } from "react-icons/hi";
+import { Link } from "react-router-dom";
+import { BsDot } from "react-icons/bs";
 
 const CardMedia = ({
   title = "Chàng trai năm đó",
@@ -29,6 +32,8 @@ const CardMedia = ({
   color = "",
   streamingStatus = 1,
   isSBR = false,
+  isPlaylist = false,
+  link = "#",
 }) => {
   const { isOpenSBR } = useSelector((state) => state.screen);
   let styles = {};
@@ -53,13 +58,23 @@ const CardMedia = ({
         date: false,
       };
       break;
+    case "suggestSearch":
+      styles = {
+        classImage: "w-[52px] h-[52px]",
+        classIcon: "w-[46px] h-[46px]",
+        classGroup: "p-2",
+        classBtn: "w-[38px] h-[38px]",
+        classSizeIcon: "w-5 h-5 textSecondary2",
+        date: false,
+      };
+      break;
     case "chartTooltip":
       styles = {
         classImage: "w-10 h-10",
-        classIcon: "w-7 h-7",
-        classGroup: "p-2",
-        classBtn: "w-[26px] h-[26px]",
-        classSizeIcon: "w-4 h-4",
+        classIcon: "w-[46px] h-[46px]",
+        classGroup: "p-[10px]",
+        classBtn: "w-8 h-8",
+        classSizeIcon: "w-5 h-5",
         date: false,
       };
       break;
@@ -90,137 +105,173 @@ const CardMedia = ({
   }
 
   const handleSelectSongDoubleClick = (id) => {
-    if (streamingStatus === 2) {
-      toast.warning(
-        "Để nghe bài hát này bạn cần nâng cấp tài khoản thành PREMIUM"
-      );
-    } else {
-      if (type === "small") {
-        fetchData(id);
+    if (id !== "") {
+      if (streamingStatus === 2) {
+        toast.warning(
+          "Để nghe bài hát này bạn cần nâng cấp tài khoản thành PREMIUM"
+        );
       } else {
-        fetchDataRelated(id);
+        if (type === "small") {
+          fetchData(id);
+        } else {
+          fetchDataRelated(id);
+        }
       }
     }
   };
   const handleSelectSongClick = (id) => {
-    if (streamingStatus === 2) {
-      toast.warning(
-        "Để nghe bài hát này bạn cần nâng cấp tài khoản thành PREMIUM"
-      );
-    } else {
-      if (type === "small") {
-        fetchData(id);
+    if (id !== "") {
+      if (streamingStatus === 2) {
+        toast.warning(
+          "Để nghe bài hát này bạn cần nâng cấp tài khoản thành PREMIUM"
+        );
       } else {
-        fetchDataRelated(id);
+        if (type === "small") {
+          fetchData(id);
+        } else {
+          fetchDataRelated(id);
+        }
       }
     }
   };
 
   return (
-    <div
-      className={`group rounded  items-center w-full gap-x-[10px] select-none card-media ${
-        styles.classGroup
-      } ${played ? "opacity-50" : ""} ${
-        curSongId === id && isSBR
-          ? "bg-[var(--bg-primary-hover)] playing"
-          : curSongId === id
-          ? "bg-[var(--bg-transparent1)] playing"
-          : "flex"
-      } ${isOpenSBR ? " active" : " unactive"} ${
-        zingchart
-          ? "bg-[var(--bg-transparent4)] hover:bg-[var(--bg-transparent3)] py-[10px] px-[15px] flex"
-          : ""
-      } ${
-        type === "chartTooltip"
-          ? "py-[5px] pl-[5px] pr-[10px]"
-          : "hover:bg-[var(--bg-transparent1)]"
-      }`}
-      onDoubleClick={() => handleSelectSongDoubleClick(id)}
-      style={{ background: color }}
+    <Link
+      to={link}
+      onClick={link === "# " ? (e) => e.preventDefault() : () => {}}
+      className="w-full"
     >
-      {type === "chartTooltip" ? (
-        ""
-      ) : zingchart ? (
-        <div className="flex items-start justify-center px-1 mr-[5px]">
-          <span
-            className={`text-[32px] font-black leading-[1] text-transparent ${
-              rankNumber === 1
-                ? "strokeText1"
-                : rankNumber === 2
-                ? "strokeText2"
-                : "strokeText3"
-            }`}
-          >
-            {rankNumber}
-          </span>
-        </div>
-      ) : (
-        ""
-      )}
-      <div className="flex gap-x-[10px] w-full items-center overflow-hidden">
-        <ImageMedia
-          image={image}
-          classImage={styles.classImage}
-          tyle="normal"
-          onClick={() => handleSelectSongClick(id)}
-          id={id}
-        ></ImageMedia>
-        <div className="w-full overflow-hidden">
-          <div className="flex items-center gap-x-2">
-            <h3
-              className={`text-sm font-medium text1Line ${
-                streamingStatus === 2 ? "textSecondary2" : "textPrimary"
+      <div
+        className={`group rounded  items-center w-full gap-x-[10px] select-none card-media ${
+          styles.classGroup
+        } ${played ? "opacity-50" : ""} ${
+          curSongId === id && isSBR
+            ? "bg-[var(--bg-primary-hover)] playing"
+            : curSongId === id
+            ? "bg-[var(--bg-transparent1)] playing"
+            : "flex"
+        } ${isOpenSBR ? " active" : " unactive"} ${
+          zingchart
+            ? "bg-[var(--bg-transparent4)] hover:bg-[var(--bg-transparent3)] py-[10px] px-[15px] flex"
+            : ""
+        } ${
+          type === "chartTooltip"
+            ? "py-[5px] pl-[5px] pr-[10px]"
+            : "hover:bg-[var(--bg-transparent1)]"
+        }`}
+        onDoubleClick={() => handleSelectSongDoubleClick(id)}
+        style={{ background: color }}
+      >
+        {type === "chartTooltip" ? (
+          ""
+        ) : zingchart ? (
+          <div className="flex items-start justify-center px-1 mr-[5px]">
+            <span
+              className={`text-[32px] font-black leading-[1] text-transparent ${
+                rankNumber === 1
+                  ? "strokeText1"
+                  : rankNumber === 2
+                  ? "strokeText2"
+                  : "strokeText3"
               }`}
             >
-              {title}
-            </h3>
-            {streamingStatus === 2 && (
-              <div className="w-14 flex-shrink-0">
-                <PremiumIcon />
-              </div>
+              {rankNumber}
+            </span>
+          </div>
+        ) : (
+          ""
+        )}
+        <div className="flex gap-x-[10px] w-full items-center overflow-hidden">
+          <ImageMedia
+            image={image}
+            classImage={styles.classImage}
+            tyle="normal"
+            onClick={() => handleSelectSongClick(id)}
+            id={id}
+            isPlaylist={isPlaylist}
+            link={link}
+          ></ImageMedia>
+          <div className="w-full overflow-hidden">
+            <div className="flex items-center gap-x-2">
+              <h3
+                className={`text-sm font-medium text1Line ${
+                  streamingStatus === 2 ? "textSecondary2" : "textPrimary"
+                }`}
+              >
+                {title}
+              </h3>
+              {streamingStatus === 2 && (
+                <div className="w-14 flex-shrink-0">
+                  <PremiumIcon />
+                </div>
+              )}
+            </div>
+            <div className="text-xs font-medium mt-[3px] cursor-pointer text1Line flex items-center">
+              {isPlaylist && (
+                <span className="flex items-center textSecondary">
+                  Playlist <BsDot className="w-6 h-6 -mx-1 -my-[2px]" />
+                </span>
+              )}
+              <p
+                className={`${
+                  type === "chartTooltip"
+                    ? "text-white"
+                    : curSongId === id && isSBR
+                    ? "textSBL"
+                    : "textSecondary"
+                }`}
+              >
+                {artists}
+              </p>
+            </div>
+            {styles.date && (
+              <p className="text-xs font-medium mt-[3px] text1Line textSecondary2">
+                {timeFormat}
+              </p>
             )}
           </div>
-          <p
-            className={`text-xs font-medium mt-[3px] cursor-pointer text1Line ${
-              type === "chartTooltip"
-                ? "text-white"
-                : curSongId === id && isSBR
-                ? "textSBL"
-                : "textSecondary"
-            }`}
-          >
-            {artists}
-          </p>
-          {styles.date && (
-            <p className="text-xs font-medium mt-[3px] text1Line textSecondary2">
-              {timeFormat}
-            </p>
-          )}
         </div>
+        {!zingchart && (
+          <div className="flex items-center">
+            {type === "suggestSearch" && (
+              <div
+                className={`hidden items-center justify-center flex-shrink-0 group-hover:flex ${styles.classIcon}`}
+              >
+                <span
+                  className={`w-8 h-8 p-[3px] flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-transparent1)] cursor-pointer ${styles.classBtn} `}
+                >
+                  <MyTooltip placeholder="Thêm vào thư viện" offset={20}>
+                    <HiOutlineHeart
+                      className={styles.classSizeIcon}
+                    ></HiOutlineHeart>
+                  </MyTooltip>
+                </span>
+              </div>
+            )}
+            <div
+              className={`hidden items-center justify-center flex-shrink-0 group-hover:flex ${styles.classIcon}`}
+            >
+              <span
+                className={`w-8 h-8 p-[3px] flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-transparent1)] cursor-pointer ${styles.classBtn} `}
+              >
+                <MyTooltip placeholder="Khác" offset={20}>
+                  <FiMoreHorizontal
+                    className={styles.classSizeIcon}
+                  ></FiMoreHorizontal>
+                </MyTooltip>
+              </span>
+            </div>
+          </div>
+        )}
+        {zingchart && (
+          <div className="flex items-center justify-center">
+            <span className="whitespace-nowrap textPrimary text-base font-bold">
+              {choicePersen}
+            </span>
+          </div>
+        )}
       </div>
-      {!zingchart && (
-        <div
-          className={`hidden items-center justify-center flex-shrink-0 group-hover:flex ${styles.classIcon}`}
-        >
-          <span
-            className={`w-8 h-8 p-[3px] flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-transparent1)] cursor-pointer ${styles.classBtn} `}
-          >
-            <MyTooltip placeholder="Khác" offset={20}>
-              <FiMoreHorizontal
-                className={styles.classSizeIcon}
-              ></FiMoreHorizontal>
-            </MyTooltip>
-          </span>
-        </div>
-      )}
-      {zingchart && (
-        <div className="flex items-center justify-center">
-          <span className="whitespace-nowrap textPrimary text-base font-bold">
-            {choicePersen}
-          </span>
-        </div>
-      )}
-    </div>
+    </Link>
   );
 };
 

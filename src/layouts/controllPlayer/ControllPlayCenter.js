@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import useProgressCSS from "../../hooks/useProgressCSS";
 import { MyTooltip } from "../../components";
 import GroupBtn from "../../components/GroupBtn";
@@ -341,4 +341,4 @@ const ControllPlayCenter = () => {
   );
 };
 
-export default ControllPlayCenter;
+export default memo(ControllPlayCenter);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import SiderbarNewList from "./sibarRightPart/SidebarNewList";
 import EmptyPlayList from "./sibarRightPart/EmptyPlayList";
 import SidebarHeader from "./sibarRightPart/SidebarHeader";
@@ -126,4 +126,4 @@ const SidebarRight = () => {
   );
 };
 
-export default SidebarRight;
+export default memo(SidebarRight);

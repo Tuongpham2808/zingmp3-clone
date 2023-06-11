@@ -15,6 +15,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import zingchartSlice from "./zingchartSlice";
+import searchSlice from "./searchSlice";
 
 const persistConfig = {
   key: "rootMusic",
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
   screen: responsiveSlice,
   music: pReducerMusic,
   zingchart: zingchartSlice,
+  search: searchSlice,
 });
 export const store = configureStore({
   reducer: rootReducer,

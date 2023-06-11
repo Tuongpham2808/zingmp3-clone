@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import SlickSlider from "./homePart/SlickSlider";
 import { useDispatch, useSelector } from "react-redux";
 import HeadSection from "../components/HeadSection";
@@ -127,4 +127,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default memo(HomePage);

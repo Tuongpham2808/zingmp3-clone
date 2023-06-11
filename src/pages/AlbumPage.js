@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import * as axios from "../apis";
 import { toast } from "react-toastify";
@@ -76,7 +76,6 @@ const AlbumPage = () => {
       setListArtists(dataPlaylist?.artists);
     }
   }, [dataPlaylist?.artists]);
-  console.log(dataPlaylist);
 
   return (
     <div className="pt-[50px] relative">
@@ -226,4 +225,4 @@ const AlbumPage = () => {
   );
 };
 
-export default AlbumPage;
+export default memo(AlbumPage);

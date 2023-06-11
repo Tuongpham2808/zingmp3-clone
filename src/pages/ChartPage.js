@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import ChartRank from "../components/ChartRank";
 import LayoutSection from "../components/LayoutSection";
 import { useDispatch, useSelector } from "react-redux";
@@ -164,4 +164,4 @@ const ChartPage = () => {
   );
 };
 
-export default ChartPage;
+export default memo(ChartPage);
