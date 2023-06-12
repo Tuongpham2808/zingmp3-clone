@@ -29,6 +29,7 @@ const CardMediaRank = ({
   durations = "03:56",
   rankNumber = 0,
   rank = false,
+  disPlayRank = true,
   id = "",
   size = "large",
   rakingStatus = 0,
@@ -92,7 +93,7 @@ const CardMediaRank = ({
           <span className="w-4 mr-[10px]">
             <FiMusic className="w-4 h-4 textSecondary2"></FiMusic>
           </span>
-        ) : (
+        ) : disPlayRank ? (
           <div
             className={`mr-[15px] flex items-center ${
               size === "small" ? "w-[55px]" : "w-[83px]"
@@ -138,6 +139,8 @@ const CardMediaRank = ({
               </p>
             )}
           </div>
+        ) : (
+          <></>
         )}
         <div className="w-full flex items-center justify-start overflow-hidden">
           <ImageMedia

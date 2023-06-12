@@ -29,3 +29,26 @@ export const menu = [
     },
   },
 ];
+
+export const menuSearch = [
+  {
+    title: "Tất cả",
+    url: "/tim-kiem/tat-ca",
+  },
+  {
+    title: "Bài hát",
+    url: "/tim-kiem/bai-hat",
+  },
+  {
+    title: "Playlist/album",
+    url: "/tim-kiem/playlist",
+  },
+  {
+    title: "Nghệ sĩ/oa",
+    url: "/tim-kiem/artist",
+  },
+  {
+    title: "MV",
+    url: "/tim-kiem/video",
+  },
+];

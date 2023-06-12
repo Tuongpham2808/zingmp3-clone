@@ -13,7 +13,7 @@ const HeaderContent = () => {
 
   return (
     <div
-      className={`px-[60px] h-[70px] flex items-center justify-between fixed top-0 right-0 left-[var(--width-sidebarLeft)] z-[1] bgMain ${
+      className={`px-[60px] h-[70px] flex items-center justify-between fixed top-0 right-0 left-[var(--width-sidebarLeft)] z-10 bgMain ${
         scroll > 70 ? "shadowHeader" : ""
       }`}
     >

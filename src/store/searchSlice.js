@@ -3,6 +3,7 @@ import * as apis from "../apis";
 
 const initialState = {
   dataSearch: null,
+  dataSearchSuggest: [],
   zingchartData: [],
 };
 
@@ -28,6 +29,10 @@ export const searchSlice = createSlice({
       ...state,
       dataSearch: action.payload,
     }),
+    setDataSearchSuggest: (state, action) => ({
+      ...state,
+      dataSearchSuggest: action.payload,
+    }),
   },
   extraReducers: (builder) => {
     builder.addCase(handleFetchSearch.fulfilled, (state, action) => {
@@ -38,5 +43,5 @@ export const searchSlice = createSlice({
   },
 });
 
-export const { setDataSearch } = searchSlice.actions;
+export const { setDataSearch, setDataSearchSuggest } = searchSlice.actions;
 export default searchSlice.reducer;

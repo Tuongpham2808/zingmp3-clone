@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useLayoutEffect, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { LuTrendingUp } from "react-icons/lu";
 import useDeboune from "../hooks/useDeboune";
@@ -6,12 +6,14 @@ import * as apis from "../apis";
 import { v4 } from "uuid";
 import { VscChromeClose } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { handleFetchSearch, setDataSearch } from "../store/searchSlice";
-import CardMedia from "../components/CardMedia";
+import { Link, createSearchParams, useNavigate } from "react-router-dom";
+import {
+  handleFetchSearch,
+  setDataSearch,
+  setDataSearchSuggest,
+} from "../store/searchSlice";
 import { editLinkAlbum, johnNameArtist } from "../utils/fnSong";
-import { BsDot } from "react-icons/bs";
-import { formatLiked } from "../utils/fnNumber";
+import CardMediaSearch from "../components/CardMediaSearch";
 
 const InputSeach = () => {
   const { dataSearch, zingchartData } = useSelector((state) => state.search);
@@ -21,6 +23,7 @@ const InputSeach = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let debounceValue = useDeboune(valueInput, 500);
+
   useEffect(() => {
     dispatch(handleFetchSearch());
   }, [dispatch]);
@@ -59,26 +62,31 @@ const InputSeach = () => {
     };
   }, []);
 
+  let fetchDataSearch = async () => {
+    let res = await apis.apiSearch(debounceValue);
+    if (res?.data?.err === 0) {
+      dispatch(setDataSearchSuggest(suggestValue?.[1]?.suggestions));
+      dispatch(setDataSearch(res?.data?.data));
+      // console.log(res?.data);
+      navigate({
+        pathname: "/tim-kiem/tat-ca",
+        search: createSearchParams({
+          q: debounceValue,
+        }).toString(),
+      });
+    }
+  };
+
   //event click to suggest search
-  let itemSuggestElement = document.querySelectorAll(
-    ".listSuggestSearch .itemSuggest p"
-  );
-  for (let index = 0; index < itemSuggestElement.length; index++) {
-    let element = itemSuggestElement[index];
-    element.onclick = function (e) {
-      console.log(e.target.innerText);
-    };
-  }
+  const handleClickSearch = (item) => {
+    // console.log(item);
+    setValueInput(item);
+    fetchDataSearch();
+  };
+
   //dispatch data search to redux
   const handleSearch = (e) => {
     if (e.keyCode === 13) {
-      const fetchDataSearch = async () => {
-        let res = await apis.apiSearch(debounceValue);
-        if (res?.data?.err === 0) {
-          dispatch(setDataSearch(res?.data?.data));
-          navigate("/tim-kiem/tat-ca");
-        }
-      };
       fetchDataSearch();
     }
   };
@@ -108,7 +116,7 @@ const InputSeach = () => {
       )}
       <span className="absolute inset-0 bgFocus rounded-t-[20px] rounded-b-none bgInputSearch z-[2]"></span>
       <div className="listSuggestSearch">
-        <ul className="absolute w-full left-0 top-9 flex flex-col items-center z-50 px-[10px] py-[13px] bgFocus textPrimary rounded-b-[20px]">
+        <ul className="absolute w-full left-0 top-9 flex flex-col items-center z-10 px-[10px] py-[13px] bgFocus textPrimary rounded-b-[20px]">
           <h3 className="text-sm w-full font-bold pb-2 px-[10px]">
             Đề xuất cho bạn
           </h3>
@@ -117,6 +125,7 @@ const InputSeach = () => {
               <div
                 key={v4()}
                 className="w-full itemSuggest py-2 px-[10px] flex items-center gap-x-[10px] hover:bg-[var(--bg-transparent1)] cursor-pointer rounded"
+                onClick={() => handleClickSearch(item)}
               >
                 <LuTrendingUp className="textSecondary2 w-4 h-4"></LuTrendingUp>
                 <p className="text-sm textPrimary">{item}</p>
@@ -137,6 +146,7 @@ const InputSeach = () => {
               <div
                 key={v4()}
                 className="w-full itemSuggest py-2 px-[10px] flex items-center gap-x-[10px] hover:bg-[var(--bg-transparent1)] cursor-pointer rounded"
+                onClick={() => handleClickSearch(item?.keyword)}
               >
                 <IoSearchOutline className="w-4 h-4 textSecondary2"></IoSearchOutline>
                 <p className="text-sm textPrimary">{item?.keyword}</p>
@@ -144,8 +154,8 @@ const InputSeach = () => {
             ))}
           {suggestValue?.[0]?.keywords?.length > 0 && valueInput !== "" && (
             <div
-              key={v4()}
               className="w-full itemSuggest py-2 px-[10px] flex items-center gap-x-[10px] hover:bg-[var(--bg-transparent1)] cursor-pointer rounded"
+              onClick={() => handleClickSearch(valueInput)}
             >
               <IoSearchOutline className="w-4 h-4 textSecondary2"></IoSearchOutline>
               <p className="text-sm textPrimary">
@@ -154,63 +164,36 @@ const InputSeach = () => {
             </div>
           )}
           <div className="w-full">
-            <div className="w-full h-[1px] bgTrans1 my-[10px]"></div>
-            <h3 className="text-sm w-full font-bold pb-2 px-[10px]">
-              Gợi ý kết quả
-            </h3>
+            {valueInput !== "" && (
+              <div className="w-full">
+                <div className="w-full h-[1px] bgTrans1 my-[10px]"></div>
+                <h3 className="text-sm w-full font-bold pb-2 px-[10px]">
+                  Gợi ý kết quả
+                </h3>
+              </div>
+            )}
             {suggestValue?.[1]?.suggestions.length > 0 &&
               valueInput !== "" &&
-              suggestValue?.[1]?.suggestions.map((item) =>
-                item?.type !== 4 ? (
-                  <CardMedia
-                    key={v4()}
-                    type="suggestSearch"
-                    title={item?.title}
-                    artists={johnNameArtist(item?.artists)}
-                    image={item?.thumb}
-                    link={editLinkAlbum(
-                      item?.link,
-                      item?.id,
-                      item?.radioPid,
-                      item?.type
-                    )}
-                    isPlaylist={item?.type === 3}
-                  ></CardMedia>
-                ) : (
-                  <Link
-                    to={editLinkAlbum(
-                      item?.link,
-                      item?.id,
-                      item?.radioPid,
-                      item?.type
-                    )}
-                  >
-                    <div className="w-full p-2 flex items-center gap-x-[10px] hover:bg-[var(--bg-transparent3)] rounded">
-                      <span className="overflow-hidden">
-                        <img
-                          src={item?.avatar}
-                          alt=""
-                          className="w-[52px] h-[52px] object-cover rounded-full"
-                        />
-                      </span>
-                      <div className="flex flex-col items-start">
-                        <p className="textPrimary text-sm font-medium text1Line">
-                          {item?.name}
-                        </p>
-                        <div className="text-xs font-medium cursor-pointer text1Line flex items-center">
-                          <span className="flex items-center textSecondary">
-                            Nghệ sĩ
-                            <BsDot className="w-6 h-6 -mx-1 -my-[2px]" />
-                          </span>
-                          <p className="textSecondary text-xs font-medium text1Line">
-                            {formatLiked(item?.followers, "quan tâm")}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                )
-              )}
+              suggestValue?.[1]?.suggestions.map((item) => (
+                <CardMediaSearch
+                  key={v4()}
+                  title={item?.title || item?.name}
+                  image={item?.thumb || item?.avatar}
+                  type={item?.type}
+                  size="small"
+                  subTitle={
+                    item?.type === 4
+                      ? item?.followers
+                      : johnNameArtist(item?.artists)
+                  }
+                  link={editLinkAlbum(
+                    item?.link,
+                    item?.id,
+                    item?.radioPid,
+                    item?.type
+                  )}
+                ></CardMediaSearch>
+              ))}
           </div>
         </ul>
       </div>

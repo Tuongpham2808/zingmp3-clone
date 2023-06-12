@@ -1,5 +1,3 @@
-import { current } from "@reduxjs/toolkit";
-
 let listSongId = [
   "ZW8IC98I",
   "ZW8WCUW0",
@@ -25,7 +23,7 @@ export function johnNameArtist(arr) {
 
 export function editLinkAlbum(link, id, radioPid = "", type) {
   let result;
-  result = link?.replace("https://zingmp3.vn/", "");
+  result = link?.replace("https://zingmp3.vn/", process.env.REACT_APP_BASE_URL);
   if (type === 1 && radioPid !== "") {
     result = result.replace(id, radioPid);
   }

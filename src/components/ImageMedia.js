@@ -1,7 +1,7 @@
 import React from "react";
 import MyTooltip from "./MyTooltip";
 import { HiOutlineHeart } from "react-icons/hi";
-import { IoPlay } from "react-icons/io5";
+import { IoPlay, IoShuffleOutline } from "react-icons/io5";
 import { FiMoreHorizontal } from "react-icons/fi";
 import PlayingIcon from "../utils/iconsOther/PlayingIcon";
 import { useSelector } from "react-redux";
@@ -22,6 +22,7 @@ const ImageMedia = ({
   let styles = {
     btnOther: false,
     btnPlay: true,
+    btnBuffer: false,
     circleStroke: false,
     sizePlay: "w-5 h-5",
     zoom: true,
@@ -37,6 +38,13 @@ const ImageMedia = ({
       styles = {
         ...styles,
         zoom: false,
+      };
+      break;
+    case "searchArtist":
+      styles = {
+        ...styles,
+        btnBuffer: true,
+        sizePlay: "w-6 h-6",
       };
       break;
     case "medium":
@@ -108,8 +116,10 @@ const ImageMedia = ({
                 {(curSongId === id && isPlaying) ||
                 (curSongId === idRandom && atAlbum && isPlaying) ? (
                   <PlayingIcon className={styles.sizePlay} />
-                ) : (
+                ) : !styles.btnBuffer ? (
                   <IoPlay className={styles.sizePlay} />
+                ) : (
+                  <IoShuffleOutline className={styles.sizePlay} />
                 )}
               </span>
               {styles.btnOther && (

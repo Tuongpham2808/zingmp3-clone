@@ -21,7 +21,7 @@ export function formatLiked(number, string = "người yêu thích") {
     count = Math.floor(number / 1000) + "K " + string;
   }
   if (number >= 1000000) {
-    count = Math.floor(number / 1000000) + "Tr " + string;
+    count = Math.floor(number / 1000000) + "M " + string;
   }
   return count;
 }

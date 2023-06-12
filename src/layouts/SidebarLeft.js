@@ -3,6 +3,7 @@ import { menu } from "../utils/menu";
 import { Link, NavLink } from "react-router-dom";
 import { v4 } from "uuid";
 import { BiPlus } from "../utils/iconsOther";
+import { toast } from "react-toastify";
 
 const SidebarLeft = () => {
   return (
@@ -33,7 +34,10 @@ const SidebarLeft = () => {
       </div>
       <span className="sidebar-divide w-[80%] h-[1px] bgActive mx-5"></span>
       <div className="absolute bottom-0 left-0 right-0">
-        <div className="textSBL bgSBL btActice h-[53px] flex gap-3 items-center py-3 px-5 ml-[3px]">
+        <div
+          className="textSBL bgSBL btActice h-[53px] flex gap-3 items-center py-3 px-5 ml-[3px] cursor-pointer"
+          onClick={() => toast.warning("Chức năng này chưa được phát triển")}
+        >
           <span>
             <BiPlus></BiPlus>
           </span>

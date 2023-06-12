@@ -21,6 +21,7 @@ import { MdGroupAdd, MdLibraryMusic } from "react-icons/md";
 import { IoShuffleOutline } from "react-icons/io5";
 import { formatLiked } from "../utils/fnNumber";
 import BtnMore from "../components/BtnMore";
+import CardArtist from "../components/CardArtist";
 
 const AlbumPage = () => {
   let { pid } = useParams();
@@ -185,40 +186,7 @@ const AlbumPage = () => {
         </h2>
         <div className="w-full grid grid-cols-5 gap-7">
           {listArtists?.length > 0 &&
-            listArtists?.map((item) => (
-              <div key={v4()} className="w-full">
-                <div className="rounded-full overflow-hidden relative group cursor-pointer mb-4">
-                  <span className="w-full">
-                    <img
-                      src={item?.thumbnailM}
-                      alt=""
-                      className="rounded-full object-cover transition1 group-hover:scale-110"
-                    />
-                  </span>
-                  <div className="absolute inset-0 group-hover:bg-[var(--bg-transparent2)] flex items-center justify-center">
-                    <div className="w-[45px] h-[45px] hidden items-center justify-center textPrimary group-hover:flex outline outline-1 rounded-full">
-                      <IoShuffleOutline className="w-7 h-7"></IoShuffleOutline>
-                    </div>
-                  </div>
-                </div>
-                <div className="w-full flex flex-col items-center mb-4">
-                  <h3 className="textPrimary text-base font-medium capitalize limit2LineText leading-6 text-center">
-                    {item?.name}
-                  </h3>
-                  <p className="text-sm font-medium leading-5 text-center textSecondary2">
-                    {formatLiked(item?.totalFollow, "quan tâm")}
-                  </p>
-                </div>
-                <div className="w-full flex-none ">
-                  <BtnMore className="flex items-center gap-x-[5px] bg-[var(--bg-primary-hover)] !outline-0 textPrimary">
-                    <span className="w-4">
-                      <MdGroupAdd className="w-4 h-4"></MdGroupAdd>
-                    </span>
-                    <p className="uppercase text-xs font-medium">quan tâm</p>
-                  </BtnMore>
-                </div>
-              </div>
-            ))}
+            listArtists?.map((item) => <CardArtist data={item}></CardArtist>)}
         </div>
       </div>
     </div>
