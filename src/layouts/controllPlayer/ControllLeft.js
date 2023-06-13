@@ -33,7 +33,7 @@ const ControllLeft = () => {
         <Link to="" className="text-sm font-medium textPrimary">
           <span className="titlePlayControll">
             <p className="textPlay">
-              {Array(4).fill(songInfo?.title).join(". ")}
+              {Array(2).fill(songInfo?.title).join(". ")}
             </p>
           </span>
         </Link>

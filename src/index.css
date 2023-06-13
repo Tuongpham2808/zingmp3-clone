@@ -20,6 +20,7 @@ p {
   --bg-main: #0f1a2e;
   --bg-primary-hover: #158370;
   --bg-primary: #0daf94;
+  --bg-modal: #173b45;
   --bg-inputFocus: #173b45;
   --text-primary: #ffffff;
   --text-primary-hover: #0daf94;
@@ -82,6 +83,9 @@ body::-webkit-scrollbar {
 }
 .bgMain {
   background-color: var(--bg-main);
+}
+.bgModal {
+  background-color: var(--bg-modal);
 }
 .bgPrimary {
   background-color: var(--bg-primary);
@@ -365,4 +369,28 @@ body::-webkit-scrollbar {
 .inputSearch:focus ~ .bgInputSearch,
 .inputSearch:focus ~ .listSuggestSearch {
   display: block;
+}
+
+.zoom-enter {
+  opacity: 0;
+}
+.zoom-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.zoom-enter .content {
+  opacity: 0;
+  transform: scale(0.3);
+}
+.zoom-enter-active .content {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 200ms;
+}
+.zoom-exit {
+  opacity: 1;
+}
+.zoom-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
 }

@@ -79,7 +79,7 @@ const CardMediaRank = ({
 
   return (
     <div
-      className={`suggest flex items-center p-[10px] rounded group ${
+      className={`suggest flex items-center p-[10px] rounded group cursor-pointer ${
         id === curSongId
           ? "bg-[var(--bg-transparent1)] playing"
           : "hover:bg-[var(--bg-transparent1)]"

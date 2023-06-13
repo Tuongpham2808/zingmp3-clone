@@ -60,3 +60,19 @@ export const apiGetRelatedSong = (sId) =>
       reject(error);
     }
   });
+
+export const apiSongInfo = (sId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: "/infosong",
+        params: {
+          id: sId,
+        },
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });

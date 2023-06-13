@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as apis from "../apis";
 
 const initialState = {
-  dataSearch: null,
+  dataSearch: {},
   dataSearchSuggest: [],
   zingchartData: [],
 };

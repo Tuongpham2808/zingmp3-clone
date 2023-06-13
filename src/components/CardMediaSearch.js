@@ -73,6 +73,7 @@ const CardMediaSearch = ({
               classImage={classglobal.sizeImage}
               tyle={classglobal.options}
               id={id}
+              link={link}
             ></ImageMedia>
           </div>
           <div className="w-full overflow-hidden">
@@ -81,7 +82,11 @@ const CardMediaSearch = ({
                 {classglobal.genres}
               </p>
             )}
-            <h3 className="text-sm font-semibold text1Line limit2LineText">
+            <h3
+              className={`text-sm font-semibold ${
+                size === "large" ? "limit2LineText" : "text1Line"
+              }`}
+            >
               {title}
             </h3>
             <p className="text-xs font-medium mt-[3px] textSecondary cursor-pointer text1Line">

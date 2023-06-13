@@ -90,6 +90,7 @@ const ImageMedia = ({
             className={`object-cover rounded transition1 ${
               styles.zoom ? "group-hover:scale-110" : ""
             } ${classImage}`}
+            loading="lazy"
           />
         </span>
         {styles.btnPlay && !isPlaylist && (

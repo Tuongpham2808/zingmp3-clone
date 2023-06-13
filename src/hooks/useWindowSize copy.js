@@ -1,9 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import useDeboune from "./useDeboune";
 
 const useWindowSize = () => {
   const [size, setSize] = useState("2xl");
-  let deBounceSize = useDeboune(size, 1000);
   let handleWindowResize = () => {
     let width = window.innerWidth;
     if (width >= 1536) {
@@ -27,7 +25,7 @@ const useWindowSize = () => {
     handleWindowResize();
   }, []);
 
-  return deBounceSize;
+  return size;
 };
 
 export default useWindowSize;

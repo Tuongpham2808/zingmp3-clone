@@ -17,10 +17,7 @@ import {
 } from "../store/musicSlice";
 import { v4 } from "uuid";
 import { setRandom } from "../store/musicSlice";
-import { MdGroupAdd, MdLibraryMusic } from "react-icons/md";
-import { IoShuffleOutline } from "react-icons/io5";
-import { formatLiked } from "../utils/fnNumber";
-import BtnMore from "../components/BtnMore";
+import { MdLibraryMusic } from "react-icons/md";
 import CardArtist from "../components/CardArtist";
 
 const AlbumPage = () => {
