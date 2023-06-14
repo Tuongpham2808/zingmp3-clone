@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import MyTooltip from "./MyTooltip";
 import { FiMoreHorizontal } from "react-icons/fi";
 import CoverIcon from "./CoverIcon";
@@ -117,4 +117,4 @@ const CardMediaSearch = ({
   );
 };
 
-export default CardMediaSearch;
+export default memo(CardMediaSearch);

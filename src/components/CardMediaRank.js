@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import ImageMedia from "./ImageMedia";
 import CoverIcon from "./CoverIcon";
 import { MdOndemandVideo } from "react-icons/md";
@@ -44,19 +44,9 @@ const CardMediaRank = ({
   async function fetchDataRelated(id) {
     dispatch(setCurSongId(id));
     dispatch(setIsPlaying(true));
-    //lấy ra danh sách liên quan
-    // const res2 = await apis.apiGetRelatedSong(PromoteSongRandomId());
-    // if (res2.data.err === 0) {
-    //   dispatch(setRelatedsong(res2?.data?.data?.items));
-    // }
     dispatch(setListSongs(listSongsRight || zingchartData));
     dispatch(setPlayAlbum(true));
   }
-  //chỉ có play mỗi bài hát
-  // async function fetchData(id) {
-  //   dispatch(setCurSongId(id));
-  //   dispatch(setIsPlaying(true));
-  // }
 
   const handleSelectSongDoubleClick = (id) => {
     if (streamingStatus === 2) {
@@ -79,7 +69,7 @@ const CardMediaRank = ({
 
   return (
     <div
-      className={`suggest flex items-center p-[10px] rounded group cursor-pointer ${
+      className={`suggest w-full flex items-center overflow-hidden p-[6px] xs:p-[10px] rounded group cursor-pointer ${
         id === curSongId
           ? "bg-[var(--bg-transparent1)] playing"
           : "hover:bg-[var(--bg-transparent1)]"
@@ -87,7 +77,11 @@ const CardMediaRank = ({
       onDoubleClick={() => handleSelectSongDoubleClick(id)}
     >
       <div
-        className={`flex items-center ${size === "small" ? "w-5/6" : "w-1/2"}`}
+        className={`flex items-center pr-3 ${
+          size === "small"
+            ? " w-[85%] xs:w-[85%] md:max-w-[80%]"
+            : " w-[85%]  xs:w-[75%] md:w-1/2"
+        }`}
       >
         {isPlaylist ? (
           <span className="w-4 mr-[10px]">
@@ -95,14 +89,14 @@ const CardMediaRank = ({
           </span>
         ) : disPlayRank ? (
           <div
-            className={`mr-[15px] flex items-center ${
-              size === "small" ? "w-[55px]" : "w-[83px]"
+            className={`xs:mr-[15px] flex items-center ${
+              size === "small" ? "hidden xs:w-[55px]" : "w-[83px]"
             }`}
           >
             {rank ? (
               <div className={`flex items-center justify-center px-1 mr-[5px]`}>
                 <span
-                  className={`text-[32px] font-black leading-[1] flex items-center justify-center text-transparent text1Line ${
+                  className={`xs:text-[32px] text-2xl font-black leading-[1] flex items-center justify-center text-transparent text1Line ${
                     rankNumber === 1
                       ? "strokeText1"
                       : rankNumber === 2
@@ -110,11 +104,11 @@ const CardMediaRank = ({
                       : rankNumber === 3
                       ? "strokeText3"
                       : "strokeText4"
-                  } ${size === "small" ? "w-[35px]" : "w-[65px]"}`}
+                  } ${size === "small" ? "w-[35px]" : "xs:w-[65px] w-12"}`}
                 >
                   {rankNumber}
                 </span>
-                <span className="w-[18px] flex flex-col items-center justify-center">
+                <span className="w-[18px] hidden xs:flex flex-col items-center justify-center">
                   {rakingStatus !== 0 ? (
                     <>
                       <span className="w-[18px] h-[18px] flex items-center justify-center">
@@ -134,7 +128,7 @@ const CardMediaRank = ({
                 </span>
               </div>
             ) : (
-              <p className="textSecondary2 text-sm font-medium w-[83px] flex items-center justify-center px-1 mr-[5px]">
+              <p className="textSecondary2 text-sm font-medium w-[63px] xs:w-[83px] flex items-center justify-center px-1">
                 Gợi ý
               </p>
             )}
@@ -152,49 +146,62 @@ const CardMediaRank = ({
           ></ImageMedia>
           <div className="ml-[10px] overflow-hidden">
             <div className="w-full overflow-hidden">
-              <div className="flex items-center gap-x-2">
-                <h3 className="text-sm font-medium text1Line textPrimary ">
-                  {title}
-                </h3>
+              <div className="flex items-center gap-x-2 overflow-hidden">
+                <div className="overflow-hidden">
+                  <h3 className="text-sm font-medium text1Line textPrimary ">
+                    {title}
+                  </h3>
+                </div>
                 {streamingStatus === 2 && (
                   <div className="w-14 flex-shrink-0">
                     <PremiumIcon />
                   </div>
                 )}
               </div>
-              <p className="text-xs font-medium mt-[3px] capitalize cursor-pointer text1Line textSecondary">
-                {artists}
-              </p>
+              <div className="overflow-hidden">
+                <p className="text-xs font-medium mt-[3px] capitalize cursor-pointer text1Line textSecondary">
+                  {artists}
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex items-center gap-x-[10px] w-1/2">
+      <div
+        className="flex items-center justify-between gap-x-[10px] w-full
+       md:w-1/2"
+      >
         {size !== "small" && (
-          <div className="">
+          <div className="pr-3 hidden md:flex overflow-hidden">
             <Link to={linkAlbum}>
-              <p className="text-xs font-medium mt-[3px] cursor-pointer text1Line textSecondary text-left text1Line">
+              <p className="text-xs font-medium mt-[3px] cursor-pointer text1Line textSecondary text-left">
                 {titleAlbum}
               </p>
             </Link>
           </div>
         )}
-        <div className="flex-shrink-0 ml-auto">
-          <span className="text-xs font-medium mt-[3px] cursor-pointer text1Line textSecondary group-hover:hidden text-right">
+        <div className="flex-none ml-auto overflow-hidden">
+          <span className="text-xs ml-auto font-medium mt-[3px] xs:block hidden cursor-pointer text1Line textSecondary group-hover:hidden text-right">
             {durations}
           </span>
-          <div>
-            <div className="hidden items-center group-hover:flex">
+          <div className="ml-auto">
+            <div className="hidden items-center group-hover:flex overflow-hidden min-w-[38px] xs:min-w-[76px]">
               {size !== "small" && (
-                <CoverIcon placeholder="Xem MV">
+                <CoverIcon placeholder="Xem MV" className="md:flex hidden">
                   <MdOndemandVideo className="w-5 h-5"></MdOndemandVideo>
                 </CoverIcon>
               )}
-              <CoverIcon placeholder="Phát cùng lời bài hát">
+              <CoverIcon
+                placeholder="Phát cùng lời bài hát"
+                className="xs:flex hidden"
+              >
                 <GiMicrophone></GiMicrophone>
               </CoverIcon>
               {size !== "small" && (
-                <CoverIcon placeholder="Thêm vào thư viện">
+                <CoverIcon
+                  placeholder="Thêm vào thư viện"
+                  className="sm:flex hidden"
+                >
                   <HiOutlineHeart className="w-5 h-5"></HiOutlineHeart>
                 </CoverIcon>
               )}
@@ -209,4 +216,4 @@ const CardMediaRank = ({
   );
 };
 
-export default CardMediaRank;
+export default memo(CardMediaRank);

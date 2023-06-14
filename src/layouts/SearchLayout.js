@@ -6,12 +6,12 @@ import { v4 } from "uuid";
 const SearchLayout = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   return (
-    <div className="w-full">
+    <div className="w-full overflow-hidden">
       <div className="w-full textPrimary flex items-center border-b-[1px] border-[var(--bg-transparent1)]">
-        <h2 className="text-2xl font-bold pr-5 border-r-[1px] border-[var(--bg-transparent1)]">
+        <h2 className="text-2xl font-bold text1Line hidden xl:block pr-5 border-r-[1px] border-[var(--bg-transparent1)]">
           Kết quả tìm kiếm
         </h2>
-        <div className="flex items-center menuSearch">
+        <div className="flex items-center menuSearch overflow-x-scroll hiddenScroll cursor-pointer">
           {menuSearch.length > 0 &&
             menuSearch.map((item) => (
               <div key={v4()} className="px-5">
@@ -19,8 +19,8 @@ const SearchLayout = () => {
                   to={item?.url + "?q=" + searchParams.get("q")}
                   className={({ isActive }) =>
                     isActive
-                      ? "isActive h-[47px] flex items-center justify-center"
-                      : "h-[47px] flex items-center justify-center"
+                      ? "isActive text1Line h-[47px] flex items-center justify-center uppercase"
+                      : "h-[47px] text1Line flex items-center justify-center uppercase"
                   }
                 >
                   <span>{item?.title}</span>

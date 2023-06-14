@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useWindowSize from "../../hooks/useWindowSize";
 import ItemAlbum from "../../components/ItemAlbum";
+import { v4 } from "uuid";
 
 const SectionListAlbums = ({ data = [], styles = "basic" }) => {
   const [List, setList] = useState([]);
@@ -28,7 +29,9 @@ const SectionListAlbums = ({ data = [], styles = "basic" }) => {
   return (
     <div className="grid gap-x-3 md:gap-x-4 xl:grid-cols-5 md:grid-cols-4 lg:gap-x-7 grid-cols-2">
       {List?.length > 0 &&
-        List.map((item) => <ItemAlbum data={item} styles={styles}></ItemAlbum>)}
+        List.map((item) => (
+          <ItemAlbum key={v4()} data={item} styles={styles}></ItemAlbum>
+        ))}
     </div>
   );
 };

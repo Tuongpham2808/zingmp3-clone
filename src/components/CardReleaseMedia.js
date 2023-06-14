@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import ImageMedia from "./ImageMedia";
 import { formatDate } from "../utils/fnTime";
 
@@ -46,4 +46,4 @@ const CardReleaseMedia = ({
   );
 };
 
-export default CardReleaseMedia;
+export default memo(CardReleaseMedia);

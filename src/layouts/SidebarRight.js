@@ -3,10 +3,10 @@ import SiderbarNewList from "./sibarRightPart/SidebarNewList";
 import EmptyPlayList from "./sibarRightPart/EmptyPlayList";
 import SidebarHeader from "./sibarRightPart/SidebarHeader";
 import { useDispatch, useSelector } from "react-redux";
-import { CardMedia } from "../components";
 import { v4 } from "uuid";
 import { setListSongConcat } from "../store/musicSlice";
 import { randomArray2 } from "../utils/fnNumber";
+import CardMedia from "../components/CardMedia";
 
 const SidebarRight = () => {
   const {

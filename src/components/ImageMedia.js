@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import MyTooltip from "./MyTooltip";
 import { HiOutlineHeart } from "react-icons/hi";
 import { IoPlay, IoShuffleOutline } from "react-icons/io5";
@@ -138,4 +138,4 @@ const ImageMedia = ({
   );
 };
 
-export default ImageMedia;
+export default memo(ImageMedia);

@@ -19,6 +19,7 @@ import { v4 } from "uuid";
 import { setRandom } from "../store/musicSlice";
 import { MdLibraryMusic } from "react-icons/md";
 import CardArtist from "../components/CardArtist";
+import SectionInfoPlaylistVertical from "./albumPart/SectionInfoPlaylistVertical";
 
 const AlbumPage = () => {
   let { pid } = useParams();
@@ -74,6 +75,7 @@ const AlbumPage = () => {
       setListArtists(dataPlaylist?.artists);
     }
   }, [dataPlaylist?.artists]);
+  // console.log(dataPlaylist);
 
   return (
     <div className="pt-[50px] relative">
@@ -86,8 +88,23 @@ const AlbumPage = () => {
             atAlbum={true}
           ></SectionInfoPlaylist>
           <div className="flex-1 overflow-x-hidden overflow-y-scroll hiddenScroll">
+            <SectionInfoPlaylistVertical
+              dataPlaylist={dataPlaylist}
+              onClick={handleRandomSong}
+              idRandom={curSongId}
+              atAlbum={true}
+            >
+              <div className="flex xl:hidden items-center gap-x-[5px] mb-[10px] text-sm font-medium textPrimary">
+                <span className="textSecondary2 whitespace-nowrap">
+                  Lời tựa
+                </span>
+                <span className="text1Line">
+                  {dataPlaylist?.sortDescription}
+                </span>
+              </div>
+            </SectionInfoPlaylistVertical>
             <div className="w-full">
-              <div className="flex items-center gap-x-[5px] mb-[10px] text-sm font-medium textPrimary">
+              <div className="hidden xl:flex items-center gap-x-[5px] mb-[10px] text-sm font-medium textPrimary">
                 <span className="textSecondary2 whitespace-nowrap">
                   Lời tựa
                 </span>
@@ -139,11 +156,16 @@ const AlbumPage = () => {
                       <p className="leading-[18px]">Cung cấp bởi</p>
                     </div>
                     <div className="text-[13px] font-medium flex flex-col gap-2 items-start">
-                      <p className="leading-[18px]">1</p>
                       <p className="leading-[18px]">
-                        {dataPlaylist?.releaseDate}
+                        {dataPlaylist?.song?.total}
                       </p>
-                      <p className="leading-[18px]">LOOPS Music</p>
+                      <p className="leading-[18px]">
+                        {dataPlaylist?.releaseDate ||
+                          formatDate(dataPlaylist?.contentLastUpdate, "/")}
+                      </p>
+                      <p className="leading-[18px]">
+                        {dataPlaylist?.distributor}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -181,9 +203,11 @@ const AlbumPage = () => {
         <h2 className="capitalize text-xl font-bold mb-5 textPrimary">
           Nghệ sĩ tham gia
         </h2>
-        <div className="w-full grid grid-cols-5 gap-7">
+        <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-7">
           {listArtists?.length > 0 &&
-            listArtists?.map((item) => <CardArtist data={item}></CardArtist>)}
+            listArtists?.map((item) => (
+              <CardArtist key={v4()} data={item}></CardArtist>
+            ))}
         </div>
       </div>
     </div>

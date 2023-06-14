@@ -29,39 +29,25 @@ const persistConfig = {
   ],
   stateReconciler: autoMergeLevel2, // Xem thêm tại mục "Quá trình merge".
 };
-
 const persistConfigSearch = {
   key: "rootMusic",
   storage: storage,
   stateReconciler: autoMergeLevel2, // Xem thêm tại mục "Quá trình merge".
 };
-
 const persistConfigHome = {
   key: "rootHome",
   storage: storage,
   blacklist: [],
   stateReconciler: autoMergeLevel2, // Xem thêm tại mục "Quá trình merge".
 };
-const persistConfigZingChart = {
-  key: "rootChart",
-  storage: storage,
-  blacklist: [],
-  stateReconciler: autoMergeLevel2, // Xem thêm tại mục "Quá trình merge".
-};
-
 const pReducerMusic = persistReducer(persistConfig, musicSlice);
 const pReducerSearch = persistReducer(persistConfigSearch, searchSlice);
 const pReducerHome = persistReducer(persistConfigHome, homeSlice);
-const pReducerZingChart = persistReducer(
-  persistConfigZingChart,
-  zingchartSlice
-);
-
 const rootReducer = combineReducers({
   home: pReducerHome,
   screen: responsiveSlice,
   music: pReducerMusic,
-  zingchart: pReducerZingChart,
+  zingchart: zingchartSlice,
   search: pReducerSearch,
 });
 export const store = configureStore({

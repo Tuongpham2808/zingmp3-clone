@@ -1,19 +1,19 @@
 import React from "react";
-import { CardMedia } from "../../components";
 import { v4 } from "uuid";
 import { useSelector } from "react-redux";
 import ChartRank from "../../components/ChartRank";
 import ZingchartPlayHead from "../../components/ZingchartPlayHead";
 import BtnMore from "../../components/BtnMore";
+import CardMedia from "../../components/CardMedia";
 
 const SectionZingChart = () => {
   const { zingchartData, rankchartData } = useSelector((state) => state.home);
 
   return (
-    <div className="p-5 rounded-lg bgChart min-h-[374px]">
+    <div className="sm:p-5 p-3 rounded-lg bgChart min-h-[374px]">
       <ZingchartPlayHead zingchartData={zingchartData}></ZingchartPlayHead>
-      <div className="flex items-center w-full gap-x-7">
-        <div className="flex-[40%] flex flex-col gap-y-[10px]">
+      <div className="grid xl:grid-cols-5 w-full gap-x-7">
+        <div className="xl:col-start-1 xl:col-span-2 flex flex-col gap-y-[10px]">
           {zingchartData?.slice(0, 3).map((item, index) => (
             <CardMedia
               key={v4()}
@@ -33,7 +33,7 @@ const SectionZingChart = () => {
             <BtnMore link="/zing-chart"></BtnMore>
           </div>
         </div>
-        <div className="flex-[60%] h-full">
+        <div className="xl:col-start-3 xl:col-span-3 xs:block hidden h-full">
           <ChartRank
             zingchartData={zingchartData}
             rankchartData={rankchartData}

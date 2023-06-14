@@ -15,11 +15,12 @@ const SectionInfoPlaylist = ({
   idRandom = "",
 }) => {
   const { isPlaying, atAlbum } = useSelector((state) => state.music);
+
   return (
-    <div className="sticky w-1/4 left-0 top-[120px] flex flex-col items-center gap-y-3 pb-[30px]">
+    <div className="sticky w-1/4 left-0 top-[120px] hidden xl:flex flex-col items-center gap-y-3 pb-[30px]">
       <div className="shadow-[0_5px_8px_0_rgba(0,0,0,0.2)] rounded-lg overflow-hidden">
         <ImageMedia
-          classImage="w-full"
+          classImage="w-full rounded-lg"
           image={dataPlaylist?.thumbnailM}
           tyle="large"
           onClick={onClick}
@@ -33,7 +34,10 @@ const SectionInfoPlaylist = ({
           </h3>
           <div className="flex items-baseline gap-1 text-xs leading-6 font-medium textSecondary2">
             <p>Cập nhật:</p>
-            <p>{dataPlaylist?.releaseDate}</p>
+            <p>
+              {dataPlaylist?.releaseDate ||
+                formatDate(dataPlaylist?.contentLastUpdate, "/")}
+            </p>
           </div>
           <div className="textSecondary text-xs leading-6 font-medium limit2LineText text-center">
             {dataPlaylist?.artistsNames}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { IoShuffleOutline } from "react-icons/io5";
 import { v4 } from "uuid";
 import { formatLiked } from "../utils/fnNumber";
@@ -42,4 +42,4 @@ const CardArtist = ({ data = {} }) => {
   );
 };
 
-export default CardArtist;
+export default memo(CardArtist);

@@ -12,7 +12,6 @@ import SectionArtist from "./SearchAllPart/SectionArtist";
 const SearchAllPage = () => {
   const { dataSearch } = useSelector((state) => state.search);
   const [URLSearchParams, SetURLSearchParams] = useSearchParams();
-  console.log(dataSearch);
 
   return (
     <div className="w-full">

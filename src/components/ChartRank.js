@@ -118,7 +118,7 @@ const ChartRank = ({ zingchartData, rankchartData }) => {
     setData({ labels, datasets });
   }, [rankchartData?.items, rankchartData?.times]);
   return (
-    <div className="flex items-end max-h-[300px] mb-5 relative">
+    <div className="flex items-end max-h-[250px] xl:max-h-[300px] mb-5 relative">
       {data && (
         <Line
           options={options}

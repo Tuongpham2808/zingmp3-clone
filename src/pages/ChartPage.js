@@ -41,10 +41,15 @@ const ChartPage = () => {
     setListWeekRender(listWeekGlobal);
   }, [weekChartData]);
 
-  // console.log(listWeekRender);
+  useEffect(() => {
+    document.querySelector(".zing-chart")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, []);
 
   return (
-    <div>
+    <div className="zing-chart">
       <LayoutSection>
         <ZingchartPlayHead
           tyle="large"
@@ -102,10 +107,10 @@ const ChartPage = () => {
         <div className="w-full h-full">
           <div className="w-full h-full relative">
             <div className="textPrimary pt-10 sticky inset-0 z-10">
-              <h2 className="text-[40px] font-extrabold mb-5">
+              <h2 className="xs:text-[40px] xs:text-center text-3xl text-center font-extrabold mb-5">
                 Bảng xếp hạng tuần
               </h2>
-              <div className="w-full grid grid-cols-3 gap-7 mb-[30px]">
+              <div className="w-full grid xl:grid-cols-3 gap-7 mb-[30px]">
                 {listWeekRender &&
                   listWeekRender?.map((item) => (
                     <div
@@ -156,7 +161,7 @@ const ChartPage = () => {
                   ))}
               </div>
             </div>
-            <div className="w-[140%] h-[130%] bgFiter absolute top-0 left-1/2 -translate-x-1/2"></div>
+            <div className="w-[140%] h-[120%] bgFiter absolute top-0 left-1/2 -translate-x-1/2"></div>
           </div>
         </div>
       </LayoutSection>

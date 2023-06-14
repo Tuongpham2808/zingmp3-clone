@@ -2,10 +2,10 @@ import React from "react";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { SlSettings } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
-import { MyTooltip } from "../components";
 import useWindowScroll from "../hooks/useWindowScroll";
 import { memo } from "react";
 import InputSeach from "./InputSeach";
+import MyTooltip from "../components/MyTooltip";
 
 const HeaderContent = () => {
   const navigate = useNavigate();
@@ -13,19 +13,19 @@ const HeaderContent = () => {
 
   return (
     <div
-      className={`px-[60px] h-[70px] flex items-center justify-between fixed top-0 right-0 left-[var(--width-sidebarLeft)] z-10 bgMain ${
+      className={`lg:px-[60px] px-6 h-[70px] flex items-center justify-between fixed top-0 right-0 left-0 sm:left-[70px] lg:left-[var(--width-sidebarLeft)] z-10 bgMain ${
         scroll > 70 ? "shadowHeader" : ""
       }`}
     >
-      <div className="flex items-center flex-1 gap-x-5">
+      <div className="flex items-center flex-1 gap-x-5 mr-[10px]">
         <button
-          className="flex items-center flex-none textPrimary"
+          className="hidden items-center flex-none textPrimary xs:flex"
           onClick={() => navigate(-1)}
         >
           <BsArrowLeft className="w-5 h-5"></BsArrowLeft>
         </button>
         <button
-          className="flex items-center flex-none textPrimary"
+          className="hidden items-center flex-none textPrimary xs:flex"
           onClick={() => navigate(+1)}
         >
           <BsArrowRight className="w-5 h-5"></BsArrowRight>
@@ -33,7 +33,7 @@ const HeaderContent = () => {
         <InputSeach></InputSeach>
       </div>
       <div className="flex items-center flex-none gap-x-[10px]">
-        <span className="w-10 h-10 p-[3px] mx-[2px] flex items-center justify-center textPrimary rounded-full bg-[var(--bg-active)] hover:opacity-80">
+        <span className="w-10 h-10 p-[3px] mx-[2px] hidden xs:flex items-center justify-center textPrimary rounded-full bg-[var(--bg-active)] hover:opacity-80">
           <MyTooltip placeholder="Cài đặt" offset={20}>
             <SlSettings className="w-5 h-5"></SlSettings>
           </MyTooltip>

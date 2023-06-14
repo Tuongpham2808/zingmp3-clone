@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { formatDuration } from "../utils/fnTime";
 import ImageMedia from "./ImageMedia";
 
@@ -30,4 +30,4 @@ const CardVideo = ({ data = [] }) => {
   );
 };
 
-export default CardVideo;
+export default memo(CardVideo);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { CardMedia } from "../../components";
 import { v4 } from "uuid";
 import useWindowSize from "../../hooks/useWindowSize";
+import CardMedia from "../../components/CardMedia";
 
 const SectionNewRelease = ({ genre = "all", data = {} }) => {
   const [newReleaseData, setNewReleaseData] = useState([]);

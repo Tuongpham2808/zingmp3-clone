@@ -21,12 +21,12 @@ const GlobalLayout = () => {
             : "sm:h-full"
         }`}
       >
-        <div className="stroke-slate-500 flex-none w-[240px] bgSBL hidden sm:block">
+        <div className="stroke-slate-500 flex-none lg:w-[240px] w-[70px] bgSBL hidden sm:block">
           <SidebarLeft></SidebarLeft>
         </div>
         <div className="w-full overflow-hidden transition1 mr-[var(--margin-contentRight)]">
           <div className="w-full h-auto">
-            <div className="md:px-[60px] px-6 overflow-x-hidden overflow-y-scroll h-screen hiddenScroll mainContent scroll-smooth">
+            <div className="md:px-[60px] sm:px-6 px-4 overflow-x-hidden overflow-y-scroll h-screen hiddenScroll mainContent scroll-smooth">
               <div className="mt-[70px] max-w-[1442px] mx-auto pb-[120px]">
                 <Outlet></Outlet>
               </div>

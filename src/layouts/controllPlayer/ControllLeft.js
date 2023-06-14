@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiMoreHorizontal, HiOutlineHeart } from "../../utils/iconsOther";
-import { MyTooltip } from "../../components";
 import ImageMedia from "../../components/ImageMedia";
 import * as apis from "../../apis";
 import { useSelector } from "react-redux";
+import MyTooltip from "../../components/MyTooltip";
 
 const ControllLeft = () => {
   const [songInfo, setSongInfo] = useState(null);

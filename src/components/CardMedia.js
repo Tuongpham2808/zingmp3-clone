@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import MyTooltip from "./MyTooltip";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { formatTime } from "../utils/fnTime";
@@ -40,9 +40,11 @@ const CardMedia = ({
   switch (type) {
     case "normal":
       styles = {
-        classImage: "w-[60px] h-[60px]",
+        classImage: `${
+          zingchart ? "sm:w-[60px] sm:h-[60px] w-10 h-10 " : "w-[60px] h-[60px]"
+        }`,
         classIcon: "w-[46px] h-[46px]",
-        classGroup: "p-[10px]",
+        classGroup: `${zingchart ? "sm:p-[10px] p-[6px]" : "p-[10px]"}`,
         classBtn: "w-8 h-8",
         classSizeIcon: "w-5 h-5",
         date: true,
@@ -142,7 +144,7 @@ const CardMedia = ({
       className="w-full"
     >
       <div
-        className={`group rounded  items-center w-full gap-x-[10px] select-none card-media ${
+        className={`group rounded items-center w-full sm:gap-x-[10px] gap-x-[6px] select-none card-media ${
           styles.classGroup
         } ${played ? "opacity-50" : ""} ${
           curSongId === id && isSBR
@@ -152,8 +154,8 @@ const CardMedia = ({
             : "flex"
         } ${isOpenSBR ? " active" : " unactive"} ${
           zingchart
-            ? "bg-[var(--bg-transparent4)] hover:bg-[var(--bg-transparent3)] py-[10px] px-[15px] flex"
-            : ""
+            ? "bg-[var(--bg-transparent4)] hover:bg-[var(--bg-transparent3)] sm:py-[10px] sm:px-[15px] p-3 flex"
+            : "py-[10px] px-[15px]"
         } ${
           type === "chartTooltip"
             ? "py-[5px] pl-[5px] pr-[10px]"
@@ -213,7 +215,7 @@ const CardMedia = ({
                 </span>
               )}
               <p
-                className={`${
+                className={`text1Line ${
                   type === "chartTooltip"
                     ? "text-white"
                     : curSongId === id && isSBR
@@ -264,7 +266,7 @@ const CardMedia = ({
           </div>
         )}
         {zingchart && (
-          <div className="flex items-center justify-center">
+          <div className="hidden items-center sm:flex justify-center">
             <span className="whitespace-nowrap textPrimary text-base font-bold">
               {choicePersen}
             </span>
@@ -275,4 +277,4 @@ const CardMedia = ({
   );
 };
 
-export default CardMedia;
+export default memo(CardMedia);

@@ -12,11 +12,11 @@ const SectionWeekChart = ({ data = [] }) => {
     <div className="grid grid-rows-3 w-full grid-cols-1 md:grid-rows-1 md:grid-cols-3 h-auto gap-x-3 md:gap-x-4 lg:gap-x-7 gap-y-4">
       {list?.length > 0 &&
         list?.map((item) => (
-          <Link key={v4()} to="/zing-chart">
+          <Link key={v4()} to="/zing-chart" className="overflow-hidden">
             <img
               src={item?.cover}
               alt=""
-              className="rounded w-full object-cover"
+              className="rounded w-full object-cover hover:scale-110 transition1"
             />
           </Link>
         ))}

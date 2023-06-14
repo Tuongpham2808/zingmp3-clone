@@ -10,7 +10,7 @@ const SearchArtistPage = () => {
     <div className="w-full">
       <LayoutSection className="md:mt-7">
         <HeadSection title="Nghệ Sĩ/OA"></HeadSection>
-        <div className="w-full grid grid-cols-5 gap-7">
+        <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-7">
           {dataSearch?.artists?.length > 0 &&
             dataSearch?.artists?.map((item) => (
               <CardArtist data={item}></CardArtist>

@@ -1,13 +1,11 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import useProgressCSS from "../../hooks/useProgressCSS";
-import { MyTooltip } from "../../components";
 import GroupBtn from "../../components/GroupBtn";
 import { useDispatch, useSelector } from "react-redux";
 import * as apis from "../../apis";
 import {
   setCurSongId,
   setIsPlaying,
-  setPauseAlbum,
   setRandom,
   setRepeat,
 } from "../../store/musicSlice";
@@ -23,6 +21,7 @@ import {
 import { formatTimeProgress } from "../../utils/fnTime";
 import { LuRepeat1 } from "react-icons/lu";
 import { toast } from "react-toastify";
+import MyTooltip from "../../components/MyTooltip";
 const ControllPlayCenter = () => {
   // 2 dòng này xử lý code ui cho btn
   const progressRef = useRef(null);
@@ -30,7 +29,6 @@ const ControllPlayCenter = () => {
 
   let currentAudio = useRef();
   let interSetTimeout;
-  let interSetTimeout2;
   //lấy data audio ra
   const {
     isPlaying,
@@ -39,7 +37,6 @@ const ControllPlayCenter = () => {
     listSongConcat,
     randomSong,
     repeatSong,
-    atAlbum,
     pauseAlbum,
   } = useSelector((state) => state.music);
   const { isOpenSBR } = useSelector((state) => state.screen);

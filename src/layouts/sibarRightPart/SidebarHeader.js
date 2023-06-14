@@ -1,7 +1,7 @@
 import React from "react";
 import { FiMoreHorizontal, TfiAlarmClock } from "../../utils/iconsOther";
 import useToggle from "../../hooks/useToggle";
-import { MyTooltip } from "../../components";
+import MyTooltip from "../../components/MyTooltip";
 
 const SidebarHeader = () => {
   const { handleToggle, toggle } = useToggle();

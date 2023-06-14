@@ -62,16 +62,21 @@ const InputSeach = () => {
     };
   }, []);
 
-  let fetchDataSearch = async () => {
-    let res = await apis.apiSearch(debounceValue);
+  let fetchDataSearch = async (keyword) => {
+    let res = await apis.apiSearch(keyword);
     if (res?.data?.err === 0) {
-      dispatch(setDataSearchSuggest(suggestValue?.[1]?.suggestions));
+      let res2 = await apis.apiSuggestSearch(keyword);
+      if (res2?.data?.err === 0) {
+        dispatch(
+          setDataSearchSuggest(res2?.data?.data?.items?.[1]?.suggestions)
+        );
+      }
       dispatch(setDataSearch(res?.data?.data));
       // console.log(res?.data);
       navigate({
         pathname: "/tim-kiem/tat-ca",
         search: createSearchParams({
-          q: debounceValue,
+          q: keyword,
         }).toString(),
       });
     }
@@ -81,13 +86,13 @@ const InputSeach = () => {
   const handleClickSearch = (item) => {
     // console.log(item);
     setValueInput(item);
-    fetchDataSearch();
+    fetchDataSearch(item);
   };
 
   //dispatch data search to redux
   const handleSearch = (e) => {
     if (e.keyCode === 13) {
-      fetchDataSearch();
+      fetchDataSearch(debounceValue);
     }
   };
 
@@ -98,7 +103,7 @@ const InputSeach = () => {
         name="search"
         value={valueInput}
         placeholder="Tìm kiếm bài hát,nghệ sĩ,lời bài hát..."
-        className="inputSearch w-[82%] h-full bgActive textSBL px-1 text-sm z-10 absolute top-0 left-1/2 -translate-x-1/2"
+        className="inputSearch w-[75%] sm:w-[82%] h-full bgActive textSBL px-1 text-sm z-10 absolute top-0 left-1/2 -translate-x-1/2"
         onChange={handleOnchangeValue}
         onKeyUp={handleSearch}
         autoComplete="off"

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import useDeboune from "./useDeboune";
 
 const useWindowScroll = (query) => {
   const [scrollTop, setScrollTop] = useState(0);
+  let deBounceScroll = useDeboune(scrollTop, 500);
   useEffect(() => {
     let elementScroll = document.querySelector(query);
     function updateScroll() {
@@ -13,7 +15,7 @@ const useWindowScroll = (query) => {
       elementScroll?.removeEventListener("scroll", updateScroll);
     };
   }, [query]);
-  return scrollTop;
+  return deBounceScroll;
 };
 
 export default useWindowScroll;

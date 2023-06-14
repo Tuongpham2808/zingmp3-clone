@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import { MyTooltip } from "../../components";
 import useToggle from "../../hooks/useToggle";
 import { useDispatch, useSelector } from "react-redux";
 import { setToggleSBR } from "../../store/responsiveSlice";
@@ -13,6 +12,7 @@ import {
   VscChromeRestore,
 } from "../../utils/iconsOther";
 import useWindowSize from "../../hooks/useWindowSize";
+import MyTooltip from "../../components/MyTooltip";
 
 const ControllRight = () => {
   const progressRef = useRef(null);

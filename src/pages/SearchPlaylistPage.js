@@ -9,8 +9,8 @@ const SearchPlaylistPage = () => {
   return (
     <div className="w-full">
       <LayoutSection className="md:mt-7">
-        <HeadSection title="Bài hát"></HeadSection>
-        <div className="w-full grid grid-cols-5 gap-7">
+        <HeadSection title="Playlist/Album"></HeadSection>
+        <div className="w-full grid sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-7 gap-x-3 md:gap-x-4 lg:gap-x-7 grid-cols-2">
           {dataSearch?.playlists?.length > 0 &&
             dataSearch?.playlists?.map((item) => (
               <ItemAlbum data={item} styles="more"></ItemAlbum>
