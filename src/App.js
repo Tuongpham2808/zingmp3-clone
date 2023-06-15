@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import React, { Suspense } from "react";
-import GlobalLayout from "./layouts/GlobalLayout";
 import Modal from "./components/Modal";
 
+const GlobalLayout = React.lazy(() => import("./layouts/GlobalLayout"));
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const ChartPage = React.lazy(() => import("./pages/ChartPage"));
 const AlbumPage = React.lazy(() => import("./pages/AlbumPage"));

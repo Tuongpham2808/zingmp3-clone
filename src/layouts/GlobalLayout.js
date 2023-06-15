@@ -5,6 +5,7 @@ import ControllPlayerWrap from "./ControllPlayerWrap";
 import SidebarRight from "./SidebarRight";
 import HeaderContent from "./HeaderContent";
 import { useSelector } from "react-redux";
+import NavigateMobileWrap from "./NavigateMobileWrap";
 
 const GlobalLayout = () => {
   const { isOpenSBR } = useSelector((state) => state.screen);
@@ -15,7 +16,7 @@ const GlobalLayout = () => {
     <div className="h-screen w-full">
       <HeaderContent></HeaderContent>
       <div
-        className={`relative flex w-full transition-all overflow-hidden ${
+        className={`relative flex w-full transition-all overflow-hidden h-[calc(100vh-var(--height-playControll))] ${
           listSongs.length > 0 || isPlaying
             ? "sm:h-[calc(100vh-var(--height-playControll))]"
             : "sm:h-full"
@@ -26,7 +27,7 @@ const GlobalLayout = () => {
         </div>
         <div className="w-full overflow-hidden transition1 mr-[var(--margin-contentRight)]">
           <div className="w-full h-auto">
-            <div className="md:px-[60px] sm:px-6 px-4 overflow-x-hidden overflow-y-scroll h-screen hiddenScroll mainContent scroll-smooth">
+            <div className="md:px-[60px] sm:px-6 px-2 xs:px-4 overflow-x-hidden overflow-y-scroll h-screen hiddenScroll mainContent scroll-smooth">
               <div className="mt-[70px] max-w-[1442px] mx-auto pb-[120px]">
                 <Outlet></Outlet>
               </div>
@@ -34,13 +35,14 @@ const GlobalLayout = () => {
           </div>
         </div>
         <div
-          className={`bgMain blActice slideRight w-[var(--margin-SidebarRight)] overflow-hidden stroke-slate-500 flex-none h-full absolute right-0 top-0 bottom-0 z-20 ${
+          className={`bgMain hidden sm:block blActice slideRight w-[var(--margin-SidebarRight)] overflow-hidden stroke-slate-500 flex-none h-full absolute right-0 top-0 bottom-0 z-20 ${
             isOpenSBR ? "translateX0 opacity-100" : " translateX100 opacity-0"
           }`}
         >
           <SidebarRight></SidebarRight>
         </div>
       </div>
+      <NavigateMobileWrap></NavigateMobileWrap>
       {listSongs.length > 0 || isPlaying ? (
         <div
           className={`transition-all z-50 ${

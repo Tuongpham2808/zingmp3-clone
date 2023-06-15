@@ -94,11 +94,11 @@ const AlbumPage = () => {
               idRandom={curSongId}
               atAlbum={true}
             >
-              <div className="flex xl:hidden items-center gap-x-[5px] mb-[10px] text-sm font-medium textPrimary">
-                <span className="textSecondary2 whitespace-nowrap">
+              <div className="flex xl:hidden items-center justify-center sm:justify-start gap-x-[5px] mb-[10px] text-sm font-medium textPrimary">
+                <span className="hidden sm:block textSecondary2 whitespace-nowrap">
                   Lời tựa
                 </span>
-                <span className="text1Line">
+                <span className="text1Line2">
                   {dataPlaylist?.sortDescription}
                 </span>
               </div>

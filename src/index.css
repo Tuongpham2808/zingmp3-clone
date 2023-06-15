@@ -256,7 +256,17 @@ body::-webkit-scrollbar {
 }
 
 .text1Line {
+  display: block;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text1Line2 {
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 }

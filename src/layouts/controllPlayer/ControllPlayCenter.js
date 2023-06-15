@@ -6,6 +6,7 @@ import * as apis from "../../apis";
 import {
   setCurSongId,
   setIsPlaying,
+  setLoading,
   setRandom,
   setRepeat,
 } from "../../store/musicSlice";
@@ -38,9 +39,9 @@ const ControllPlayCenter = () => {
     randomSong,
     repeatSong,
     pauseAlbum,
+    loading,
   } = useSelector((state) => state.music);
   const { isOpenSBR } = useSelector((state) => state.screen);
-  const [loading, setLoading] = useState(true);
   const [urlAudio, setUrlAudio] = useState("");
   const [audioProgress, setAudioProgress] = useState(0);
   const musicTotalLengthRef = useRef(null);
@@ -50,9 +51,9 @@ const ControllPlayCenter = () => {
   //load data audio
   useEffect(() => {
     const fetchSongAudio = async () => {
-      setLoading(true);
+      dispatch(setLoading(true));
       const res2 = await apis.apiGetSong(curSongId);
-      setLoading(false);
+      dispatch(setLoading(false));
       if (res2.data.err === 0) {
         setUrlAudio(res2?.data?.data?.[128]);
         currentAudio.current?.pause();
@@ -244,27 +245,30 @@ const ControllPlayCenter = () => {
       <div className="flex items-center mb-[3px]">
         <GroupBtn>
           <MyTooltip placeholder="Bật phát ngẫu nhiên" offset={20}>
-            <IoShuffleOutline
-              className={`w-6 h-6 cursor-pointer select-none ${
-                randomSong ? "text-[var(--bg-primary)]" : ""
-              }`}
+            <div
+              className="btn-shuffe"
               onClick={() => dispatch(setRandom(!randomSong))}
-            ></IoShuffleOutline>
+            >
+              <IoShuffleOutline
+                className={`btn-shuffe w-6 h-6 cursor-pointer select-none ${
+                  randomSong ? "text-[var(--bg-primary)]" : ""
+                }`}
+              ></IoShuffleOutline>
+            </div>
           </MyTooltip>
         </GroupBtn>
         <GroupBtn>
           <MyTooltip placeholder="Phát trước đó" offset={20}>
-            <IoPlaySkipBack
-              className="w-5 h-5 cursor-pointer"
-              onClick={handlePrevSong}
-            ></IoPlaySkipBack>
+            <div onClick={handlePrevSong} className="btn-prev">
+              <IoPlaySkipBack className="w-5 h-5 cursor-pointer"></IoPlaySkipBack>
+            </div>
           </MyTooltip>
         </GroupBtn>
-        <div className="w-[50px] h-[50px] p-[5px] flex items-center justify-center">
-          <span
-            className="w-10 h-10 mx-[7px] flex-none flex items-center justify-center cursor-pointer select-none textPrimary2 border-[1px] hover:border-[var(--bg-primary)] rounded-full"
-            onClick={handlePlay}
-          >
+        <div
+          className="btn-play w-[50px] h-[50px] p-[5px] flex items-center justify-center"
+          onClick={handlePlay}
+        >
+          <span className="w-10 h-10 mx-[7px] flex-none flex items-center justify-center cursor-pointer select-none textPrimary2 border-[1px] hover:border-[var(--bg-primary)] rounded-full">
             {loading ? (
               <LoadingIcon />
             ) : isPlaying ? (
@@ -276,10 +280,9 @@ const ControllPlayCenter = () => {
         </div>
         <GroupBtn>
           <MyTooltip placeholder="Phát tiếp theo" offset={20}>
-            <IoPlaySkipForward
-              className="w-5 h-5 cursor-pointer select-none"
-              onClick={handleNextSong}
-            ></IoPlaySkipForward>
+            <div onClick={handleNextSong} className="btn-next">
+              <IoPlaySkipForward className="w-5 h-5 cursor-pointer select-none"></IoPlaySkipForward>
+            </div>
           </MyTooltip>
         </GroupBtn>
         <GroupBtn>
@@ -293,7 +296,7 @@ const ControllPlayCenter = () => {
             }
             offset={20}
           >
-            <div onClick={handleRepeat}>
+            <div className="btn-repeat" onClick={handleRepeat}>
               {repeatSong === 2 ? (
                 <LuRepeat1 className="w-5 h-5 cursor-pointer select-none text-[var(--bg-primary)]" />
               ) : (

@@ -18,18 +18,18 @@ const SectionInfoPlaylistVertical = ({
   const { isPlaying, atAlbum } = useSelector((state) => state.music);
 
   return (
-    <div className="flex xl:hidden items-center gap-x-5 pb-[30px]">
-      <div className="shadow-[0_5px_8px_0_rgba(0,0,0,0.2)] rounded-lg">
+    <div className="flex-col sm:flex sm:flex-row xl:hidden items-center gap-x-5 pb-[30px]">
+      <div className="shadow-[0_5px_8px_0_rgba(0,0,0,0.2)] rounded-lg w-[300px] sm:w-[200px] mx-auto mb-5 sm:mx-0 sm:mb-0">
         <ImageMedia
-          classImage="w-[200px] rounded-lg"
+          classImage="w-[300px] sm:w-[200px] rounded-lg"
           image={dataPlaylist?.thumbnailM}
           tyle="large"
           onClick={onClick}
           idRandom={idRandom}
         ></ImageMedia>
       </div>
-      <div className="w-full flex flex-col items-start">
-        <div className="flex flex-col mb-2">
+      <div className="w-full flex flex-col items-center sm:items-start">
+        <div className="flex flex-col items-center sm:items-start mb-2">
           <h3 className="textPrimary text-xl font-bold capitalize limit2LineText leading-6">
             {dataPlaylist?.title}
           </h3>
@@ -48,28 +48,32 @@ const SectionInfoPlaylistVertical = ({
           </div>
         </div>
         <div className="w-full">{children}</div>
-        <div className="w-full flex items-center gap-x-[10px]">
-          <div className="my-4">
-            <BtnMore
-              className="flex items-center gap-x-[5px] bg-[var(--bg-primary-hover)] !outline-0 textPrimary"
-              onClick={onClick}
-            >
-              <span>
-                {atAlbum && isPlaying ? (
-                  <IoPause className="w-5 h-5"></IoPause>
-                ) : (
-                  <IoPlay className="w-5 h-5"></IoPlay>
-                )}
-              </span>
-              <span className="uppercase text-sm font-normal">
-                {atAlbum && isPlaying ? "Tạm dừng" : "Phát ngẫu nhiên"}
-              </span>
-            </BtnMore>
-          </div>
+        <div className="w-full flex items-center justify-center sm:justify-start gap-x-[10px] mt-4">
+          <CoverIcon
+            placeholder="Thêm vào thư viện"
+            className="bg-[var(--bg-transparent1)] block sm:hidden"
+          >
+            <HiOutlineHeart className="w-5 h-5"></HiOutlineHeart>
+          </CoverIcon>
+          <BtnMore
+            className="!flex items-center !m-0 gap-x-[5px] bg-[var(--bg-primary-hover)] !outline-0 textPrimary"
+            onClick={onClick}
+          >
+            <span>
+              {atAlbum && isPlaying ? (
+                <IoPause className="w-5 h-5"></IoPause>
+              ) : (
+                <IoPlay className="w-5 h-5"></IoPlay>
+              )}
+            </span>
+            <span className="uppercase text-sm font-normal">
+              {atAlbum && isPlaying ? "Tạm dừng" : "Phát ngẫu nhiên"}
+            </span>
+          </BtnMore>
           <div className="flex gap-x-[10px] items-center">
             <CoverIcon
               placeholder="Thêm vào thư viện"
-              className="bg-[var(--bg-transparent1)]"
+              className="hidden sm:block bg-[var(--bg-transparent1)]"
             >
               <HiOutlineHeart className="w-5 h-5"></HiOutlineHeart>
             </CoverIcon>

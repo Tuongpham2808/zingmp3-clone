@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isOpenSBR: false,
+  isOpenPlaySongMobile: false,
 };
 
 export const responsiveSlice = createSlice({
@@ -12,9 +13,14 @@ export const responsiveSlice = createSlice({
       ...state,
       isOpenSBR: action.payload,
     }),
+    setTogglePlaySongMobile: (state, action) => ({
+      ...state,
+      isOpenPlaySongMobile: action.payload,
+    }),
   },
   extraReducers: {},
 });
 
-export const { setToggleSBR } = responsiveSlice.actions;
+export const { setToggleSBR, setTogglePlaySongMobile } =
+  responsiveSlice.actions;
 export default responsiveSlice.reducer;

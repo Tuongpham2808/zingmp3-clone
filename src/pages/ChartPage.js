@@ -107,7 +107,7 @@ const ChartPage = () => {
         <div className="w-full h-full">
           <div className="w-full h-full relative">
             <div className="textPrimary pt-10 sticky inset-0 z-10">
-              <h2 className="xs:text-[40px] xs:text-center text-3xl text-center font-extrabold mb-5">
+              <h2 className="xs:text-[40px] xs:text-center text-3xl text-center sm:text-start font-extrabold mb-5">
                 Bảng xếp hạng tuần
               </h2>
               <div className="w-full grid xl:grid-cols-3 gap-7 mb-[30px]">
@@ -115,7 +115,7 @@ const ChartPage = () => {
                   listWeekRender?.map((item) => (
                     <div
                       key={v4()}
-                      className="py-5 px-[10px] rounded-2xl bgTrans4"
+                      className="py-5 sm:px-[10px] rounded-2xl bgTrans4"
                     >
                       <div className="pt-0 pr-0 pb-[10px] pl-10">
                         <ZingchartPlayHead

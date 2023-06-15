@@ -48,7 +48,7 @@ const SectionInfoPlaylist = ({
         </div>
         <div className="mb-4">
           <BtnMore
-            className="flex items-center gap-x-[5px] bg-[var(--bg-primary-hover)] !outline-0 textPrimary"
+            className="!flex items-center gap-x-[5px] bg-[var(--bg-primary-hover)] !outline-0 textPrimary"
             onClick={onClick}
           >
             <span>

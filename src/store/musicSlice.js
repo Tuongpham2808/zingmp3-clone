@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 let initialState = {
   isPlaying: false,
+  loading: false,
   curSongId: "ZOI6BFA9",
   atAlbum: false,
   singleSong: false,
@@ -21,6 +22,10 @@ export const musicSlice = createSlice({
     setIsPlaying: (state, action) => ({
       ...state,
       isPlaying: action.payload,
+    }),
+    setLoading: (state, action) => ({
+      ...state,
+      loading: action.payload,
     }),
     setCurSongId: (state, action) => ({
       ...state,
@@ -82,5 +87,6 @@ export const {
   setPauseAlbum,
   setSingleSong,
   setListPromote,
+  setLoading,
 } = musicSlice.actions;
 export default musicSlice.reducer;

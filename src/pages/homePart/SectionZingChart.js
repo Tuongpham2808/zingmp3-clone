@@ -10,7 +10,7 @@ const SectionZingChart = () => {
   const { zingchartData, rankchartData } = useSelector((state) => state.home);
 
   return (
-    <div className="sm:p-5 p-3 rounded-lg bgChart min-h-[374px]">
+    <div className="sm:p-5 p-3 rounded-lg bgChart xs:min-h-[374px]">
       <ZingchartPlayHead zingchartData={zingchartData}></ZingchartPlayHead>
       <div className="grid xl:grid-cols-5 w-full gap-x-7">
         <div className="xl:col-start-1 xl:col-span-2 flex flex-col gap-y-[10px]">

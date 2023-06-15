@@ -57,7 +57,7 @@ const ControllRight = () => {
   };
 
   return (
-    <div className="flex items-center z-30">
+    <div className="flex items-center z-30 h-full">
       <div className="flex items-center">
         <span className="w-8 h-8 p-[3px] mx-[2px] flex items-center justify-center textPrimary rounded-full hover:bg-[var(--bg-active)] cursor-pointer">
           <MyTooltip placeholder="Xem lời bài hát" offset={20}>

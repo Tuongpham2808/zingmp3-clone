@@ -30,11 +30,9 @@ const CardArtist = ({ data = {} }) => {
           {formatLiked(data?.totalFollow, "quan tâm")}
         </p>
       </div>
-      <div className="w-full flex-none ">
-        <BtnMore className="flex items-center gap-x-[5px] bg-[var(--bg-primary-hover)] py-[6px] px-[19px] !outline-0 textPrimary">
-          <span className="w-4">
-            <MdGroupAdd className="w-4 h-4"></MdGroupAdd>
-          </span>
+      <div className="w-full">
+        <BtnMore className="!flex items-center gap-x-[5px] bg-[var(--bg-primary-hover)] py-[6px] px-[19px] !outline-0 textPrimary">
+          <MdGroupAdd className="w-4 h-4 m-0"></MdGroupAdd>
           <p className="uppercase text-xs font-normal">quan tâm</p>
         </BtnMore>
       </div>

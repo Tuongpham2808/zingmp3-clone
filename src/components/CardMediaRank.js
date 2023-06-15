@@ -77,7 +77,7 @@ const CardMediaRank = ({
       onDoubleClick={() => handleSelectSongDoubleClick(id)}
     >
       <div
-        className={`flex items-center pr-3 ${
+        className={`flex items-center pr-3 flex-shrink-0 ${
           size === "small"
             ? " w-[85%] xs:w-[85%] md:max-w-[80%]"
             : " w-[85%]  xs:w-[75%] md:w-1/2"
@@ -96,7 +96,7 @@ const CardMediaRank = ({
             {rank ? (
               <div className={`flex items-center justify-center px-1 mr-[5px]`}>
                 <span
-                  className={`xs:text-[32px] text-2xl font-black leading-[1] flex items-center justify-center text-transparent text1Line ${
+                  className={`xs:text-[32px] text-2xl font-black leading-[1] flex items-center justify-center text-center text-transparent whitespace-nowrap ${
                     rankNumber === 1
                       ? "strokeText1"
                       : rankNumber === 2
