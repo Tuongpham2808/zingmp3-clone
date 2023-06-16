@@ -6,16 +6,17 @@ import useWindowScroll from "../hooks/useWindowScroll";
 import { memo } from "react";
 import InputSeach from "./InputSeach";
 import MyTooltip from "../components/MyTooltip";
+import { useSelector } from "react-redux";
 
 const HeaderContent = () => {
   const navigate = useNavigate();
   const scroll = useWindowScroll(".mainContent");
-
+  const { isOpenSBR } = useSelector((state) => state.screen);
   return (
     <div
-      className={`lg:px-[60px] px-6 h-[70px] flex items-center justify-between fixed top-0 right-0 left-0 sm:left-[70px] lg:left-[var(--width-sidebarLeft)] z-10 bgMain ${
+      className={`lg:px-[60px] px-6 h-[70px] flex items-center justify-between fixed top-0 right-0 left-0 sm:left-[70px] lg:left-[var(--width-sidebarLeft)] bgMain ${
         scroll > 70 ? "shadowHeader" : ""
-      }`}
+      } ${isOpenSBR ? "z-10" : "z-30"}`}
     >
       <div className="flex items-center flex-1 gap-x-5 mr-[10px]">
         <button

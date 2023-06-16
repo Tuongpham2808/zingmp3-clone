@@ -97,7 +97,7 @@ const InputSeach = () => {
   };
 
   return (
-    <div className="relative max-w-[440px] flex-1 h-10 rounded-[20px] px-10 SearchContainer bgActive">
+    <div className="relative max-w-[440px] z-30 flex-1 h-10 rounded-[20px] px-10 SearchContainer bgActive">
       <input
         type="text"
         name="search"
@@ -121,7 +121,7 @@ const InputSeach = () => {
       )}
       <span className="absolute inset-0 bgFocus rounded-t-[20px] rounded-b-none bgInputSearch z-[2]"></span>
       <div className="listSuggestSearch">
-        <ul className="absolute w-full left-0 top-9 flex flex-col items-center z-10 px-[10px] py-[13px] bgFocus textPrimary rounded-b-[20px]">
+        <ul className="absolute w-full left-0 top-9 flex flex-col items-center z-30 px-[10px] py-[13px] bgFocus textPrimary rounded-b-[20px]">
           <h3 className="text-sm w-full font-bold pb-2 px-[10px]">
             Đề xuất cho bạn
           </h3>
