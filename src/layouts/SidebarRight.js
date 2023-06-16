@@ -10,6 +10,7 @@ import CardMedia from "../components/CardMedia";
 
 const SidebarRight = () => {
   const {
+    isPlaying,
     listSongs,
     relatedsongs,
     curSongId,
@@ -81,8 +82,12 @@ const SidebarRight = () => {
   return (
     <div className="relative h-full overflow-hidden sidebarRightPlaying">
       <SidebarHeader></SidebarHeader>
-      <div className="overflow-y-scroll hiddenScroll pb-5 w-full h-full pt-[70px]">
-        {listSongs?.length <= 0 && relatedsongs?.length <= 0 ? (
+      <div
+        className={`overflow-y-scroll hiddenScroll w-full h-full px-2 sm:px-0 pt-[70px] ${
+          listSongs?.length > 0 || isPlaying ? "pb-[80px]" : "pb-5"
+        }`}
+      >
+        {listSongConcat?.length <= 0 ? (
           <div>
             <div>
               <EmptyPlayList></EmptyPlayList>

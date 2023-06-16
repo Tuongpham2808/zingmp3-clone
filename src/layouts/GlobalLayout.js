@@ -77,7 +77,6 @@ const GlobalLayout = () => {
   }
   useEffect(() => {
     currentAudio?.addEventListener("timeupdate", handleAudioUpdate);
-    console.log(currentAudio);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentAudio]);
 
@@ -91,7 +90,7 @@ const GlobalLayout = () => {
   };
 
   return (
-    <div className="h-screen w-full relative">
+    <div className="h-screen w-full relative select-none">
       <HeaderContent></HeaderContent>
       <div
         className={`relative flex w-full transition-all overflow-hidden h-[calc(100vh-var(--height-playControll))] ${
@@ -117,7 +116,7 @@ const GlobalLayout = () => {
           </div>
         </div>
         <div
-          className={`bgMain hidden sm:block blActice slideRight w-[var(--margin-SidebarRight)] overflow-hidden stroke-slate-500 flex-none h-full absolute right-0 top-0 bottom-0 z-20 ${
+          className={`bgMain sm:border-l-[1px] sm:border-[var(--bg-active)] slideRight w-full sm:w-[var(--margin-SidebarRight)] overflow-hidden stroke-slate-500 flex-none h-full absolute right-0 top-0 bottom-0 z-20 ${
             isOpenSBR ? "translateX0 opacity-100" : " translateX100 opacity-0"
           }`}
         >

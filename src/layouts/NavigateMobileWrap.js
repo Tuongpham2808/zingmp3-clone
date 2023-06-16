@@ -17,7 +17,6 @@ import {
   IoPlaySkipForward,
 } from "react-icons/io5";
 import LoadingIcon from "../utils/iconsOther/LoadingIcon";
-import * as apis from "../apis";
 
 const NavigateMobileWrap = () => {
   const { isOpenSBR, isOpenPlaySongMobile } = useSelector(
@@ -29,7 +28,7 @@ const NavigateMobileWrap = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="block sm:hidden w-full relative">
+    <div className="block sm:hidden w-full hPlayControll relative bottom-0 right-0 left-0">
       <div className="grid grid-cols-5 w-full player-controlls hPlayControll bgPlayer">
         {menu.length > 0 &&
           menu?.map((item) => (
@@ -55,7 +54,7 @@ const NavigateMobileWrap = () => {
           ))}
         <span
           className="textSBL flex gap-3 items-center justify-center py-3 px-5 cursor-pointer"
-          onClick={() => setToggleSBR(!isOpenSBR)}
+          onClick={() => dispatch(setToggleSBR(!isOpenSBR))}
         >
           <span className="flex-col items-center justify-center text-center">
             <span className="flex items-center justify-center mb-[6px] text-[var(--bg-primary)]">

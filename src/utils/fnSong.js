@@ -23,7 +23,11 @@ export function johnNameArtist(arr) {
 
 export function editLinkAlbum(link, id, radioPid = "", type) {
   let result;
-  result = link?.replace("https://zingmp3.vn/", process.env.REACT_APP_BASE_URL);
+  let origin =
+    window.location.host === "localhost:3000"
+      ? `http://localhost:3000/`
+      : "https://" + window.location.host + "/";
+  result = link?.replace("https://zingmp3.vn/", origin);
   if (type === 1 && radioPid !== "") {
     result = result.replace(id, radioPid);
   }

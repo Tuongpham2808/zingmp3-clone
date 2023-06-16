@@ -25,6 +25,7 @@ const persistConfig = {
     "listSongs",
     "relatedsongs",
     "atAlbum",
+    "listPromote",
     "listSongConcat",
   ],
   stateReconciler: autoMergeLevel2, // Xem thêm tại mục "Quá trình merge".
