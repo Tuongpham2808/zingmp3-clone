@@ -218,6 +218,9 @@ body::-webkit-scrollbar {
   height: 3px;
   background: #ccc;
 }
+.customProgressBar .mobile {
+  height: 5px;
+}
 
 .customProgressBar::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -256,7 +259,6 @@ body::-webkit-scrollbar {
 }
 
 .text1Line {
-  display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -403,4 +405,18 @@ body::-webkit-scrollbar {
 .zoom-exit-active {
   opacity: 0;
   transition: opacity 200ms;
+}
+
+.playsong-mobile {
+  position: fixed;
+  opacity: 0;
+  top: 100vh;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: all ease-in 0.5s;
+}
+.playsong-mobile.active {
+  top: 0;
+  opacity: 1;
 }

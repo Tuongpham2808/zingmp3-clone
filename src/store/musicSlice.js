@@ -3,6 +3,7 @@ let initialState = {
   isPlaying: false,
   loading: false,
   curSongId: "ZOI6BFA9",
+  dataCurSong: {},
   atAlbum: false,
   singleSong: false,
   listSongs: [],
@@ -30,6 +31,10 @@ export const musicSlice = createSlice({
     setCurSongId: (state, action) => ({
       ...state,
       curSongId: action.payload,
+    }),
+    setDataCurSong: (state, action) => ({
+      ...state,
+      dataCurSong: action.payload,
     }),
     setPlayAlbum: (state, action) => ({
       ...state,
@@ -88,5 +93,6 @@ export const {
   setSingleSong,
   setListPromote,
   setLoading,
+  setDataCurSong,
 } = musicSlice.actions;
 export default musicSlice.reducer;

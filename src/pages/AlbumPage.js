@@ -94,14 +94,16 @@ const AlbumPage = () => {
               idRandom={curSongId}
               atAlbum={true}
             >
-              <div className="flex xl:hidden items-center justify-center sm:justify-start gap-x-[5px] mb-[10px] text-sm font-medium textPrimary">
-                <span className="hidden sm:block textSecondary2 whitespace-nowrap">
-                  Lời tựa
-                </span>
-                <span className="text1Line2">
-                  {dataPlaylist?.sortDescription}
-                </span>
-              </div>
+              {dataPlaylist?.sortDescription && (
+                <div className="flex xl:hidden items-center justify-center sm:justify-start gap-x-[5px] mb-[10px] text-sm font-medium textPrimary">
+                  <span className="hidden sm:block textSecondary2 whitespace-nowrap">
+                    Lời tựa
+                  </span>
+                  <span className="text1Line2">
+                    {dataPlaylist?.sortDescription}
+                  </span>
+                </div>
+              )}
             </SectionInfoPlaylistVertical>
             <div className="w-full">
               <div className="hidden xl:flex items-center gap-x-[5px] mb-[10px] text-sm font-medium textPrimary">
@@ -120,8 +122,10 @@ const AlbumPage = () => {
                   <span className="uppercase text-sm font-medium">Bài hát</span>
                 </div>
                 <div className="flex-1 flex items-center justify-between">
-                  <span className="uppercase text-sm font-medium">Album</span>
-                  <span className="uppercase text-sm font-medium">
+                  <span className="uppercase opacity-0 md:opacity-100 text-sm font-medium">
+                    Album
+                  </span>
+                  <span className="uppercase opacity-0 xs:opacity-100 text-sm font-medium">
                     Thời gian
                   </span>
                 </div>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        background-color: #e9d8f4;
+      }
+      div {
+        width: 100px;
+        height: 100px;
+        background: pink;
+        font-family: arial;
+        position: relative;
+        -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+        -webkit-animation-duration: 3s; /* Safari 4.0 - 8.0 */
+        -webkit-animation-delay: 2s; /* Safari 4.0 - 8.0 */
+        animation-name: example;
+        animation-duration: 3s;
+        animation-delay: 2s;
+      } /* Safari 4.0 - 8.0 */
+      #div1 {
+        -webkit-animation-fill-mode: none;
+      }
+      #div2 {
+        -webkit-animation-fill-mode: forwards;
+      }
+      #div3 {
+        -webkit-animation-fill-mode: backwards;
+      }
+      #div4 {
+        -webkit-animation-fill-mode: both;
+      } /* Cú pháp tiêu chuẩn */
+      #div1 {
+        -webkit-animation-fill-mode: none;
+      }
+      #div2 {
+        -webkit-animation-fill-mode: forwards;
+      }
+      #div3 {
+        -webkit-animation-fill-mode: backwards;
+      }
+      #div4 {
+        -webkit-animation-fill-mode: both;
+      } /* Safari 4.0 - 8.0 */
+      @-webkit-keyframes example {
+        from {
+          left: 0px;
+          background-color: purple;
+        }
+        to {
+          left: 500px;
+          background-color: pink;
+        }
+      }
+      @keyframes example {
+        from {
+          left: 0px;
+          background-color: purple;
+        }
+        to {
+          left: 500px;
+          background-color: pink;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="div1">none</div>
+    <br />
+    <div id="div2">forwards</div>
+    <br />
+    <div id="div3">backwards</div>
+    <br />
+    <div id="div4">both</div>
+    <br />
+  </body>
+</html>

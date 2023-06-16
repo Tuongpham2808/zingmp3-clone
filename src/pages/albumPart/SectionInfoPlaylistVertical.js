@@ -30,7 +30,7 @@ const SectionInfoPlaylistVertical = ({
       </div>
       <div className="w-full flex flex-col items-center sm:items-start">
         <div className="flex flex-col items-center sm:items-start mb-2">
-          <h3 className="textPrimary text-xl font-bold capitalize limit2LineText leading-6">
+          <h3 className="textPrimary text-xl font-bold capitalize text-center limit2LineText leading-6">
             {dataPlaylist?.title}
           </h3>
           <div className="flex items-baseline gap-1 text-xs leading-6 font-medium textSecondary2">
@@ -40,7 +40,7 @@ const SectionInfoPlaylistVertical = ({
                 formatDate(dataPlaylist?.contentLastUpdate, "/")}
             </p>
           </div>
-          <div className="textSecondary text-xs leading-6 font-medium limit2LineText">
+          <div className="textSecondary text-xs leading-6 font-medium text-center limit2LineText">
             {dataPlaylist?.artistsNames}
           </div>
           <div className="text-xs font-medium leading-5 textSecondary2">
@@ -56,7 +56,7 @@ const SectionInfoPlaylistVertical = ({
             <HiOutlineHeart className="w-5 h-5"></HiOutlineHeart>
           </CoverIcon>
           <BtnMore
-            className="!flex items-center !m-0 gap-x-[5px] bg-[var(--bg-primary-hover)] !outline-0 textPrimary"
+            className="flex items-center !m-0 gap-x-[5px] bg-[var(--bg-primary-hover)] !outline-0 textPrimary"
             onClick={onClick}
           >
             <span>
@@ -73,7 +73,7 @@ const SectionInfoPlaylistVertical = ({
           <div className="flex gap-x-[10px] items-center">
             <CoverIcon
               placeholder="Thêm vào thư viện"
-              className="hidden sm:block bg-[var(--bg-transparent1)]"
+              className="hidden sm:flex justify-center items-center bg-[var(--bg-transparent1)]"
             >
               <HiOutlineHeart className="w-5 h-5"></HiOutlineHeart>
             </CoverIcon>

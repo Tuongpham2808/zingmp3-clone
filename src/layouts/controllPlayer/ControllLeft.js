@@ -3,19 +3,20 @@ import { Link } from "react-router-dom";
 import { FiMoreHorizontal, HiOutlineHeart } from "../../utils/iconsOther";
 import ImageMedia from "../../components/ImageMedia";
 import * as apis from "../../apis";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MyTooltip from "../../components/MyTooltip";
+import { setDataCurSong } from "../../store/musicSlice";
 
 const ControllLeft = () => {
-  const [songInfo, setSongInfo] = useState(null);
   //lấy data audio ra
-  const { curSongId } = useSelector((state) => state.music);
+  const { curSongId, dataCurSong } = useSelector((state) => state.music);
+  const dispatch = useDispatch();
   //load data song info
   useEffect(() => {
     const fetchDetailSong = async () => {
       const res = await apis.apiGetSongDetail(curSongId);
       if (res.data.err === 0) {
-        setSongInfo(res?.data?.data);
+        dispatch(setDataCurSong(res?.data?.data));
       }
     };
     fetchDetailSong();
@@ -25,7 +26,7 @@ const ControllLeft = () => {
   return (
     <div className="flex items-center gap-[10px] max-w-[30%] flex-none h-full">
       <ImageMedia
-        image={songInfo?.thumbnailM}
+        image={dataCurSong?.thumbnailM}
         tyle="none"
         classImage="w-16 h-16"
       ></ImageMedia>
@@ -33,12 +34,12 @@ const ControllLeft = () => {
         <Link to="" className="text-sm font-medium textPrimary">
           <span className="titlePlayControll">
             <p className="textPlay">
-              {Array(2).fill(songInfo?.title).join(". ")}
+              {Array(2).fill(dataCurSong?.title).join(". ")}
             </p>
           </span>
         </Link>
         <span className="block text-xs font-semibold textSecondary text1Line">
-          {songInfo?.artistsNames}
+          {dataCurSong?.artistsNames}
         </span>
       </div>
       <div className="flex items-center">

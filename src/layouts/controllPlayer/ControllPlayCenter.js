@@ -241,6 +241,7 @@ const ControllPlayCenter = () => {
         ref={currentAudio}
         onEnded={handleNextSong}
         onTimeUpdate={handleAudioUpdate}
+        className="song-play"
       ></audio>
       <div className="flex items-center mb-[3px]">
         <GroupBtn>

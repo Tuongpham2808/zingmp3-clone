@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { menu } from "../utils/menu";
 import { NavLink } from "react-router-dom";
 import { v4 } from "uuid";
-import { toast } from "react-toastify";
 import { MdOutlineQueueMusic } from "react-icons/md";
-import { setToggleSBR } from "../store/responsiveSlice";
-import { useSelector } from "react-redux";
+import {
+  setTogglePlaySongMobile,
+  setToggleSBR,
+} from "../store/responsiveSlice";
+import { useDispatch, useSelector } from "react-redux";
 import GroupBtn from "../components/GroupBtn";
 import MyTooltip from "../components/MyTooltip";
 import {
@@ -18,22 +20,13 @@ import LoadingIcon from "../utils/iconsOther/LoadingIcon";
 import * as apis from "../apis";
 
 const NavigateMobileWrap = () => {
-  const { isOpenSBR } = useSelector((state) => state.screen);
-  const { curSongId, listSongs, isPlaying, loading } = useSelector(
+  const { isOpenSBR, isOpenPlaySongMobile } = useSelector(
+    (state) => state.screen
+  );
+  const { curSongId, listSongs, isPlaying, loading, dataCurSong } = useSelector(
     (state) => state.music
   );
-  const [songInfo, setSongInfo] = useState(null);
-  //load data song info
-  useEffect(() => {
-    const fetchDetailSong = async () => {
-      const res = await apis.apiGetSongDetail(curSongId);
-      if (res.data.err === 0) {
-        setSongInfo(res?.data?.data);
-      }
-    };
-    fetchDetailSong();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [curSongId]);
+  const dispatch = useDispatch();
 
   return (
     <div className="block sm:hidden w-full relative">
@@ -76,18 +69,23 @@ const NavigateMobileWrap = () => {
       </div>
       {listSongs?.length > 0 || isPlaying ? (
         <div className="player-mobile fixed left-0 flex sm:hidden items-center right-0 bottom-[var(--height-playControll)] z-20 px-3 py-2 bgPlayer border-b-[1px] border-[var(--bg-transparent1)]">
-          <div className="flex items-center gap-3 overflow-hidden">
+          <div
+            className="flex items-center gap-3 overflow-hidden cursor-pointer"
+            onClick={() =>
+              dispatch(setTogglePlaySongMobile(!isOpenPlaySongMobile))
+            }
+          >
             <span className="hover:opacity-80 flex-shrink-0">
               <img
-                src={songInfo?.thumbnailM}
+                src={dataCurSong?.thumbnailM}
                 alt="Avatar"
                 className="w-10 h-10 rounded-full object-cover"
               />
             </span>
             <div className="flex flex-col items-start justify-center text-xs font-medium">
-              <p className="textPrimary limit2LineText">{songInfo?.title}</p>
+              <p className="textPrimary limit2LineText">{dataCurSong?.title}</p>
               <p className="textSecondary2 text1Line2">
-                {songInfo?.artistsNames}
+                {dataCurSong?.artistsNames}
               </p>
             </div>
           </div>

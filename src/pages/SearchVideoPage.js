@@ -3,6 +3,7 @@ import LayoutSection from "../components/LayoutSection";
 import HeadSection from "../components/HeadSection";
 import { useSelector } from "react-redux";
 import CardVideo from "../components/CardVideo";
+import { v4 } from "uuid";
 
 const SearchVideoPage = () => {
   const { dataSearch } = useSelector((state) => state.search);
@@ -13,7 +14,7 @@ const SearchVideoPage = () => {
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-3 md:gap-x-4 lg:gap-x-7">
           {dataSearch?.videos?.length > 0 &&
             dataSearch?.videos?.map((item) => (
-              <CardVideo data={item}></CardVideo>
+              <CardVideo key={v4()} data={item}></CardVideo>
             ))}
         </div>
       </LayoutSection>

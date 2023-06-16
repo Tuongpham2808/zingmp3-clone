@@ -2,11 +2,11 @@ import React, { memo } from "react";
 import { formatDuration } from "../utils/fnTime";
 import ImageMedia from "./ImageMedia";
 
-const CardVideo = ({ data = [] }) => {
+const CardVideo = ({ data = {} }) => {
   return (
     <div className="w-full textPrimary">
       <div className="w-full relative">
-        <span className="absolute right-[5px] bottom-[5px] z-50 text-xs py-[3px] px-[5px] rounded bg-[rgba(0,0,0,0.7)]">
+        <span className="absolute right-[5px] bottom-[5px] z-10 text-xs py-[3px] px-[5px] rounded bg-[rgba(0,0,0,0.7)]">
           {formatDuration(data?.duration)}
         </span>
         <ImageMedia image={data?.thumbnailM} tyle="large"></ImageMedia>

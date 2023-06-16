@@ -8,7 +8,7 @@ const SearchLayout = () => {
   return (
     <div className="w-full overflow-hidden">
       <div className="w-full textPrimary flex items-center border-b-[1px] border-[var(--bg-transparent1)]">
-        <h2 className="text-2xl font-bold text1Line hidden md:block pr-5 border-r-[1px] border-[var(--bg-transparent1)]">
+        <h2 className="text-2xl font-bold text1Line hidden xl:block pr-5 border-r-[1px] border-[var(--bg-transparent1)]">
           Kết quả tìm kiếm
         </h2>
         <div className="flex items-center menuSearch overflow-x-scroll hiddenScroll cursor-pointer">
