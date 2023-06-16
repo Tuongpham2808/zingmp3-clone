@@ -2,12 +2,18 @@ import React from "react";
 import { FiMoreHorizontal, TfiAlarmClock } from "../../utils/iconsOther";
 import useToggle from "../../hooks/useToggle";
 import CoverIcon from "../../components/CoverIcon";
+import { useSelector } from "react-redux";
 
 const SidebarHeader = () => {
+  const { isOpenSBR } = useSelector((state) => state.screen);
   const { handleToggle, toggle } = useToggle();
 
   return (
-    <div className="py-[14px] w-full h-[70px] flex items-center justify-between gap-1 px-2 fixed top-0 left-0 right-0 z-10 bgMain">
+    <div
+      className={`py-[14px] absolute top-0 right-0 transitionAll w-full h-[70px] flex items-center justify-between gap-1 px-2 z-10 bgMain ${
+        isOpenSBR ? "left-0" : "left-full"
+      }`}
+    >
       <div className="flex items-center h-[42px]">
         <div className="bgActive w-[227px] h-[34px] p-[3px] rounded-full flex items-center">
           <div

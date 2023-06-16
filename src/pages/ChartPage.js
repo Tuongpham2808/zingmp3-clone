@@ -19,11 +19,13 @@ const ChartPage = () => {
   const [number, setNumber] = useState(10);
   const [listWeekRender, setListWeekRender] = useState([]);
   const dispatch = useDispatch();
+
   //dispatch gọi data cho zingchart
   useEffect(() => {
     dispatch(handleGetZingchart());
     dispatch(setPlayAlbum(false));
   }, [dispatch]);
+
   //lấy ra ngẫu nhiên bài hát đề xuất
   useEffect(() => {
     if (promotes.length > 0) {
@@ -31,6 +33,7 @@ const ChartPage = () => {
       setPromote(result);
     }
   }, [promotes]);
+
   //tạo ra mảng dữ liệu render
   useEffect(() => {
     let listWeekGlobal = [

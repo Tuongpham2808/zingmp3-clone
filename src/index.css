@@ -40,6 +40,7 @@ p {
   --height-playControll: 90px;
   --margin-contentRight: 0px;
   --margin-SidebarRight: 330px;
+  --left-SidebarRight: calc(100vw - var(--margin-SidebarRight));
   --width-sidebarLeft: 240px;
   --width-mainContent: 100%;
   --bg-transparent1: rgba(255, 255, 255, 0.15);
@@ -303,19 +304,39 @@ body::-webkit-scrollbar {
   font-family: "Roboto", sans-serif;
 }
 
-.translateX100 {
+.transitionAll {
+  transition: all ease-in 0.5s;
+}
+
+.leftMSB {
+  left: calc(100vw - var(--margin-SidebarRight));
+}
+
+/* .translateX100 {
   transform: translateX(120%) !important;
 }
 .translateX0 {
   transform: translateX(0%) !important;
-}
+} */
 
-.slideRight {
+/* .sidebarRight {
+  position: fixed;
+  top: 0;
+  bottom: var(--height-playControll);
+  right: 0;
+  left: 100vw;
+  transition: all ease-in 0.5s;
+}
+.sidebarRight.active {
+  left: calc(100vw - var(--margin-SidebarRight));
+} */
+
+/* .slideRight {
   -webkit-animation: slide-left 1.5s ease both;
   animation: slide-right 1.5s ease both;
   transition: all ease 1.5s;
-}
-@-webkit-keyframes slide-right {
+} */
+/* @-webkit-keyframes slide-right {
   0% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
@@ -334,7 +355,7 @@ body::-webkit-scrollbar {
     -webkit-transform: translateX(-100%);
     transform: translateX(-100%);
   }
-}
+} */
 
 .sidebarRightPlaying .card-media.playing.unactive {
   display: none;

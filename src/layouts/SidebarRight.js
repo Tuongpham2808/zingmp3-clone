@@ -80,10 +80,10 @@ const SidebarRight = () => {
   ]);
 
   return (
-    <div className="relative h-full overflow-hidden sidebarRightPlaying">
+    <div className="relative w-full h-full overflow-hidden sidebarRightPlaying">
       <SidebarHeader></SidebarHeader>
       <div
-        className={`overflow-y-scroll hiddenScroll w-full h-full px-2 sm:px-0 pt-[70px] ${
+        className={`overflow-y-scroll hiddenScroll w-full h-full px-2 sm:px-0 pt-[20px] ${
           listSongs?.length > 0 || isPlaying ? "pb-[80px]" : "pb-5"
         }`}
       >

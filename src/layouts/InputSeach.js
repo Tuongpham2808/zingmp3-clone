@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useLayoutEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { LuTrendingUp } from "react-icons/lu";
 import useDeboune from "../hooks/useDeboune";
@@ -6,7 +6,7 @@ import * as apis from "../apis";
 import { v4 } from "uuid";
 import { VscChromeClose } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, createSearchParams, useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import {
   handleFetchSearch,
   setDataSearch,
@@ -14,9 +14,10 @@ import {
 } from "../store/searchSlice";
 import { editLinkAlbum, johnNameArtist } from "../utils/fnSong";
 import CardMediaSearch from "../components/CardMediaSearch";
+import CoverItemSearch from "../components/CoverItemSearch";
 
 const InputSeach = () => {
-  const { dataSearch, zingchartData } = useSelector((state) => state.search);
+  const { zingchartData } = useSelector((state) => state.search);
   const [valueInput, setValueInput] = useState("");
   const [suggestValue, setSuggestValue] = useState(null);
   const [dataSearchDefaut, setDataSearchDefault] = useState([]);
@@ -31,6 +32,7 @@ const InputSeach = () => {
   const handleOnchangeValue = (e) => {
     setValueInput(e.target.value);
   };
+
   //get data suggest search whith debound
   useEffect(() => {
     if (debounceValue) {
@@ -43,6 +45,7 @@ const InputSeach = () => {
       fetchSuggest();
     }
   }, [debounceValue]);
+
   //hiển thị mặc định khi ko nhập gì cả
   useEffect(() => {
     if (valueInput === "") {
@@ -72,7 +75,6 @@ const InputSeach = () => {
         );
       }
       dispatch(setDataSearch(res?.data?.data));
-      // console.log(res?.data);
       navigate({
         pathname: "/tim-kiem/tat-ca",
         search: createSearchParams({
@@ -102,7 +104,7 @@ const InputSeach = () => {
         type="text"
         name="search"
         value={valueInput}
-        placeholder="Tìm kiếm bài hát,nghệ sĩ,lời bài hát..."
+        placeholder="Tìm kiếm bài hát,nghệ sĩ..."
         className="inputSearch w-[75%] sm:w-[82%] h-full bgActive textSBL px-1 text-sm z-10 absolute top-0 left-1/2 -translate-x-1/2"
         onChange={handleOnchangeValue}
         onKeyUp={handleSearch}
@@ -127,46 +129,42 @@ const InputSeach = () => {
           </h3>
           {valueInput === "" &&
             dataSearchDefaut?.map((item) => (
-              <div
+              <CoverItemSearch
                 key={v4()}
-                className="w-full itemSuggest py-2 px-[10px] flex items-center gap-x-[10px] hover:bg-[var(--bg-transparent1)] cursor-pointer rounded"
                 onClick={() => handleClickSearch(item)}
               >
                 <LuTrendingUp className="textSecondary2 w-4 h-4"></LuTrendingUp>
                 <p className="text-sm textPrimary">{item}</p>
-              </div>
+              </CoverItemSearch>
             ))}
           {valueInput === "" && (
-            <Link
-              to="/zing-chart"
-              className="w-full py-2 px-[10px] flex items-center gap-x-[10px] hover:bg-[var(--bg-transparent1)] cursor-pointer rounded"
-            >
+            <CoverItemSearch link="/zing-chart">
               <LuTrendingUp className="textSecondary2 w-4 h-4"></LuTrendingUp>
               <p className="text-sm textPrimary2">#zingchart</p>
-            </Link>
+            </CoverItemSearch>
           )}
           {suggestValue?.[0]?.keywords?.length > 0 &&
             valueInput !== "" &&
             suggestValue?.[0]?.keywords?.map((item) => (
-              <div
+              <CoverItemSearch
                 key={v4()}
-                className="w-full itemSuggest py-2 px-[10px] flex items-center gap-x-[10px] hover:bg-[var(--bg-transparent1)] cursor-pointer rounded"
                 onClick={() => handleClickSearch(item?.keyword)}
+                className="itemSuggest"
               >
                 <IoSearchOutline className="w-4 h-4 textSecondary2"></IoSearchOutline>
                 <p className="text-sm textPrimary">{item?.keyword}</p>
-              </div>
+              </CoverItemSearch>
             ))}
           {suggestValue?.[0]?.keywords?.length > 0 && valueInput !== "" && (
-            <div
-              className="w-full itemSuggest py-2 px-[10px] flex items-center gap-x-[10px] hover:bg-[var(--bg-transparent1)] cursor-pointer rounded"
+            <CoverItemSearch
               onClick={() => handleClickSearch(valueInput)}
+              className="itemSuggest"
             >
               <IoSearchOutline className="w-4 h-4 textSecondary2"></IoSearchOutline>
               <p className="text-sm textPrimary">
                 Tìm kiếm "<span className="font-semibold">{valueInput}</span>"
               </p>
-            </div>
+            </CoverItemSearch>
           )}
           <div className="w-full">
             {valueInput !== "" && (

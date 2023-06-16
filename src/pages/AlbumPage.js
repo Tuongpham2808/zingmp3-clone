@@ -4,7 +4,7 @@ import * as axios from "../apis";
 import { toast } from "react-toastify";
 import CardMediaRank from "../components/CardMediaRank";
 import SectionInfoPlaylist from "./albumPart/SectionInfoPlaylist";
-import { formatDate, formatDuration } from "../utils/fnTime";
+import { formatDuration } from "../utils/fnTime";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setCurSongId,
@@ -17,16 +17,18 @@ import {
 } from "../store/musicSlice";
 import { v4 } from "uuid";
 import { setRandom } from "../store/musicSlice";
-import { MdLibraryMusic } from "react-icons/md";
 import CardArtist from "../components/CardArtist";
 import SectionInfoPlaylistVertical from "./albumPart/SectionInfoPlaylistVertical";
+import SectionSingleSong from "./albumPart/SectionSingleSong";
+import HeaderListSong from "./albumPart/HeaderListSong";
 
 const AlbumPage = () => {
   let { pid } = useParams();
   const [dataPlaylist, setDataPlaylist] = useState(null);
   const [listArtists, setListArtists] = useState(null);
-  const { isPlaying, atAlbum, curSongId, listPromote, singleSong } =
-    useSelector((state) => state.music);
+  const { isPlaying, curSongId, listPromote, singleSong } = useSelector(
+    (state) => state.music
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     let playlistId = pid?.replace(".html", "");
@@ -40,7 +42,7 @@ const AlbumPage = () => {
     };
     fetchDetailPlaylist();
   }, [pid]);
-
+  //xử lý khi ấn vào btn phát ngẫu nhiên của album
   const handleRandomSong = async () => {
     if (isPlaying) {
       dispatch(setPauseAlbum(true));
@@ -59,7 +61,7 @@ const AlbumPage = () => {
       dispatch(setPlayAlbum(true));
     }
   };
-
+  //kiểm tra và lấy dữ liệu đề xuất khi album chỉ có 1 bài hát
   useEffect(() => {
     if (dataPlaylist?.isSingle) {
       dispatch(setSingleSong(true));
@@ -75,7 +77,6 @@ const AlbumPage = () => {
       setListArtists(dataPlaylist?.artists);
     }
   }, [dataPlaylist?.artists]);
-  // console.log(dataPlaylist);
 
   return (
     <div className="pt-[50px] relative">
@@ -114,22 +115,7 @@ const AlbumPage = () => {
                   {dataPlaylist?.sortDescription}
                 </span>
               </div>
-              <div className="p-[10px] flex items-center textSecondary2">
-                <div className="flex items-center gap-x-[10px] flex-1">
-                  <span className="h-5">
-                    <MdLibraryMusic className="w-4 h-4"></MdLibraryMusic>
-                  </span>
-                  <span className="uppercase text-sm font-medium">Bài hát</span>
-                </div>
-                <div className="flex-1 flex items-center justify-between">
-                  <span className="uppercase opacity-0 md:opacity-100 text-sm font-medium">
-                    Album
-                  </span>
-                  <span className="uppercase opacity-0 xs:opacity-100 text-sm font-medium">
-                    Thời gian
-                  </span>
-                </div>
-              </div>
+              <HeaderListSong></HeaderListSong>
               <div className="pb-5">
                 {dataPlaylist?.song?.total > 0 &&
                   dataPlaylist?.song?.items?.map((item) => (
@@ -149,30 +135,9 @@ const AlbumPage = () => {
                   ))}
               </div>
               {singleSong && (
-                <div className="w-full textPrimary">
-                  <h3 className="mb-2 text-base leading-5 font-bold capitalize">
-                    Thông tin
-                  </h3>
-                  <div className="w-full flex items-center gap-x-4">
-                    <div className="textSecondary2 text-[13px] font-medium flex flex-col gap-2 items-start">
-                      <p className="leading-[18px]">Số bài hát</p>
-                      <p className="leading-[18px]">Ngày phát hành</p>
-                      <p className="leading-[18px]">Cung cấp bởi</p>
-                    </div>
-                    <div className="text-[13px] font-medium flex flex-col gap-2 items-start">
-                      <p className="leading-[18px]">
-                        {dataPlaylist?.song?.total}
-                      </p>
-                      <p className="leading-[18px]">
-                        {dataPlaylist?.releaseDate ||
-                          formatDate(dataPlaylist?.contentLastUpdate, "/")}
-                      </p>
-                      <p className="leading-[18px]">
-                        {dataPlaylist?.distributor}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <SectionSingleSong
+                  dataPlaylist={dataPlaylist}
+                ></SectionSingleSong>
               )}
               {listPromote?.length > 0 && (
                 <div className="pt-12 w-full textPrimary">

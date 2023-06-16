@@ -56,7 +56,7 @@ const ControllPlayCenter = () => {
       dispatch(setLoading(false));
       if (res2.data.err === 0) {
         setUrlAudio(res2?.data?.data?.[128]);
-        currentAudio.current?.pause();
+        // currentAudio.current?.pause();
 
         // setAudio(new Audio(res2?.data?.data[128]));
       } else {
@@ -70,6 +70,7 @@ const ControllPlayCenter = () => {
   }, [curSongId, dispatch]);
   // next song
   function handleNextSong() {
+    currentAudio?.current?.pause();
     if (listSongConcat) {
       let currentSongIndex;
       listSongConcat.forEach((item, index) => {
@@ -116,6 +117,7 @@ const ControllPlayCenter = () => {
   }
   //prev song
   function handlePrevSong() {
+    currentAudio?.current?.pause();
     if (listSongConcat) {
       let currentSongIndex;
       listSongConcat.forEach((item, index) => {
@@ -202,7 +204,7 @@ const ControllPlayCenter = () => {
           currentAudio.current?.pause();
           inTimeout = setTimeout(() => {
             currentAudio.current?.play();
-          }, 160);
+          }, 300);
         };
         autoPlayAudio();
       } else {
