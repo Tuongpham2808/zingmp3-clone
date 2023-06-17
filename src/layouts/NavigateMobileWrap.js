@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { menu } from "../utils/menu";
 import { NavLink } from "react-router-dom";
 import { v4 } from "uuid";
@@ -22,7 +22,7 @@ const NavigateMobileWrap = () => {
   const { isOpenSBR, isOpenPlaySongMobile } = useSelector(
     (state) => state.screen
   );
-  const { curSongId, listSongs, isPlaying, loading, dataCurSong } = useSelector(
+  const { listSongs, isPlaying, loading, dataCurSong } = useSelector(
     (state) => state.music
   );
   const dispatch = useDispatch();
@@ -67,7 +67,7 @@ const NavigateMobileWrap = () => {
         </span>
       </div>
       {listSongs?.length > 0 || isPlaying ? (
-        <div className="player-mobile fixed left-0 flex sm:hidden items-center right-0 bottom-[var(--height-playControll)] z-20 px-3 py-2 bgPlayer border-b-[1px] border-[var(--bg-transparent1)]">
+        <div className="player-mobile absolute left-0 flex sm:hidden items-center right-0 bottom-[var(--height-playControll)] z-20 px-3 py-2 bgPlayer border-b-[1px] border-[var(--bg-transparent1)]">
           <div
             className="flex items-center gap-3 overflow-hidden cursor-pointer"
             onClick={() =>

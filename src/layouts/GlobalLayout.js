@@ -30,7 +30,9 @@ const GlobalLayout = () => {
             <div className="md:px-[60px] sm:px-6 px-2 xs:px-4 overflow-x-hidden overflow-y-scroll h-screen hiddenScroll mainContent scroll-smooth">
               <div
                 className={`mt-[70px] max-w-[1442px] mx-auto sm:pb-[120px] ${
-                  listSongs?.length > 0 || isPlaying ? "pb-[170px]" : ""
+                  listSongs?.length > 0 || isPlaying
+                    ? "pb-[170px]"
+                    : "pb-[120px]"
                 }`}
               >
                 <Outlet></Outlet>
