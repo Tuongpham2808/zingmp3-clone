@@ -13,12 +13,9 @@ import {
   setIsPlaying,
   setListSongs,
   setPlayAlbum,
-  setRelatedsong,
 } from "../store/musicSlice";
-import * as apis from "../apis";
 import PremiumIcon from "../utils/iconsOther/PremiumIcon";
 import { toast } from "react-toastify";
-import { PromoteSongRandomId } from "../utils/fnSong";
 
 const CardMediaRank = ({
   image = "https://source.unsplash.com/random/?man",

@@ -136,35 +136,38 @@ const ChartRank = ({ zingchartData, rankchartData }) => {
           position: "absolute",
         }}
       >
-        <CardMedia
-          zingchart={true}
-          order={tooltipState?.order}
-          type="chartTooltip"
-          color={tooltipState?.color}
-          id={
-            zingchartData?.find((item) => item?.encodeId === tooltipData)
-              ?.encodeId
-          }
-          image={
-            zingchartData?.find((item) => item?.encodeId === tooltipData)
-              ?.thumbnail
-          }
-          title={
-            zingchartData?.find((item) => item?.encodeId === tooltipData)?.title
-          }
-          artists={
-            zingchartData?.find((item) => item?.encodeId === tooltipData)
-              ?.artistsNames
-          }
-          choicePersen={
-            Math.round(
-              (zingchartData?.find((item) => item?.encodeId === tooltipData)
-                ?.score *
-                100) /
-                +rankchartData?.totalScore
-            ) + "%"
-          }
-        ></CardMedia>
+        {tooltipState?.opacity === 1 && (
+          <CardMedia
+            zingchart={true}
+            order={tooltipState?.order}
+            type="chartTooltip"
+            color={tooltipState?.color}
+            id={
+              zingchartData?.find((item) => item?.encodeId === tooltipData)
+                ?.encodeId
+            }
+            image={
+              zingchartData?.find((item) => item?.encodeId === tooltipData)
+                ?.thumbnail
+            }
+            title={
+              zingchartData?.find((item) => item?.encodeId === tooltipData)
+                ?.title
+            }
+            artists={
+              zingchartData?.find((item) => item?.encodeId === tooltipData)
+                ?.artistsNames
+            }
+            choicePersen={
+              Math.round(
+                (zingchartData?.find((item) => item?.encodeId === tooltipData)
+                  ?.score *
+                  100) /
+                  +rankchartData?.totalScore
+              ) + "%"
+            }
+          ></CardMedia>
+        )}
       </div>
     </div>
   );

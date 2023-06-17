@@ -46,7 +46,8 @@ const SectionReleaseSlider = ({ data = [] }) => {
           data?.map((item, index) => (
             <CardReleaseMedia
               key={item.encodeId}
-              data={item}
+              dataSong={item}
+              dataList={data}
               ranking={index + 1}
             ></CardReleaseMedia>
           ))}
