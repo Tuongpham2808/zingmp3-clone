@@ -18,11 +18,11 @@ const SearchPlaylistPage = React.lazy(() =>
 
 function App() {
   return (
-    <Suspense>
+    <Suspense fallback={<LoadingPage />}>
       <div className="bgMain">
         <Modal></Modal>
         <Routes>
-          <Route element={<LoadingPage />}>
+          <Route element={<GlobalLayout />}>
             <Route path="/" element={<HomePage />}></Route>
             <Route path="/zing-chart" element={<ChartPage />}></Route>
             <Route path="/album/:title/:pid" element={<AlbumPage />}></Route>
