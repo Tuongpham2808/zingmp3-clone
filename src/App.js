@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import React, { Suspense } from "react";
 import Modal from "./components/Modal";
+import LoadingPage from "./pages/LoadingPage";
 
 const GlobalLayout = React.lazy(() => import("./layouts/GlobalLayout"));
 const HomePage = React.lazy(() => import("./pages/HomePage"));
@@ -21,7 +22,7 @@ function App() {
       <div className="bgMain">
         <Modal></Modal>
         <Routes>
-          <Route element={<GlobalLayout />}>
+          <Route element={<LoadingPage />}>
             <Route path="/" element={<HomePage />}></Route>
             <Route path="/zing-chart" element={<ChartPage />}></Route>
             <Route path="/album/:title/:pid" element={<AlbumPage />}></Route>
